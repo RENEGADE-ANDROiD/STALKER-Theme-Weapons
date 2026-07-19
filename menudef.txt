@@ -152,6 +152,10 @@ OptionMenu "CS_ItemSpawnMenu"
 	StaticText "$CS_ITEM_SPAWN_HINT", "Teal"
 	StaticText " "
 	StaticText "$CS_ITEM_SPAWN_RELOAD", "Gold"
+	StaticText " "
+	Slider "$CS_INFECTION_SPAWN_OPT", "cs_infection_spawn_chance", 0.0, 1.0, 0.05, 2
+	StaticText "$CS_INFECTION_SPAWN_HINT", "Teal"
+	StaticText "$CS_INFECTION_SPAWN_RELOAD", "Gold"
 }
 
 // ---------------------------------------------------------------------------

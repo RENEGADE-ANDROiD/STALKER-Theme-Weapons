@@ -30,6 +30,9 @@ user float cs_gasmask_alpha = 1.0;
 // Item / weapon pickup scarcity (1.0 = default DropItem weights; 2.0 = fill empty rolls)
 user float cs_item_spawn_chance = 1.0;
 
+// Zone infection growths on map corpses (0 = never, 1 = always try to sprout one)
+user float cs_infection_spawn_chance = 0.4;
+
 // ---- Tilt++ (Nash Muhandes camera roll; from Project Survival) ----
 server bool sv_strafetilt = true;
 server bool sv_strafetiltinvert = false;

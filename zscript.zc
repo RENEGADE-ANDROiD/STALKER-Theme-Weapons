@@ -47,6 +47,9 @@ version "4.13.0"
 #include "ZSCRIPT/EnemyMutations/SEM_Traits.zs"
 #include "ZSCRIPT/EnemyMutations/SEM_Handler.zs"
 
+// Infection growths (after SEM FX / poison giver for spore burst)
+#include "ZSCRIPT/Decorations/Infection.zs"
+
 class StepEventHandler : EventHandler
 {
     const MAX_SPEED = 16.666667;

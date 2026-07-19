@@ -233,6 +233,9 @@ CS_ITEM_SPAWN_MENU = "Item spawn rate";
 CS_ITEM_SPAWN_OPT = "Pickup spawn rate";
 CS_ITEM_SPAWN_HINT = "1.00 = default scarcity. Below 1 = emptier maps. Above 1 (up to 2) fills empty ammo/weapon spots more often.";
 CS_ITEM_SPAWN_RELOAD = "Applies when a map starts (reload map to refresh pickups).";
+CS_INFECTION_SPAWN_OPT = "Infection growth on corpses";
+CS_INFECTION_SPAWN_HINT = "Chance that eggs/pods/veins sprout on DeadMarine bodies and DeadZombieman. Shoot them — they burst into acid spores.";
+CS_INFECTION_SPAWN_RELOAD = "Applies when a map starts (reload map to refresh corpse growths).";
 
 // Atmosphere (blood / heartbeat)
 CS_ATMOSPHERE_MENU = "Blood & heartbeat";
