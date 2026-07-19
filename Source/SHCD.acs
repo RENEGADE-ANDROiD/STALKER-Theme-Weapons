@@ -1,0 +1,342 @@
+#library "SHCD"
+#include "zcommon.acs"
+
+int bercount=0;
+int stresscount =0;
+
+int x_font_resolution = 950;
+int y_font_resolution = 540;
+
+
+
+int life = 0; 
+int health = 0;
+bool damage;
+int lifeState = 4;
+int a = 0; 
+int b = 1;
+int c = 3;
+int d = 5;
+int e = 3;
+
+
+
+/////////////////
+Function int abs(int x)
+{
+    if (x < 0)
+        return -x;
+    return x;
+}
+
+Function int GetAspectRatio(void)
+{
+    int noWideScreen = GetCVAR("vid_nowidescreen");
+    int tft = GetCVAR("vid_tft");
+
+    if (noWideScreen)
+    {
+        if (tft && GetScreenHeight() * 5 / 4 == GetScreenWidth())
+        {
+            return 54;
+        }
+        return 43;
+    }
+
+ 
+    if (Abs(GetScreenHeight() * 16 / 9 - GetScreenWidth()) < 10)
+    {
+        return 169;
+    }
+ 
+    if (Abs(GetScreenHeight() * 17 / 10 - GetScreenWidth()) < 10)
+    {
+        return 1710;
+    }
+	if (GetScreenWidth() == 1280 && GetScreenHeight() == 800)
+	{
+		return 43;
+	}
+
+    if (Abs(GetScreenHeight() * 16 / 10 - GetScreenWidth()) < 60)
+    {
+ 
+        if ((GetScreenWidth() == 320 && GetScreenHeight() == 200) || (GetScreenWidth() == 640 && GetScreenHeight() == 400))
+        {
+            return 43;
+        }
+        return 1610;
+    }
+
+    if (tft && GetScreenHeight() * 5 / 4 == GetScreenWidth())
+    {
+        return 54;
+    }
+
+    return 43;
+}
+
+
+
+
+script "damage" Enter
+{
+health = checkinventory("health");
+while (TRUE)
+{
+int newhealth = checkinventory("health");
+ damage = newhealth - health;
+ health = newHealth; 
+delay(7);
+   }
+}
+
+
+
+  script "stress" Enter
+{
+ while (TRUE)
+{
+ if(OnButton(BT_ATTACK) == 1) stresscount = 20;
+ if(OnButton(BT_ATTACK) == 0) stresscount--;
+ if (damage < 0) stresscount = 18;
+ if (stresscount >= 20) stresscount = 20;
+ if (stresscount <= 0) stresscount = 0;
+ delay(7);
+}
+}
+
+function bool OnButton (int button)
+{
+ if((GetPlayerInput(-1,INPUT_BUTTONS) & button))
+  return true;
+  
+  return false;
+}
+
+
+script "HUD" ENTER
+{
+if (GameType () != GAME_TITLE_MAP)
+{
+ int x = 0.5;
+ int y = 0.5;
+ int xres = 1024;
+ int yres = 576;
+ SetHudSize(xres,yres,0);
+ 
+bool swayYspeed = GetCVar("sv_sway_Yspeed");
+bool swayXspeed = GetCVar("sv_sway_Xspeed");
+bool pitchYspeed = GetCVar("sv_pitch_Yspeed");
+bool angleXspeed = GetCVar("sv_angle_Xspeed");
+bool snapbackspeed = GetCVar("sv_snapbackspeed"); 
+
+ //int mtotal = GetLevelInfo (LEVELINFO_TOTAL_MONSTERS);
+ //int mkilled = GetLevelInfo (LEVELINFO_KILLED_MONSTERS);
+ //int itotal = GetLevelInfo (LEVELINFO_TOTAL_ITEMS);
+// int ifound = GetLevelInfo (LEVELINFO_FOUND_ITEMS);
+ //int stotal = GetLevelInfo (LEVELINFO_TOTAL_SECRETS);
+ //int sfound = GetLevelInfo (LEVELINFO_FOUND_SECRETS);
+ int armor = CheckInventory("BasicArmor");
+ int savepercent = GetArmorInfo (ARMORINFO_SAVEPERCENT);
+ int savepint = 0;
+ 
+ int bkey = checkinventory("bluecard") | checkinventory("BD_BlueCard") | checkinventory("GLBlueCard")| checkinventory("D4BlueCard")|checkinventory("Blue Card"); 
+ int ykey = checkinventory("yellowcard") | checkinventory("BD_YellowCard") | checkinventory("GLYellowCard")| checkinventory("D4YellowCard")|checkinventory("Yellow Card");
+ int rkey = checkinventory("redcard") | checkinventory("BD_RedCard") | checkinventory("GLRedCard")| checkinventory("D4RedCard")|checkinventory("Red Card");
+ int bskull = checkinventory("blueskull") | checkinventory("BD_BlueSkull") | checkinventory("GLBlueSkull")| checkinventory("D4BlueSkull")|checkinventory("Blue Skull") ;
+ int yskull = checkinventory("yellowskull") | checkinventory("BD_YellowSkull") | checkinventory("GLYellowSkull")| checkinventory("D4YellowSkull")|checkinventory("Yellow Skull");
+ int rskull = checkinventory("redskull") | checkinventory("BD_RedSkull") | checkinventory("GLRedSkull")| checkinventory("D4RedSkull")|checkinventory("Red Skull");
+
+ int ammo = 0;
+ int ammo2 = 0;
+ int ammo3 = 0;
+ str weapon = GetWeapon();
+ str weicon = "";
+ str grndicon = "";
+ int medikit = checkinventory("HealthBackpack");
+ int SpGLRocket = 0;
+ int Rclip = 0;
+ int Pclip = 0;
+ int Mclip = 0;
+ int TClip = 0;
+ int T2Clip = 0;
+ int shell = 0;
+ int cell = 0;
+ int Slug = 0;
+ int BFGcell = 0; 
+ int SSGShell = 0;
+ int RGCell = 0;
+ int rocket = 0;
+ int GLRocket = 0;
+ int CSGas = 0;
+ int gas = 0;
+ int DMgas = 0;
+ int hellish = 0;
+ int mine = 0;
+ int jpoints = 0;
+ int aspectratio = GetAspectRatio();
+ int offset = 0;
+ str PlClass = GetActorClass (0);
+ 
+ 
+   //ClearInventory();
+ //SetPlayerProperty(0, ON, PROP_TOTALLYFROZEN);
+ 
+ while(true) //Here starts the constant movement and such
+ {
+  SetFont("BLANK");
+  
+ swayYspeed = GetCVar("sv_sway_Yspeed");
+ swayXspeed = GetCVar("sv_sway_Xspeed");
+ snapbackspeed = GetCVar("sv_snapbackspeed");
+ pitchYspeed = GetCVar("sv_pitch_Yspeed");
+ angleXspeed = GetCVar("sv_angle_Xspeed"); 
+ // itotal = GetLevelInfo (LEVELINFO_TOTAL_ITEMS);
+ // ifound = GetLevelInfo (LEVELINFO_FOUND_ITEMS);
+ // stotal = GetLevelInfo (LEVELINFO_TOTAL_SECRETS);
+ // sfound = GetLevelInfo (LEVELINFO_FOUND_SECRETS);
+ // mtotal = GetLevelInfo (LEVELINFO_TOTAL_MONSTERS);
+ // mkilled = GetLevelInfo (LEVELINFO_KILLED_MONSTERS);
+  life = GetActorProperty(0, APROP_Health);
+  armor = CheckInventory("BasicArmor");
+  savepercent = GetArmorInfo (ARMORINFO_SAVEPERCENT);
+  savepint = 0;
+  weapon = GetWeapon();
+  //bkey = checkinventory("bluecard") | checkinventory("BD_BlueCard") | checkinventory("GLBlueCard")| checkinventory("D4BlueCard")|checkinventory("Blue Card"); 
+ // ykey = checkinventory("yellowcard") | checkinventory("BD_YellowCard") | checkinventory("GLYellowCard")| checkinventory("D4YellowCard")|checkinventory("Yellow Card");
+ // rkey = checkinventory("redcard") | checkinventory("BD_RedCard") | checkinventory("GLRedCard")| checkinventory("D4RedCard")|checkinventory("Red Card");
+ // bskull = checkinventory("blueskull") | checkinventory("BD_BlueSkull") | checkinventory("GLBlueSkull")| checkinventory("D4BlueSkull")|checkinventory("Blue Skull") ;
+ // yskull = checkinventory("yellowskull") | checkinventory("BD_YellowSkull") | checkinventory("GLYellowSkull")| checkinventory("D4YellowSkull")|checkinventory("Yellow Skull");
+ // rskull = checkinventory("redskull") | checkinventory("BD_RedSkull") | checkinventory("GLRedSkull")| checkinventory("D4RedSkull")|checkinventory("Red Skull");  ammo = 0;
+ // ammo2 = 0;
+ // ammo3 = 0;
+ // weicon = "";
+//  grndicon = "";
+ Rclip = 0;
+ Pclip = 0;
+ Mclip = 0;
+ Tclip = 0;
+ T2Clip = 0;
+ shell = 0;
+ cell = 0;
+ Slug = 0;
+ BFGcell = 0; 
+ SSGShell = 0;
+ RGCell = 0;
+ rocket = 0;
+ GLRocket = 0;
+ CSGas = 0;
+ DMgas = 0;
+ gas = 0;
+ hellish = 0;
+ SpGLRocket = 0;
+ mine = 0;
+ jpoints = 0;
+ PlClass = GetActorClass (0);
+ 
+    		  if (aspectratio == 169)
+			 {
+			  offset = 0;
+			 }
+		  if (aspectratio == 43)
+			 {
+			  offset = 0.150;
+			 }
+		  if (aspectratio == 1610)
+			 {
+			  offset = 0.050;
+			 }
+   
+   
+  if(life > 0)
+  {
+   int Angle = FixedMul(GetPlayerInput(-1,INPUT_YAW),angleXspeed);
+   int Pitch = FixedMul(GetPlayerInput(-1,INPUT_PITCH),pitchYspeed);
+  }
+ 
+   //Setting the limits
+  if(x > 0.52) x=0.52;
+  if(x < 0.48) x=0.48;
+  if(y > 0.52) y=0.52;
+  if(y < 0.48) y=0.48;
+  
+   
+  if(OnButton(BT_FORWARD) && life > 0) y += swayYspeed; 
+  if(OnButton(BT_BACK) && life > 0) y -= swayYspeed;
+  if(OnButton(BT_MOVELEFT) && life > 0) x -= swayXspeed;
+  if(OnButton(BT_MOVERIGHT) && life > 0) x += swayXspeed;
+  
+  x+= +Angle;
+  y+= +Pitch;  
+ 
+  
+  if(x > 0.5 && OnButton(BT_MOVERIGHT) == 0 && Angle == 0 && life > 0) x -= snapbackspeed;
+  if(x < 0.5 && OnButton(BT_MOVELEFT) == 0 && Angle == 0 && life > 0) x += snapbackspeed;
+  if(y > 0.5 && OnButton(BT_Forward) == 0 && Pitch == 0 && life > 0) y -= snapbackspeed;
+  if(y < 0.5 && OnButton(BT_back) == 0 && Pitch == 0 && life > 0) y += snapbackspeed;
+  
+  if (life < 0) life = 0;
+    
+      if (life > 0)
+	  { 
+        lifeState = life / 20;
+		if(lifestate > 4) lifestate = 4;
+      } 
+	  
+	  savepint = (FixedMul(100.1, savepercent) >> 16);
+	  
+ 
+
+     
+  //armor
+  //{
+  //if(armor == 0) setfont("ARM21");
+  //if(armor >= 1 && armor <= 5) SetFont("ARM20");
+  //if(armor >= 6 && armor <= 10) SetFont("ARM19");
+  //if(armor >= 11 && armor <= 15) SetFont("ARM18");
+  //if(armor >= 16 && armor <= 20) SetFont("ARM17");
+  //if(armor >= 21 && armor <= 25) SetFont("ARM16");
+ // if(armor >= 26 && armor <= 30) SetFont("ARM15");
+ // if(armor >= 31 && armor <= 35) SetFont("ARM14");
+ // if(armor >= 36 && armor <= 40) SetFont("ARM13");
+ // if(armor >= 41 && armor <= 45) SetFont("ARM12");
+ // if(armor >= 46 && armor <= 50) SetFont("ARM11");
+ // if(armor >= 51 && armor <= 55) SetFont("ARM10");
+ // if(armor >= 56 && armor <= 60) SetFont("ARM9");
+ // if(armor >= 61 && armor <= 65) SetFont("ARM8");
+///  if(armor >= 66 && armor <= 70) SetFont("ARM7");
+//  if(armor >= 71 && armor <= 75) SetFont("ARM6");
+//  if(armor >= 76 && armor <= 80) SetFont("ARM5");
+ /// if(armor >= 81 && armor <= 85) SetFont("ARM4");
+ /// if(armor >= 86 && armor <= 90) SetFont("ARM3");
+ /// if(armor >= 91 && armor <= 95) SetFont("ARM2");
+ // if(armor >= 96) SetFont("ARM1");
+ // {
+//  HudMessage(s:"A"; HUDMSG_ALPHA, 2223, CR_green, (FixedMul((x - 0.242),xres<<16)>>16<<16), (FixedMul((y +0.270),yres<<16)>>16<<16), 0.01, 0.55);
+//  } 
+//  }
+  
+ 
+ 
+  // Gas mask overlay: ZScript CS_GasMaskOverlayHandler (replaces legacy PINAB font HUD).
+
+  //HUD Layout
+  //if(armor == 0) SetFont("AIM2");
+  if(armor == 0) SetFont("AIM1");
+  if(armor >= 1 && armor <= 29) SetFont("AIM1");
+  if(armor >= 30 && armor <= 69) SetFont("AIM1");
+  if(armor >= 70 && armor <= 100) SetFont("AIM1");
+  if(armor >= 101 && armor <= 133) SetFont("AIM1");
+  if(armor >= 134 && armor <= 166) SetFont("AIM1");
+  if(armor >= 167 && armor <= 200) SetFont("AIM1");
+  if(armor >= 201) SetFont("AIM1");
+  if(life <=0 && armor >= 0) SetFont("AIM1");
+  if(life == 0) SetFont("AIM1");
+  {
+  HudMessage(s:"A"; HUDMSG_LAYER_UNDERHUD, 2224, CR_UNTRANSLATED, (FixedMul(x,xres<<16)>>16<<16), (FixedMul(y,yres<<16)>>16<<16), 0.01);
+  delay(1);
+  }
+  }
+  }
+  }

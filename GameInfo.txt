@@ -1,0 +1,3 @@
+
+STARTUPTITLE = "S.T.A.L.K.E.R. Theme Weapons"
+STARTUPCOLORS = "B20000", "000000"

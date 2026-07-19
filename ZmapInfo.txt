@@ -1,0 +1,23 @@
+GameInfo
+{
+	PlayerClasses = "STALKERPlayer"
+	AddEventHandlers = "StepEventHandler", "CS_CombatDamageHandler", "CS_GasMaskOverlayHandler", "SEM_Handler", "TiltPlusPlusHandler", "CS_WeaponRotTilterHandler"
+}
+
+DamageType sem_Chemical
+{
+	Obituary = "%o was dissolved by an anomalous chemical field."
+}
+
+DamageType sem_Psi
+{
+	Obituary = "%o had their mind shredded by psi emissions."
+}
+
+// TC-reserved editor numbers (32010–32019). Kept high to avoid clashes with community map
+// packs that use low custom thing IDs. Mappers: update any legacy things 10001 / 30010.
+DoomEdNums
+{
+	32010 = CasingSpawner
+	32011 = FX_TeleSmoke
+}

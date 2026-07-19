@@ -1,0 +1,137 @@
+version "4.13.0"
+
+//Player
+#include "ZSCRIPT/Player/Duty.zs"
+#include "ZSCRIPT/Player/Player.zs"
+#include "ZSCRIPT/Player/GasMaskOverlay.zs"
+#include "ZSCRIPT/Player/TiltPlusPlus.zs"
+
+//Misc
+#include "ZSCRIPT/Misc/Spawners.zs"
+#include "ZSCRIPT/Misc/CasingSpawners.zs"
+
+//Decorations
+#include "ZSCRIPT/Decorations/Ambience.zs"
+#include "ZSCRIPT/Decorations/Barrels.zs"
+#include "ZSCRIPT/Decorations/Lamps.zs"
+
+////Items
+#include "ZSCRIPT/Items/Ammo.zs"
+#include "ZSCRIPT/Items/Health.zs"
+
+////Sfx
+#include "ZSCRIPT/Sfx/Gore.zs"
+#include "ZSCRIPT/Sfx/Casings.zs"
+#include "ZSCRIPT/Sfx/MagazinesEjectPB.zs"
+#include "ZSCRIPT/Sfx/Lights.zs"
+#include "ZSCRIPT/Sfx/Flames.zs"
+#include "ZSCRIPT/Sfx/Smoke.zs"
+#include "ZSCRIPT/Sfx/HexenSmoke.zs"
+#include "ZSCRIPT/Sfx/Debris.zs"
+#include "ZSCRIPT/Sfx/Bullets.zs"
+#include "ZSCRIPT/Items/Grenades.zs"
+
+////Weapons
+#include "ZSCRIPT/Weapons/Base.zs"
+#include "ZSCRIPT/Weapons/WeaponRotTilt.zs"
+#include "ZSCRIPT/Weapons/Weapons.zs"
+#include "ZSCRIPT/Weapons/Explosives/GM-94.zs"
+#include "ZSCRIPT/Weapons/Explosives/RPG-7D.zs"
+#include "ZSCRIPT/Weapons/Melee/NR-40.zs"
+
+// STALKER Enemy Mutations (Champions Lite–style Thinker afflictions)
+#include "ZSCRIPT/EnemyMutations/SEM_Static.zs"
+#include "ZSCRIPT/EnemyMutations/SEM_Tokens.zs"
+#include "ZSCRIPT/EnemyMutations/SEM_FX.zs"
+#include "ZSCRIPT/EnemyMutations/SEM_Base.zs"
+#include "ZSCRIPT/EnemyMutations/SEM_Traits.zs"
+#include "ZSCRIPT/EnemyMutations/SEM_Handler.zs"
+
+class StepEventHandler : EventHandler
+{
+    const MAX_SPEED = 16.666667;
+    double wait[MAXPLAYERS];
+
+    private String getStepSound(PlayerPawn pl)
+    {
+        String flat = TexMan.getName(pl.floorPic);
+        String s = StringTable.localize("$_STEP_" .. flat);
+        // language.txt maps $_STEP_<flat> to logical names like "step/default". Missing entries
+        // return untranslated keys — fall back so footstep never goes silent.
+        if (s.Length() < 5 || s.Left(5) != "step/")
+            return "step/default";
+        return s;
+    }
+
+    override void WorldLoaded(WorldEvent e)
+    {
+        for (int i = 0; i < MAXPLAYERS; i++)
+            wait[i] = 1.0;
+    }
+
+    override void WorldTick()
+    {
+        for (int i = 0; i < MAXPLAYERS; ++i)
+        {
+            if (!players[i].mo) continue;
+
+            PlayerPawn pl = players[i].mo;
+
+            // Backup weapon tilt apply (in case a later addon drops CS_WeaponRotTilterHandler).
+            CS_WeaponRotTilterHandler.EnsureAndApply(pl);
+
+            if (players[i].onground)
+            {
+                double speed = clamp(sqrt(pl.vel.x * pl.vel.x + pl.vel.y * pl.vel.y),
+                                     0.0, MAX_SPEED);
+
+                if (speed > 6.0)
+                {
+                    if (wait[i] <= 0.0)
+                    {
+                        pl.A_StartSound(getStepSound(pl), CHAN_AUTO, CHANF_OVERLAP,
+                                        clamp(speed / MAX_SPEED, 0.4, 1.0));
+                        wait[i] = 8.0 * clamp(MAX_SPEED / speed, 1.0, 1.5);
+                    }
+                    --wait[i];
+                }
+                else
+                {
+                    wait[i] = 1.0;
+                }
+            }
+            else
+            {
+                wait[i] = 0.0;
+            }
+        }
+    }
+
+    override void PlayerEntered(PlayerEvent e)
+    {
+        if (e.PlayerNumber < MAXPLAYERS)
+            wait[e.PlayerNumber] = 1.0;
+
+        if (e.IsReturn)
+            return;
+
+        let mo = players[e.PlayerNumber].mo;
+        if (!mo || mo.CountInv("ClearSkyAmbientToken") >= 1)
+            return;
+
+        mo.GiveInventory("ClearSkyAmbientToken", 1);
+        mo.A_SpawnItem("ClearSkySoundSpawner");
+    }
+
+    override void PlayerRespawned(PlayerEvent e)
+    {
+        if (e.PlayerNumber < MAXPLAYERS)
+            wait[e.PlayerNumber] = 1.0;
+    }
+
+    override void PlayerDisconnected(PlayerEvent e)
+    {
+        if (e.PlayerNumber < MAXPLAYERS)
+            wait[e.PlayerNumber] = 1.0;
+    }
+}

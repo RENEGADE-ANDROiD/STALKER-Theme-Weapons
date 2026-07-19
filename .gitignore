@@ -1,0 +1,4 @@
+# Docs for agents / maintainers — keep CREDITS and Readme for the ship set
+*.md
+!CREDITS.md
+!Readme.MD

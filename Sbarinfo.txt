@@ -1,0 +1,38 @@
+base Doom;
+height 32;
+monospacefonts False, "1";
+
+Statusbar FullScreen
+{
+    // ========== BOTTOM LEFT CORNER ==========
+    DrawMugShot "STF", 5, 0, 165;
+    DrawNumber 9, BIGFONT, DARKRED, Health, 0, 173;
+    DrawNumber 3, BIGFONT, OLIVE, Armor, 0, 185;
+
+    // ========== BOTTOM RIGHT CORNER ==========
+    // Weapon icon
+    DrawImage WeaponIcon, 335, 170;
+
+    // Classic current / reserve ammo (e.g., 30 / 120)
+    // Current ammo (Ammo1)
+    DrawNumber 3, BIGFONT, GRAY, Ammo1, 330, 185;
+    // Slash
+    DrawString SMALLFONT, GRAY, "/", 340, 190;
+    // Reserve ammo (Ammo2)
+    DrawNumber 3, SMALLFONT, GRAY, Ammo2, 360, 190;
+
+    // Equipment counts via hidden Ammo mirrors (CustomInventory DrawNumber is unreliable)
+    DrawImage "HUDF1", 283, 160;
+    DrawNumber 2, INDEXFONT, UNTRANSLATED, ammo F1GrenadeAmmo, drawshadow, whennotzero, 298, 178;
+
+    DrawImage "HUDMol", 270, 160;
+    DrawNumber 2, INDEXFONT, UNTRANSLATED, ammo MolotovAmmo, drawshadow, whennotzero, 285, 178;
+
+    DrawImage "HUDStim", 260, 160;
+    DrawNumber 2, INDEXFONT, UNTRANSLATED, ammo StimInjectorAmmo, drawshadow, whennotzero, 273, 178;
+
+    // ========== TOP RIGHT CORNER ==========
+    DrawSwitchableImage KeySlot 2 && 5, "nullimage", "STKEYS0", "STKEYS3", "STKEYS6", 283, 153;
+    DrawSwitchableImage KeySlot 3 && 6, "nullimage", "STKEYS1", "STKEYS4", "STKEYS7", 270, 153;
+    DrawSwitchableImage KeySlot 1 && 4, "nullimage", "STKEYS2", "STKEYS5", "STKEYS8", 260, 153;
+}

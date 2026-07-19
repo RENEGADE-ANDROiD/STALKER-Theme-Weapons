@@ -1,0 +1,238 @@
+////Humanoids
+Flickerlight2 GUNATK
+{
+ Color 1.0 0.3 0.0
+ Size 72
+ SecondarySize 84
+ Interval 1
+ Offset 0 40 0
+ Attenuate 1
+}
+
+Object STALKERPlayer
+{
+    Frame MNK1F { light GUNATK }
+}
+
+Object DutyBase
+{
+    Frame DTY1F { light GUNATK }
+}
+
+//Projectiles
+Flickerlight BulletPuffLight
+{
+    color 0.5 0.5 0.0
+    size 6
+    secondarySize 8
+    chance 0.8
+}
+
+Object PingTracer
+{
+ Frame PUF6A0 { light BulletPuffLight }
+ Frame PUF6E0 { light BulletPuffLight }
+}
+
+Object TT33Tracer
+{
+ Frame PUF6A0 { light BulletPuffLight }
+ Frame PUF6E0 { light BulletPuffLight }
+}
+
+Object PPSh41Tracer
+{
+ Frame PUF6A0 { light BulletPuffLight }
+ Frame PUF6E0 { light BulletPuffLight }
+}
+
+Object Fort12Tracer
+{
+ Frame PUF6A0 { light BulletPuffLight }
+ Frame PUF6E0 { light BulletPuffLight }
+}
+
+Object PP19Tracer
+{
+ Frame PUF6A0 { light BulletPuffLight }
+ Frame PUF6E0 { light BulletPuffLight }
+}
+
+Object AK47Tracer
+{
+ Frame PUF6A0 { light BulletPuffLight }
+ Frame PUF6E0 { light BulletPuffLight }
+}
+
+Object SKSTracer
+{
+ Frame PUF6A0 { light BulletPuffLight }
+ Frame PUF6E0 { light BulletPuffLight }
+}
+
+Object ShotgunTracer
+{
+ Frame PUF6A0 { light BulletPuffLight }
+ Frame PUF6E0 { light BulletPuffLight }
+}
+
+Object KS23Tracer
+{
+ Frame PUF6A0 { light BulletPuffLight }
+ Frame PUF6E0 { light BulletPuffLight }
+}
+
+Object RP46Tracer
+{
+ Frame PUF6A0 { light BulletPuffLight }
+ Frame PUF6E0 { light BulletPuffLight }
+}
+
+Object SVDTracer
+{
+ Frame PUF6A0 { light BulletPuffLight }
+ Frame PUF6E0 { light BulletPuffLight }
+}
+
+Object MosinNagantTracer
+{
+ Frame PUF6A0 { light BulletPuffLight }
+ Frame PUF6E0 { light BulletPuffLight }
+}
+
+Object ASVALTracer
+{
+ Frame PUF6A0 { light BulletPuffLight }
+ Frame PUF6E0 { light BulletPuffLight }
+}
+
+Object GrozaTracer
+{
+ Frame PUF6A0 { light BulletPuffLight }
+ Frame PUF6E0 { light BulletPuffLight }
+}
+
+
+
+// Duty
+
+Object DutyPPSh41Tracer
+{
+ Frame PUF6A0 { light BulletPuffLight }
+ Frame PUF6E0 { light BulletPuffLight }
+}
+
+Object DutyPP19Tracer
+{
+ Frame PUF6A0 { light BulletPuffLight }
+ Frame PUF6E0 { light BulletPuffLight }
+}
+
+Object DutyAK47Tracer
+{
+ Frame PUF6A0 { light BulletPuffLight }
+ Frame PUF6E0 { light BulletPuffLight }
+}
+
+Object DutyASVALTracer
+{
+ Frame PUF6A0 { light BulletPuffLight }
+ Frame PUF6E0 { light BulletPuffLight }
+}
+
+////Barrels
+Pulselight NEWBARRELLIGHT
+{
+ Color 0.0 0.3 0.0
+ Size 40
+ SecondarySize 41
+ Interval 0.5
+ Offset 0 36 0
+ Attenuate 1
+}
+
+Object ClearSkyExpBarrel
+{
+  Frame BAR1  { Light NEWBARRELLIGHT }
+}
+
+Pulselight NEWBURNBARRELLIGHT
+{
+ Color 1.0 0.8 0.2
+ Size 40
+ SecondarySize 41
+ Interval 0.5
+ Offset 0 36 0
+ Attenuate 1
+}
+
+Object ClearSkyBurningBarrel
+{
+  Frame BAR2 { Light NEWBURNBARRELLIGHT }
+}
+
+////Lamps
+PointLight YELLOWLAMP
+{
+ Color 1.0 1.0 0.0
+ Size 56
+ Offset 0 44 0
+}
+
+Object ClearSkyColumn
+{
+    Frame COLUA { light YELLOWLAMP }
+}
+
+Object ClearSkyTechLamp2
+{
+    Frame TLP2A { light SMALLLAMP }
+    Frame TLP2B { light SMALLLAMP }
+    Frame TLP2C { light SMALLLAMP }
+    Frame TLP2D { light SMALLLAMP }
+}
+
+Object ClearSkyTechLamp
+{
+    Frame TLMPA { light BIGLAMP }
+    Frame TLMPB { light BIGLAMP }
+    Frame TLMPC { light BIGLAMP }
+    Frame TLMPD { light BIGLAMP }
+}
+
+//Fire
+Pulselight MolotovLight
+{
+ Color 1.0 0.3 0.0
+ Size 50
+ SecondarySize 51
+ Interval 0.1
+ Offset 0 60 0
+}
+
+Object MolotovFire
+{
+  Frame F1RE { Light MolotovLight }
+}
+
+Object MolotovFire2
+{
+  Frame F2RE { Light MolotovLight }
+}
+
+//// Hexen-style tele smoke (merged from HexenSmoke.wad)
+Flickerlight2 TELESMOKE
+{
+    color 1.0 0.0 0.0
+    size 64
+    secondarySize 72
+    interval 0.1
+    offset 0 44 0
+}
+
+Object FX_TeleSmoke
+{
+    frame TNT1A { light TELESMOKE }
+}
+
+//// Textures

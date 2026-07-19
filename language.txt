@@ -1,0 +1,302 @@
+[enu default]
+
+/*
+*	The Ultimate Doom
+*/
+
+// f1_start
+	_STEP_FLOOR0_1  = "step/default";
+	_STEP_FLOOR0_3 = "step/default";
+	_STEP_FLOOR0_6 = "step/default";
+	_STEP_FLOOR1_1 = "step/carpet";
+	_STEP_FLOOR1_7 = "step/tin";
+	_STEP_FLOOR3_3 = "step/panel";
+	_STEP_FLOOR4_1 = "step/panel";
+	_STEP_FLOOR4_5 = "step/panel";
+	_STEP_FLOOR4_6 = "step/tile";
+	_STEP_FLOOR4_8 = "step/concrete";
+	_STEP_FLOOR5_1 = "step/concrete";
+	_STEP_FLOOR5_2 = "step/default";
+	_STEP_FLOOR5_3 = "step/default";
+	_STEP_FLOOR5_4 = "step/default";
+	_STEP_STEP1 = "step/tin";
+	_STEP_STEP2 = "step/tin";
+	_STEP_FLOOR6_1 = "step/dirt";
+	_STEP_FLOOR6_2 = "step/dirt";
+	_STEP_TLITE6_1 = "step/tile";
+	_STEP_TLITE6_4 = "step/tile";
+	_STEP_TLITE6_5 = "step/tile";
+	_STEP_TLITE6_6 = "step/tile";
+	_STEP_FLOOR7_1 = "step/default";
+	_STEP_FLOOR7_2 = "step/concrete";
+	_STEP_MFLR8_1 = "step/default";
+	_STEP_DEM1_1 = "step/concrete";
+	_STEP_DEM1_2 = "step/concrete";
+	_STEP_DEM1_3 = "step/concrete";
+	_STEP_DEM1_4 = "step/concrete";
+	_STEP_CEIL3_1 = "step/default";
+	_STEP_CEIL3_2 = "step/default";
+	_STEP_CEIL3_5 = "step/default";
+	_STEP_CEIL4_2 = "step/tin";
+	_STEP_CEIL4_3 = "step/tin";
+	_STEP_CEIL5_1 = "step/concrete";
+	_STEP_CEIL5_2 = "step/default";
+	_STEP_FLAT1 = "step/concrete";
+	_STEP_FLAT2 = "step/tile";
+	_STEP_FLAT5 = "step/default";
+	_STEP_FLAT10 = "step/dirt";
+	_STEP_FLAT14 = "step/carpet";
+	_STEP_FLAT18 = "step/panel";
+	_STEP_FLAT20 = "step/tile";
+	_STEP_FLAT22 = "step/tin";
+	_STEP_FLAT23 = "step/tin";
+	_STEP_FLAT5_4 = "step/concrete";
+	_STEP_FLAT5_5 = "step/carpet";
+	_STEP_CONS1_1 = "step/tin";
+	_STEP_CONS1_5 = "step/tin";
+	_STEP_CONS1_7 = "step/tin";
+	_STEP_NUKAGE1 = "step/slosh";
+	_STEP_NUKAGE2 = "step/slosh";
+	_STEP_NUKAGE3 = "step/slosh";
+// f1_end
+
+// f2_start
+	_STEP_SFLR6_1 = "step/slime";
+	_STEP_SFLR6_4 = "step/slime";
+	_STEP_SFLR7_1 = "step/slime";
+	_STEP_SFLR7_4 = "step/slime";
+	_STEP_FLOOR0_2 = "step/default";
+	_STEP_FLOOR0_5 = "step/default";
+	_STEP_FLOOR0_7 = "step/default";
+	_STEP_FLOOR1_6 = "step/tile";
+	_STEP_GATE1 = "step/default";
+	_STEP_GATE2 = "step/default";
+	_STEP_GATE3 = "step/default";
+	_STEP_GATE4 = "step/tin";
+	_STEP_FWATER1 = "step/slosh";
+	_STEP_FWATER2 = "step/slosh";
+	_STEP_FWATER3 = "step/slosh";
+	_STEP_FWATER4 = "step/slosh";
+	_STEP_LAVA1 = "step/hot";
+	_STEP_LAVA2 = "step/hot";
+	_STEP_LAVA3 = "step/hot";
+	_STEP_LAVA4 = "step/hot";
+	_STEP_DEM1_5 = "step/concrete";
+	_STEP_DEM1_6 = "step/concrete";
+	_STEP_MFLR8_2 = "step/dirt";
+	_STEP_MFLR8_3 = "step/gravel";
+	_STEP_MFLR8_4 = "step/sand";
+	_STEP_CEIL1_1 = "step/wood";
+	_STEP_CEIL1_2 = "step/tin";
+	_STEP_CEIL1_3 = "step/tin";
+	_STEP_CEIL3_3 = "step/tile";
+	_STEP_CEIL3_4 = "step/tile";
+	_STEP_CEIL3_6 = "step/concrete";
+	_STEP_CEIL4_1 = "step/concrete";
+	_STEP_BLOOD1 = "step/slosh";
+	_STEP_BLOOD2 = "step/slosh";
+	_STEP_BLOOD3 = "step/slosh";
+	_STEP_FLAT1_1 = "step/default";
+	_STEP_FLAT1_2 = "step/default";
+	_STEP_FLAT1_3 = "step/tin";
+	_STEP_FLAT5_1 = "step/wood";
+	_STEP_FLAT5_2 = "step/plank";
+	_STEP_FLAT5_3 = "step/concrete";
+	_STEP_FLAT5_6 = "step/concrete";
+	_STEP_FLAT5_7 = "step/default";
+	_STEP_FLAT5_8 = "step/default";
+	_STEP_CRATOP1 = "step/concrete";
+	_STEP_CRATOP2 = "step/concrete";
+	_STEP_FLAT3 = "step/concrete";
+	_STEP_FLAT4 = "step/tin";
+	_STEP_FLAT8 = "step/tile";
+	_STEP_FLAT9 = "step/concrete";
+	_STEP_FLAT17 = "step/concrete";
+	_STEP_FLAT19 = "step/panel";
+	_STEP_COMP01 = "step/panel";
+// f2_end
+
+/*
+*	Doom II
+*/
+
+// f3_start
+	_STEP_GRASS1 = "step/grass";
+	_STEP_GRASS2 = "step/grass";
+	_STEP_GRNLITE1 = "step/carpet";
+	_STEP_GRNROCK = "step/default";
+	_STEP_RROCK01 = "step/concrete";
+	_STEP_RROCK02 = "step/concrete";
+	_STEP_RROCK03 = "step/dirt";
+	_STEP_RROCK04 = "step/concrete";
+	_STEP_RROCK05 = "step/concrete";
+	_STEP_RROCK06 = "step/concrete";
+	_STEP_RROCK07 = "step/concrete";
+	_STEP_RROCK08 = "step/concrete";
+	_STEP_RROCK09 = "step/dirt";
+	_STEP_RROCK10 = "step/default";
+	_STEP_RROCK11 = "step/concrete";
+	_STEP_RROCK12 = "step/default";
+	_STEP_RROCK13 = "step/concrete";
+	_STEP_RROCK14 = "step/default";
+	_STEP_RROCK15 = "step/concrete";
+	_STEP_RROCK16 = "step/dirt";
+	_STEP_RROCK17 = "step/dirt";
+	_STEP_RROCK18 = "step/dirt";
+	_STEP_RROCK19 = "step/dirt";
+	_STEP_RROCK20 = "step/dirt";
+	_STEP_SLIME01 = "step/slosh";
+	_STEP_SLIME02 = "step/slosh";
+	_STEP_SLIME03 = "step/slosh";
+	_STEP_SLIME04 = "step/slosh";
+	_STEP_SLIME05 = "step/slosh";
+	_STEP_SLIME06 = "step/slosh";
+	_STEP_SLIME07 = "step/slosh";
+	_STEP_SLIME08 = "step/slosh";
+	_STEP_SLIME09 = "step/dirt";
+	_STEP_SLIME10 = "step/dirt";
+	_STEP_SLIME11 = "step/dirt";
+	_STEP_SLIME12 = "step/dirt";
+	_STEP_SLIME13 = "step/default";
+	_STEP_SLIME14 = "step/tin";
+	_STEP_SLIME15 = "step/tin";
+	_STEP_SLIME16 = "step/tin";
+// f3_end
+
+// ---------------------------------------------------------------------------
+// STALKER Options (Options â†’ STALKER Options)
+CS_STALKER_OPTIONS = "STALKER Options";
+CS_STALKER_OPTIONS_HINT = "All Clear Sky / STALKER Theme Weapons settings in one place.";
+CS_SEC_DISPLAY = "Display";
+CS_SEC_GAMEPLAY = "Gameplay";
+CS_SEC_ATMOSPHERE = "Atmosphere";
+CS_SEC_ZONE = "The Zone";
+
+// Gas mask overlay
+CS_GASMASK_MENU = "Gas mask overlay";
+CS_GASMASK_OPT = "Dynamic gas mask overlay";
+CS_GASMASK_HINT = "Fullscreen mask with inertial sway when you look around.";
+CS_GASMASK_ALPHA_OPT = "Gas mask opacity";
+CS_GASMASK_ALPHA_HINT = "How strong the mask draws over the view.";
+
+// HUD swaying
+HUD_SWAYING_OPTIONS = "HUD swaying";
+HUD_SWAYING_HINT = "How much the status / AIM1 reticle reacts to look and move.";
+HUD_SWAY_Y = "Vertical sway speed";
+HUD_SWAY_X = "Horizontal sway speed";
+HUD_SNAPBACK = "Snap-back speed";
+HUD_PITCH_Y = "Mouse pitch influence";
+HUD_ANGLE_X = "Mouse yaw influence";
+
+// Tilt++ (camera roll)
+TILTPLUSPLUSMNU_TITLE = "Tilt++ (camera roll)";
+TILTPLUSPLUSMNU_HINT = "Nash Muhandes screen tilt — strafe, turn, swim, and death.";
+TILTPLUSPLUSMNU_STRAFETILT_TITLE = "Strafe tilting";
+TILTPLUSPLUSMNU_MOVETILT_TITLE = "Movement tilting";
+TILTPLUSPLUSMNU_TURNTILT_TITLE = "Turn tilting";
+TILTPLUSPLUSMNU_UNDERWATERTILT_TITLE = "Underwater tilting";
+TILTPLUSPLUSMNU_DEATHTILT_TITLE = "Death tilting";
+TILTPLUSPLUSMNU_ENABLED = "Enabled";
+TILTPLUSPLUSMNU_SPEED = "Speed";
+TILTPLUSPLUSMNU_ANGLE = "Angle";
+TILTPLUSPLUSMNU_SCALAR = "Intensity";
+TILTPLUSPLUSMNU_INVERT = "Invert";
+
+// Yaw weapon sway
+CS_WEAPON_SWAY_MENU = "Weapon sway";
+CS_WEAPON_SWAY_HINT = "Look-yaw offset on first-person weapon sprites (ZMove / Project Survival).";
+CS_WEAPON_SWAY_ENABLE = "Yaw weapon sway";
+CS_WEAPON_SWAY_SPEED = "Yaw sway speed";
+CS_WEAPON_SWAY_RANGE = "Yaw sway range";
+CS_WEAPON_SWAY_FRICTION = "Yaw sway friction";
+CS_WEAPON_SWAY_DIR = "Yaw sway direction";
+
+// Weapon rotational tilt
+PSWT_TITL = "Weapon rotational tilt";
+PSWT_HINT = "Strafe-driven weapon roll and pendulum lowering. Profiled per gun.";
+PSWT_ENABLE = "Enable weapon rotational tilt";
+PSWT_VELOCITY = "Roll velocity";
+PSWT_RESISTANCE = "Roll resistance";
+PSWT_TILT_SMOOTH = "Roll smoothness";
+PSWT_CAP = "Cap roll";
+PSWT_CAPAMOUNT = "Cap amount";
+PSWT_LOWERING = "Enable pendulum lowering";
+PSWT_LOWERING_INTENSITY = "Pendulum lowering scale";
+PSWT_STABILITY = "Stability controls";
+PSWT_MOVING_ONLY = "Only tilt while moving";
+PSWT_MOVING_MIN = "Minimum movement speed";
+PSWT_READY_ONLY = "Only tilt in ready states";
+PSWT_READY_HINT = "Reduces tilt during fire, reload, and equip transitions.";
+
+// Item spawn scarcity
+CS_ITEM_SPAWN_MENU = "Item spawn rate";
+CS_ITEM_SPAWN_OPT = "Pickup spawn rate";
+CS_ITEM_SPAWN_HINT = "1.00 = default scarcity. Below 1 = emptier maps. Above 1 (up to 2) fills empty ammo/weapon spots more often.";
+CS_ITEM_SPAWN_RELOAD = "Applies when a map starts (reload map to refresh pickups).";
+
+// Atmosphere (blood / heartbeat)
+CS_ATMOSPHERE_MENU = "Blood & heartbeat";
+CS_ATMOSPHERE_HINT = "Screen blood, death splats, low-health heartbeat, and fade effects.";
+CS_FADE_OPT = "Screen fade effects";
+CS_BLOOD_OPT = "Blood splat overlays";
+CS_DEATH_SPLAT_OPT = "Death blood splats";
+CS_HEARTBEAT_OPT = "Low-health heartbeat";
+CS_HEARTBEAT_HP = "Heartbeat health threshold";
+CS_HEARTBEAT_DELAY = "Heartbeat delay (tics)";
+CS_DEATH_SPLAT_AMT = "Death splat count";
+CS_BLOOD_MIN = "Min random blood splats";
+CS_BLOOD_MAX = "Max random blood splats";
+CS_BLOOD_SPEED = "Blood splat speed";
+CS_BLOOD_ALPHA = "Blood splat opacity";
+
+// STALKER Enemy Mutations
+SEM_MENU = "Enemy Mutations";
+SEM_MENU_HINT = "Zone afflictions on monsters (Chemical, Psi, Bloodsucker, â€¦).";
+SEM_HINT_RELOAD = "Reload the map after changing mutation settings.";
+SEM_PRESETS = "Quick Presets";
+SEM_AFFLICTIONS = "Affliction weights";
+SEM_SEVERITY = "Severity weights";
+SEM_CAPS = "Map mutation caps";
+SEM_CAPS_HINT = "Limits how many Zone-mutated enemies appear by map size.";
+SEM_SEC_CHANCE = "Spawn chances";
+SEM_SEC_FX = "Mutation FX";
+SEM_SPAWN_CHANCE = "Affliction spawn chance";
+SEM_SEV_CHANCE = "Severity chance";
+SEM_VISUAL_FX = "Visual FX";
+SEM_PERF_LITE = "Performance lite mode";
+SEM_FX_VIS = "Cull FX when far away";
+SEM_PARTICLES = "Affliction particles";
+SEM_MARKERS = "Size markers";
+SEM_WEIGHT_HINT = "Weight 1â€“10 = relative pick chance (0 = off).";
+SEM_PRESET_CORDON = "Cordon (lite / performance)";
+SEM_PRESET_STANDARD = "Standard (defaults)";
+SEM_PRESET_EMISSION = "Emission (maximum)";
+SEM_CAP_ENABLE = "Enable map caps";
+SEM_CAP_SMALL = "Small map cap";
+SEM_CAP_MEDIUM = "Medium map cap";
+SEM_CAP_LARGE = "Large map cap";
+SEM_CAP_MED_THRESH = "Medium map threshold";
+SEM_CAP_LARGE_THRESH = "Large map threshold";
+SEM_RESET_WEIGHTS = "Reset affliction weights";
+SEM_W_CHEMICAL = "Chemical";
+SEM_W_THERMAL = "Thermal";
+SEM_W_ELECTRO = "Electro";
+SEM_W_GRAVITY = "Gravity";
+SEM_W_PSI = "Psi";
+SEM_W_BLOODSUCKER = "Bloodsucker";
+SEM_W_SNORK = "Snork";
+SEM_W_PSEUDOGIANT = "Pseudogiant";
+SEM_W_GROWTH = "Anomaly Growth";
+SEM_W_PHASE = "Phase Shift";
+SEM_W_RAGE = "Emission Rage";
+SEM_DESC_CHEMICAL = "Chemical â€” poison trail (Fruit Punch)";
+SEM_DESC_THERMAL = "Thermal â€” burner death burst";
+SEM_DESC_ELECTRO = "Electro â€” arc shocks nearby players";
+SEM_DESC_GRAVITY = "Gravity â€” vortex pull";
+SEM_DESC_PSI = "Psi â€” controller mind shock";
+SEM_DESC_BLOODSUCKER = "Bloodsucker â€” stealth + lunge";
+SEM_DESC_SNORK = "Snork â€” faster attacks / leaps";
+SEM_DESC_PSEUDOGIANT = "Pseudogiant â€” harder hits + bulk";
+SEM_DESC_GROWTH = "Anomaly Growth â€” larger / tougher";
+SEM_DESC_PHASE = "Phase Shift â€” translucent / spectral";
+SEM_DESC_RAGE = "Emission Rage â€” enrages below half health";

@@ -1,0 +1,275 @@
+// Single entry under Options — all TC settings live under STALKER Options.
+AddOptionMenu "OptionsMenu"
+{
+	StaticText ""
+	Submenu "$CS_STALKER_OPTIONS", "CS_STALKEROptions"
+}
+
+// ---------------------------------------------------------------------------
+// Hub
+OptionMenu "CS_STALKEROptions"
+{
+	Title "$CS_STALKER_OPTIONS"
+	StaticText "$CS_STALKER_OPTIONS_HINT", "Teal"
+	StaticText " "
+
+	StaticText "$CS_SEC_DISPLAY", "Gold"
+	Submenu "$CS_GASMASK_MENU", "CS_GasMaskMenu"
+	Submenu "$HUD_SWAYING_OPTIONS", "SWAYMenu"
+	Submenu "$TILTPLUSPLUSMNU_TITLE", "TiltPlusPlusMenu"
+	Submenu "$CS_WEAPON_SWAY_MENU", "CS_WeaponSwayMenu"
+	Submenu "$PSWT_TITL", "WeaponTiltOptions"
+	StaticText " "
+
+	StaticText "$CS_SEC_GAMEPLAY", "Gold"
+	Submenu "$CS_ITEM_SPAWN_MENU", "CS_ItemSpawnMenu"
+	StaticText " "
+
+	StaticText "$CS_SEC_ATMOSPHERE", "Gold"
+	Submenu "$CS_ATMOSPHERE_MENU", "CS_AtmosphereMenu"
+	StaticText " "
+
+	StaticText "$CS_SEC_ZONE", "Gold"
+	Submenu "$SEM_MENU", "SEM_MainMenu"
+}
+
+// ---------------------------------------------------------------------------
+// Display
+OptionMenu "CS_GasMaskMenu"
+{
+	Title "$CS_GASMASK_MENU"
+	Option "$CS_GASMASK_OPT", "cs_gasmask", "OnOff"
+	StaticText "$CS_GASMASK_HINT", "Teal"
+	StaticText " "
+	Slider "$CS_GASMASK_ALPHA_OPT", "cs_gasmask_alpha", 0.25, 1.0, 0.05, 2
+	StaticText "$CS_GASMASK_ALPHA_HINT", "Teal"
+}
+
+OptionMenu "SWAYMenu"
+{
+	Title "$HUD_SWAYING_OPTIONS"
+	StaticText "$HUD_SWAYING_HINT", "Teal"
+	StaticText " "
+	Slider "$HUD_SWAY_Y", "sv_sway_Yspeed", 0, 0.005, 0.0001, 4
+	Slider "$HUD_SWAY_X", "sv_sway_Xspeed", 0, 0.005, 0.0001, 4
+	StaticText " "
+	Slider "$HUD_SNAPBACK", "sv_snapbackspeed", 0, 0.0015, 0.0001, 4
+	StaticText " "
+	Slider "$HUD_PITCH_Y", "sv_pitch_Yspeed", 0.000, 1.200, 0.001, 3
+	Slider "$HUD_ANGLE_X", "sv_angle_Xspeed", 0.000, 0.500, 0.001, 3
+}
+
+OptionMenu "TiltPlusPlusMenu"
+{
+	Title "$TILTPLUSPLUSMNU_TITLE"
+	StaticText "$TILTPLUSPLUSMNU_HINT", "Teal"
+	StaticText " "
+
+	StaticText "$TILTPLUSPLUSMNU_STRAFETILT_TITLE", "Gold"
+	Option "$TILTPLUSPLUSMNU_ENABLED", "sv_strafetilt", "YesNo"
+	Option "$TILTPLUSPLUSMNU_INVERT", "sv_strafetiltinvert", "YesNo"
+	Slider "$TILTPLUSPLUSMNU_SPEED", "sv_strafetiltspeed", 0.1, 2.0, 0.01, 2
+	Slider "$TILTPLUSPLUSMNU_ANGLE", "sv_strafetiltangle", 0.1, 1.0, 0.01, 2
+	StaticText " "
+
+	StaticText "$TILTPLUSPLUSMNU_MOVETILT_TITLE", "Gold"
+	Option "$TILTPLUSPLUSMNU_ENABLED", "sv_movetilt", "YesNo"
+	Slider "$TILTPLUSPLUSMNU_SPEED", "sv_movetiltspeed", 0.1, 20.0, 0.1, 2
+	Slider "$TILTPLUSPLUSMNU_ANGLE", "sv_movetiltangle", 0.01, 0.10, 0.01, 2
+	Slider "$TILTPLUSPLUSMNU_SCALAR", "sv_movetiltscalar", 0.0, 1.0, 0.1, 1
+	StaticText " "
+
+	StaticText "$TILTPLUSPLUSMNU_TURNTILT_TITLE", "Gold"
+	Option "$TILTPLUSPLUSMNU_ENABLED", "sv_turntilt", "YesNo"
+	Option "$TILTPLUSPLUSMNU_INVERT", "sv_turntiltinvert", "YesNo"
+	Slider "$TILTPLUSPLUSMNU_SCALAR", "sv_turntiltscalar", 0.0, 20.0, 0.1, 1
+	StaticText " "
+
+	StaticText "$TILTPLUSPLUSMNU_UNDERWATERTILT_TITLE", "Gold"
+	Option "$TILTPLUSPLUSMNU_ENABLED", "sv_underwatertilt", "YesNo"
+	Slider "$TILTPLUSPLUSMNU_SPEED", "sv_underwatertiltspeed", 0.1, 20.0, 0.1, 2
+	Slider "$TILTPLUSPLUSMNU_ANGLE", "sv_underwatertiltangle", 0.01, 0.5, 0.01, 2
+	Slider "$TILTPLUSPLUSMNU_SCALAR", "sv_underwatertiltscalar", 0.0, 1.0, 0.1, 1
+	StaticText " "
+
+	StaticText "$TILTPLUSPLUSMNU_DEATHTILT_TITLE", "Gold"
+	Option "$TILTPLUSPLUSMNU_ENABLED", "sv_deathtilt", "YesNo"
+}
+
+OptionMenu "CS_WeaponSwayMenu"
+{
+	Title "$CS_WEAPON_SWAY_MENU"
+	StaticText "$CS_WEAPON_SWAY_HINT", "Teal"
+	StaticText " "
+	Option "$CS_WEAPON_SWAY_ENABLE", "zm_yawsway", "OnOff"
+	Slider "$CS_WEAPON_SWAY_SPEED", "zm_yawswayspeed", 0, 4, 0.5, 1
+	Slider "$CS_WEAPON_SWAY_RANGE", "zm_yawswayrange", 0, 8, 0.1, 1
+	Slider "$CS_WEAPON_SWAY_FRICTION", "zm_yawswayfriction", 5, 14, 0.5, 1
+	Option "$CS_WEAPON_SWAY_DIR", "zm_yawswaydirection", "CS_SwayDirection"
+}
+
+OptionValue "CS_SwayDirection"
+{
+	0, "Same as turn"
+	1, "Opposite of turn"
+}
+
+OptionMenu "WeaponTiltOptions"
+{
+	Title "$PSWT_TITL"
+	StaticText "$PSWT_HINT", "Teal"
+	StaticText " "
+
+	Option "$PSWT_ENABLE", "wt_enable", "OnOff"
+	StaticText " "
+
+	Slider "$PSWT_VELOCITY", "wt_rollvelocity", 0.50, 2.0, 0.01, 2
+	Slider "$PSWT_RESISTANCE", "wt_rollresistance", 0.08, 0.62, 0.01, 2
+	Slider "$PSWT_TILT_SMOOTH", "wt_tilt_smoothing", 0.50, 0.95, 0.01, 2
+	StaticText " "
+
+	Slider "$PSWT_LOWERING_INTENSITY", "wt_lowering_intensity", 0.0, 2.0, 0.05, 2
+	Option "$PSWT_LOWERING", "wt_lowering", "OnOff"
+	StaticText " "
+
+	Option "$PSWT_CAP", "wt_cap", "OnOff"
+	Slider "$PSWT_CAPAMOUNT", "wt_rollcap", 1, 5, 0.5, 2
+	StaticText " "
+
+	StaticText "$PSWT_STABILITY", "Gold"
+	Option "$PSWT_MOVING_ONLY", "wt_tilt_moving", "OnOff"
+	Slider "$PSWT_MOVING_MIN", "wt_tilt_moving_min", 0.0, 8.0, 0.1, 1
+	Option "$PSWT_READY_ONLY", "wt_tilt_ready", "OnOff"
+	StaticText "$PSWT_READY_HINT", "Teal"
+}
+
+// ---------------------------------------------------------------------------
+// Gameplay
+OptionMenu "CS_ItemSpawnMenu"
+{
+	Title "$CS_ITEM_SPAWN_MENU"
+	Slider "$CS_ITEM_SPAWN_OPT", "cs_item_spawn_chance", 0.0, 2.0, 0.05, 2
+	StaticText "$CS_ITEM_SPAWN_HINT", "Teal"
+	StaticText " "
+	StaticText "$CS_ITEM_SPAWN_RELOAD", "Gold"
+}
+
+// ---------------------------------------------------------------------------
+// Atmosphere (blood / heartbeat ACS systems)
+OptionMenu "CS_AtmosphereMenu"
+{
+	Title "$CS_ATMOSPHERE_MENU"
+	StaticText "$CS_ATMOSPHERE_HINT", "Teal"
+	StaticText " "
+
+	Option "$CS_FADE_OPT", "fd_enable", "OnOff"
+	Option "$CS_BLOOD_OPT", "bs_enable", "OnOff"
+	Option "$CS_DEATH_SPLAT_OPT", "ds_enable", "OnOff"
+	Option "$CS_HEARTBEAT_OPT", "hb_enable", "OnOff"
+	StaticText " "
+
+	Slider "$CS_HEARTBEAT_HP", "hb_starthp", 1, 100, 1
+	Slider "$CS_HEARTBEAT_DELAY", "hb_delay", 5, 120, 1
+	StaticText " "
+
+	Slider "$CS_DEATH_SPLAT_AMT", "ds_amount", 0, 50, 1
+	Slider "$CS_BLOOD_MIN", "bs_minamount", 0, 20, 1
+	Slider "$CS_BLOOD_MAX", "bs_maxamount", 0, 30, 1
+	Slider "$CS_BLOOD_SPEED", "bs_speed", 1, 10, 1
+	Option "$CS_BLOOD_ALPHA", "bs_alpha", "CS_BloodAlpha"
+}
+
+OptionValue "CS_BloodAlpha"
+{
+	0, "Default"
+	1, "Low"
+}
+
+// ---------------------------------------------------------------------------
+// Enemy Mutations (Zone afflictions)
+OptionMenu "SEM_MainMenu"
+{
+	Title "$SEM_MENU"
+	StaticText "$SEM_HINT_RELOAD", "Gold"
+	StaticText "$SEM_MENU_HINT", "Teal"
+	StaticText " "
+
+	Submenu "$SEM_PRESETS", "SEM_PresetMenu"
+	Submenu "$SEM_AFFLICTIONS", "SEM_AfflictionMenu"
+	Submenu "$SEM_SEVERITY", "SEM_SeverityMenu"
+	Submenu "$SEM_CAPS", "SEM_CapMenu"
+	StaticText " "
+
+	StaticText "$SEM_SEC_CHANCE", "Gold"
+	ScaleSlider "$SEM_SPAWN_CHANCE", "sem_OverrideChance", -1, 256, 1, "Off", "By Difficulty"
+	ScaleSlider "$SEM_SEV_CHANCE", "sem_SeverityChance", 0, 256, 1, "Off"
+	StaticText " "
+
+	StaticText "$SEM_SEC_FX", "Gold"
+	Option "$SEM_VISUAL_FX", "sem_VisualFX", "YesNo"
+	Option "$SEM_PERF_LITE", "sem_performance_lite", "OnOff"
+	Option "$SEM_FX_VIS", "sem_fx_visibility", "OnOff"
+	Option "$SEM_PARTICLES", "sem_Particles", "YesNo"
+	Option "$SEM_MARKERS", "sem_Markers", "YesNo"
+}
+
+OptionMenu "SEM_PresetMenu"
+{
+	Title "$SEM_PRESETS"
+	StaticText "$SEM_HINT_RELOAD", "Gold"
+	StaticText " "
+	SafeCommand "$SEM_PRESET_CORDON", "event sem_preset_cordon", "Apply Cordon (lite) preset?"
+	SafeCommand "$SEM_PRESET_STANDARD", "event sem_preset_standard", "Reset to Standard preset?"
+	SafeCommand "$SEM_PRESET_EMISSION", "event sem_preset_emission", "Apply Emission (mayhem) preset?"
+}
+
+OptionMenu "SEM_CapMenu"
+{
+	Title "$SEM_CAPS"
+	StaticText "$SEM_CAPS_HINT", "Teal"
+	StaticText " "
+	Option "$SEM_CAP_ENABLE", "sem_cap_enabled", "OnOff"
+	ScaleSlider "$SEM_CAP_SMALL", "sem_cap_small", 0, 128, 1, "Off"
+	ScaleSlider "$SEM_CAP_MEDIUM", "sem_cap_medium", 0, 256, 1, "Off"
+	ScaleSlider "$SEM_CAP_LARGE", "sem_cap_large", 0, 512, 1, "Off"
+	Slider "$SEM_CAP_MED_THRESH", "sem_cap_medium_count", 25, 500, 5
+	Slider "$SEM_CAP_LARGE_THRESH", "sem_cap_large_count", 100, 1000, 25
+}
+
+OptionMenu "SEM_AfflictionMenu"
+{
+	Title "$SEM_AFFLICTIONS"
+	StaticText "$SEM_WEIGHT_HINT", "Gold"
+	StaticText " "
+	StaticText "$SEM_DESC_CHEMICAL", "Teal"
+	StaticText "$SEM_DESC_THERMAL", "Teal"
+	StaticText "$SEM_DESC_ELECTRO", "Teal"
+	StaticText "$SEM_DESC_GRAVITY", "Teal"
+	StaticText "$SEM_DESC_PSI", "Teal"
+	StaticText "$SEM_DESC_BLOODSUCKER", "Teal"
+	StaticText "$SEM_DESC_SNORK", "Teal"
+	StaticText "$SEM_DESC_PSEUDOGIANT", "Teal"
+	StaticText " "
+	SafeCommand "$SEM_RESET_WEIGHTS", "event sem_reset_weights", "Reset all affliction weights?"
+	ScaleSlider "$SEM_W_CHEMICAL", "sem_weight_Chemical", 0, 10, 1, "Off"
+	ScaleSlider "$SEM_W_THERMAL", "sem_weight_Thermal", 0, 10, 1, "Off"
+	ScaleSlider "$SEM_W_ELECTRO", "sem_weight_Electro", 0, 10, 1, "Off"
+	ScaleSlider "$SEM_W_GRAVITY", "sem_weight_Gravity", 0, 10, 1, "Off"
+	ScaleSlider "$SEM_W_PSI", "sem_weight_Psi", 0, 10, 1, "Off"
+	ScaleSlider "$SEM_W_BLOODSUCKER", "sem_weight_Bloodsucker", 0, 10, 1, "Off"
+	ScaleSlider "$SEM_W_SNORK", "sem_weight_Snork", 0, 10, 1, "Off"
+	ScaleSlider "$SEM_W_PSEUDOGIANT", "sem_weight_Pseudogiant", 0, 10, 1, "Off"
+}
+
+OptionMenu "SEM_SeverityMenu"
+{
+	Title "$SEM_SEVERITY"
+	StaticText "$SEM_WEIGHT_HINT", "Gold"
+	StaticText "$SEM_DESC_GROWTH", "Teal"
+	StaticText "$SEM_DESC_PHASE", "Teal"
+	StaticText "$SEM_DESC_RAGE", "Teal"
+	StaticText " "
+	ScaleSlider "$SEM_W_GROWTH", "sem_weight_AnomalyGrowth", 0, 10, 1, "Off"
+	ScaleSlider "$SEM_W_PHASE", "sem_weight_PhaseShift", 0, 10, 1, "Off"
+	ScaleSlider "$SEM_W_RAGE", "sem_weight_EmissionRage", 0, 10, 1, "Off"
+}

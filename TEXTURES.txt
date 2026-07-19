@@ -1,0 +1,6 @@
+Graphic "AIM1", 1600, 900
+{
+	XScale 0.825
+	YScale 1.150
+	Patch "AIM1", 0, 0
+}

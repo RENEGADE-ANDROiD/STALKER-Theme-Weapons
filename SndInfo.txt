@@ -1,0 +1,817 @@
+//RiotShield
+BASH1	BASH1
+// Logical name for shield bullet impacts / pickup (swap file later without touching actors)
+$alias Shield/Hit Bullet/Ricochet
+
+//// PB-style magazine drop logical names (aliases to existing STALKER bounce sounds)
+weapons/smallmagdrop	Weapons/PistolClip
+weapons/largemagdrop	Weapons/RifleClip
+
+//// Casings
+$random Weapons/Casing 		{ DSCASIN1  DSCASIN2  DSCASIN3 DSCASIN4 }
+DSCASIN1			DSCASIN1
+DSCASIN2			DSCASIN2
+DSCASIN3			DSCASIN3
+DSCASIN4                        DSCASIN4 
+
+$random Weapons/Shell 		{ DSSHELL1  DSSHELL2  DSSHELL3 }
+DSSHELL1			DSSHELL1
+DSSHELL2			DSSHELL2
+DSSHELL3			DSSHELL3
+
+$random Weapons/PistolClip 	{ PCLPBNC1  PCLPBNC2 PCLPBNC3 }
+PCLPBNC1			PCLPBNC1
+PCLPBNC2			PCLPBNC2
+PCLPBNC3			PCLPBNC3
+
+$random Weapons/RifleClip 	{ RCLPBNC1  RCLPBNC2  RCLPBNC3  RCLPBNC4 }
+RCLPBNC1			RCLPBNC1
+RCLPBNC2			RCLPBNC2
+RCLPBNC3			RCLPBNC3
+RCLPBNC4			RCLPBNC4
+
+$random Weapons/50CalCasing 	{ 50CAS1  50CAS2  50CAS3 }
+50CAS1			       50CAS1
+50CAS2			       50CAS2
+50CAS3			       50CAS3
+
+////Bullet
+$random Bullet/Ricochet 		{ Ricochet1  Ricochet2  Ricochet3 Ricochet4 }
+Ricochet1		       DSRIC1
+Ricochet2	               DSRIC2
+Ricochet3	               DSRIC3
+Ricochet4                      DSRIC4 
+
+$random Bullet/HitFlesh 		{ HFlesh1  HFlesh2  HFlesh3 HFlesh4 }
+HFlesh1	                       DSHIT1
+HFlesh2			       DSHIT2
+HFlesh3		               DSHIT3
+HFlesh4                        DSHIT4
+
+$random Bullet/Whip { Bullet/Whip1 Bullet/Whip2 Bullet/Whip3 Bullet/Whip4 Bullet/Whip5 }
+Bullet/Whip1 BULLW1
+Bullet/Whip2 BULLW2
+Bullet/Whip3 BULLW3
+Bullet/Whip4 BULLW4
+Bullet/Whip5 BULLW5
+$volume Bullet/Whip 0.9
+
+//// Items
+// Ammo
+Tokarev/Clip            TOKCLIP
+Tokarev/Box             TOKBOX
+12Gauge/Clip            12GCLIP
+12Gauge/Box             12GBOX
+AK/Clip                 AKCLIP
+AK/Box                  AKBOX
+762R/Clip               762CLIP
+762R/Box                762BOX
+RPG/Clip                RPGCLIP
+Grenade/Pickup          GRNCLIP
+Explosive/Box           GRNBOX
+Molotov/Pickup          MOLCLIP
+
+
+$volume Tokarev/Clip 0.5
+$volume Tokarev/Box 0.5
+$volume 12Gauge/Clip 0.5
+$volume 12Gauge/Box 0.5
+$volume AK/Clip 0.5
+$volume AK/Box 0.5
+$volume 762R/Clip 0.5
+$volume 762R/Box 0.5
+$volume Grenade/Pickup 0.5
+$volume Molotov/Pickup 0.5
+$volume RPG/Clip 0.5
+$volume Explosive/Box 0.5
+$volume misc/w_pkup 0.4
+
+// PDA
+PDA/Pickup   PDAUP
+PDA/Use      PDAUSE
+
+//Health
+Items/StimInjector              PKPSTIM
+Items/UseStimInjector           USESTIM
+
+//// Weapons
+//Throwable Items
+$random Item/Swing  { Swing1  Swing2  Swing3 }
+Swing1                      Swing1 
+Swing2                      Swing2 
+Swing3                      Swing3
+
+// NR-40
+$random NR40/Swing { NRSWI1  NRSWI2 }
+NRSWI1             NRSWI1
+NRSWI2             NRSWI2
+
+$random NR40/Hit { NRHIT1  NRHIT2 }
+NRHIT1             NRHIT1
+NRHIT2             NRHIT2
+
+NR40/Wall          NRWALL
+NR40/Up            TT33UP
+NR40/Down          TT33DWN
+
+$volume NR40/Wall 0.4
+
+// Fort-12
+Fort12/Up                  F12UP  
+Fort12/Down                TT33DWN
+Fort12/Fire                F12FIRE               
+Fort12/DryFire             F12DRY
+Fort12/Out                 F12OUT
+Fort12/In                  F12IN
+
+// PP-19 Bizon
+PP19/Fire        P19FIRE
+PP19/Out         P19OUT
+PP19/In          P19IN
+PP19/Up          P19UP
+PP19/Down        P19DWN
+PP19/Dryfire     F12DRY
+
+// TT-33
+TT33/Up                  TT33UP  
+TT33/Down                TT33DWN  
+TT33/Fire                TT33FIRE             
+TT33/DryFire             TT33DRY
+TT33/Out                 TT33OUT
+TT33/In                  TT33IN
+
+// PPSh-41
+PPSh/Fire        PPSHFIRE
+PPSh/Out         PPSHOUT
+PPSh/In          PPSHIN
+PPSh/Up          PPSHUP
+PPSh/Down        PPSHDWN
+PPSh/Dryfire     PPSHDRY
+
+// SKS
+SKS/Up                  AKUP  
+SKS/Down                AKDWN               
+SKS/DryFire             AKDRY
+SKS/Out                 SKSOUT
+SKS/In                  SKSIN
+SKS/In2                 SKSIN2
+
+$random SKS/Fire  { SKSFire1  SKSFire2 }
+SKSFire1                      SKSFIR1 
+SKSFire2                      SKSFIR2
+
+// AK-47
+AK47/Up                   AKUP
+AK47/Down                 AKDWN
+AK47/Dryfire              AKDRY
+AK47/Out                  AKOUT
+AK47/In                   AKIN
+
+$random AK47/Fire      { AKFIR1  AKFIR2   }
+AKFIR1                    AKFIR1
+AKFIR2                    AKFIR2
+
+// Mosin Nagant
+MosinNagant/Up                 SVDUP
+MosinNagant/Down               AKDWN
+MosinNagant/Fire               MOSFIRE
+MosinNagant/Dryfire            AKDRY 
+MosinNagant/Open               MOSOPN
+MosinNagant/Close              MOSCLS
+MosinNagant/Load               MOSIN
+
+// SVD Dragunov
+SVD/Up                   SVDUP
+SVD/Down                 AKDWN
+SVD/Fire                 SVDFIRE
+SVD/Dryfire              AKDRY
+SVD/Out                  SVDOUT
+SVD/In                   SVDIN
+
+// RP46
+RP46/Up                     RP46UP
+RP46/Down                   RP46DWN
+RP46/Dryfire                RP46DRY
+RP46/Out                    RP46OUT
+RP46/In                     RP46IN
+
+$random RP46/Fire      { RP46FIR1  RP46FIR2   }
+RP46FIR1                    RP46FIR1
+RP46FIR2                    RP46FIR2
+
+// TOZ-34
+TOZ34/Up                   T34UP
+TOZ34/Down                 T34DWN
+TOZ34/Fire                 T34FIRE
+TOZ34/Dryfire              T34DRY
+TOZ34/Open                 T34OPN
+TOZ34/Load                 T34LOAD
+TOZ34/Close                T34CLS
+
+// Vepr-12
+Vepr12/Up                     AKUP
+Vepr12/Down                   AKDWN
+Vepr12/Fire                   V12FIRE
+Vepr12/Dryfire                AKDRY
+Vepr12/Out                    V12OUT
+Vepr12/In                     V12IN
+
+// KS-23
+KS23/Fire        KS23FIRE
+KS23/Reload      KS23LOAD
+KS23/Pump        KS23PMP
+KS23/Up          KS23UP
+KS23/Down        KS23DWN
+KS23/Dryfire     KS23DRY
+
+$Volume KS23/Fire 0.8
+
+// AS-VAL
+ASVAL/Fire        ASVFIRE
+ASVAL/Out         ASVOUT
+ASVAL/In          ASVIN
+ASVAL/Up          P19UP
+ASVAL/Down        P19DWN
+ASVAL/Dryfire     AKDRY
+
+// OTS-14
+OTS14/Up                  OTSUP  
+OTS14/Down                AKDWN         
+OTS14/DryFire             AKDRY
+OTS14/Out                 OTSOUT
+OTS14/In                  OTSIN
+OTS14/Grenade             OTSGL
+
+$random OTS14/Fire  { OTSFire1  OTSFire2 }
+OTSFire1                      OTSFIR1 
+OTSFire2                      OTSFIR2
+
+// GM-94
+GM94/Fire        G94FIRE
+GM94/Reload      G94LOAD
+GM94/Pump        G94PMP
+GM94/Up          G94UP
+GM94/Down        KS23DWN
+GM94/Dryfire     KS23DRY
+
+// RPG-7D
+RPG7D/Up                   G94UP
+RPG7D/Down                 KS23DWN
+RPG7D/Fire                 RPGFIRE
+RPG7D/Dryfire              KS23DRY
+RPG7D/Reload               RPGLOAD
+RPG7D/Explosion            RPGEXP
+RPG7D/Fly                  RPGFLY
+
+
+Explosion/Near     EXPNEAR
+Explosion/Far      EXPFAR
+
+$rolloff Explosion/Near 900 1100
+
+$rolloff Explosion/Far 3200 7400
+
+
+//// Decoration
+// Tech Lamps
+$RANDOM LampGlassBreak { LAMPGLSS LAMPGLSB }
+LAMPGLSS       LAMPGLSS
+LAMPGLSB       LAMPGLSB
+
+$RANDOM GlassShardImpact {FLORGLS1 FLORGLS2}
+FLORGLS1       FLORGLS1
+FLORGLS2       FLORGLS2
+
+Lamps/Hum      LMPHUM
+$limit Lamps/Hum 0
+
+//Barrels
+Barrel/Burn             DSTORCH
+$limit Barrel/Burn 1
+
+
+//// Ambience
+$random Ambience/Screams 	{ AmbScream1  AmbScream2 AmbScream3 AmbScream4 AmbScream5 AmbScream6 AmbScream7 }
+AmbScream1                        Sounds/Sfx/Ambience/Screams/AmbScream1.ogg
+AmbScream2                        Sounds/Sfx/Ambience/Screams/AmbScream2.ogg
+AmbScream3                        Sounds/Sfx/Ambience/Screams/AmbScream3.ogg
+AmbScream4                        Sounds/Sfx/Ambience/Screams/AmbScream4.ogg
+AmbScream5                        Sounds/Sfx/Ambience/Screams/AmbScream5.ogg
+AmbScream6                        Sounds/Sfx/Ambience/Screams/AmbScream6.ogg
+AmbScream7                        Sounds/Sfx/Ambience/Screams/AmbScream7.ogg
+
+$random Ambience/GunShots 	{ AmbGunShots1  AmbGunShots2 AmbGunShots3 AmbGunShots4 AmbGunShots5 AmbGunShots6 AmbGunShots7}
+AmbGunShots1                      Sounds/Sfx/Ambience/GunShots/AmbGunShot1.ogg
+AmbGunShots2                      Sounds/Sfx/Ambience/GunShots/AmbGunShot2.ogg
+AmbGunShots3                      Sounds/Sfx/Ambience/GunShots/AmbGunDie1.ogg
+AmbGunShots4                      Sounds/Sfx/Ambience/GunShots/AmbGunDie2.ogg
+AmbGunShots5                      Sounds/Sfx/Ambience/GunShots/AmbGunDie3.ogg
+AmbGunShots6                      Sounds/Sfx/Ambience/GunShots/AmbGunDie4.ogg
+AmbGunShots7                      Sounds/Sfx/Ambience/GunShots/AmbGunDie5.ogg
+
+$random Ambience/Ghosts 	{ AmbGhost1  AmbGhost2 AmbGhost3 AmbGhost4 AmbGhost5 AmbGhost6 AmbGhost7 }
+AmbGhost1                        Sounds/Sfx/Ambience/Ghosts/AmbGhosts1.ogg
+AmbGhost2                        Sounds/Sfx/Ambience/Ghosts/AmbGhosts2.ogg
+AmbGhost3                        Sounds/Sfx/Ambience/Ghosts/AmbGhosts3.ogg
+AmbGhost4                        Sounds/Sfx/Ambience/Ghosts/AmbGhosts4.ogg
+AmbGhost5                        Sounds/Sfx/Ambience/Ghosts/AmbGhosts5.ogg
+AmbGhost6                        Sounds/Sfx/Ambience/Ghosts/AmbGhosts6.ogg
+AmbGhost7                        Sounds/Sfx/Ambience/Ghosts/AmbGhosts7.ogg
+
+$random Ambience/Whispers 	{ AmbWhisper1  AmbWhisper2 }
+AmbWhisper1                      Sounds/Sfx/Ambience/Whispers/AmbWhispers1.ogg
+AmbWhisper2                      Sounds/Sfx/Ambience/Whispers/AmbWhispers2.ogg
+
+$random Duty/Radio 	{ AmbRadio1 AmbRadio2 AmbRadio3 AmbRadio4 AmbRadio5 AmbRadio6 AmbRadio7 AmbRadio8 }
+AmbRadio1                        Sounds/Sfx/Ambience/Radio/AmbRadio1.ogg
+AmbRadio2                        Sounds/Sfx/Ambience/Radio/AmbRadio2.ogg
+AmbRadio3                        Sounds/Sfx/Ambience/Radio/AmbRadio3.ogg
+AmbRadio4                        Sounds/Sfx/Ambience/Radio/AmbRadio4.ogg
+AmbRadio5                        Sounds/Sfx/Ambience/Radio/AmbRadio5.ogg
+AmbRadio6                        Sounds/Sfx/Ambience/Radio/AmbRadio6.ogg
+AmbRadio7                        Sounds/Sfx/Ambience/Radio/AmbRadio7.ogg
+AmbRadio8                        Sounds/Sfx/Ambience/Radio/AmbRadio8.ogg
+
+
+//// Vermins
+//Flies
+SFX/Buzz DSBUZZ       
+
+$Volume SFX/Buzz 0.15
+
+// Roach
+Roach/Squish DSROACH1
+Roach/Active DSROACH2  
+
+$Volume Roach/Squish 0.25
+$Volume Roach/Active 0.25
+
+//Foot Steps
+$random Humanish/Step		{ Humanish/Step1 Humanish/Step2 Humanish/Step3 Humanish/Step4 }
+Humanish/Step1			HUMSTP1
+Humanish/Step2			HUMSTP2
+Humanish/Step3			HUMSTP3
+Humanish/Step4			HUMSTP4
+
+$volume Humanish/Step 0.3
+
+$random Boot/Step		{ Boot/Step1 Boot/Step2 Boot/Step3 Boot/Step4 }
+Boot/Step1			SOVSTP1
+Boot/Step2			SOVSTP2
+Boot/Step3			SOVSTP3
+Boot/Step4			SOVSTP4
+
+$volume Boot/Step 0.3
+
+$random Giant/Step		{ Giant/Step1 Giant/Step2 Giant/Step3 Giant/Step4 }
+Giant/Step1			BIGSTP1
+Giant/Step2			BIGSTP2
+Giant/Step3			BIGSTP3
+Giant/Step4			BIGSTP4
+
+$volume Giant/Step 0.5
+
+//Duty
+$random Duty/See		{ DUTSEE1 DUTSEE2 DUTSEE3 DUTSEE4 DUTSEE5 }
+DUTSEE1			DUTSEE1
+DUTSEE2			DUTSEE2
+DUTSEE3			DUTSEE3
+DUTSEE4			DUTSEE4
+DUTSEE5			DUTSEE5
+
+$random Duty/Pain		{ DUTPAI1 DUTPAI2 DUTPAI3 DUTPAI4 DUTPAI5 DUTPAI6 }
+DUTPAI1			DUTPAI1
+DUTPAI2			DUTPAI2
+DUTPAI3			DUTPAI3
+DUTPAI4			DUTPAI4
+DUTPAI5			DUTPAI5
+DUTPAI6			DUTPAI6
+
+$random Duty/Active		{ DUTACT1 DUTACT2 DUTACT3 DUTACT4 DUTACT5 DUTACT6 DUTACT7 DUTACT8 }
+DUTACT1			DUTACT1
+DUTACT2			DUTACT2
+DUTACT3			DUTACT3
+DUTACT4			DUTACT4
+DUTACT5			DUTACT5
+DUTACT6			DUTACT6
+DUTACT7			DUTACT7
+DUTACT8			DUTACT8
+
+Duty/Death              DUTDIE1
+
+//// Menu
+Menu/Activate		MENU1	// Activate a new menu
+Menu/Backup		MENU3	// Backup to previous menu
+Menu/Prompt		MENU1	// Activate a prompt "menu"
+Menu/Cursor		MENU2		// Move cursor up/down
+Menu/Change		MENU2	// Select new value for option
+Menu/Invalid		MENU3		// Menu not available
+Menu/Dismiss		MENU3	// Dismiss a prompt message
+Menu/Choose		MENU1	// Choose a menu item
+Menu/Clear		MENU3	// Close top menu
+
+// Doom-style names used by ClearSkyWeapon / riot shield (not defined elsewhere in this TC)
+$alias weapon/down Fort12/Down
+$alias weapon/up Fort12/Up
+$alias barrel/pain Shield/Hit
+
+//// Secret
+$random misc/secret	{ SECRET1 SECRET2  }
+SECRET1                            SECRET1
+SECRET2                            SECRET2
+
+//// Gore
+$random misc/xdeath		{ misc/xdeath1a misc/xdeath1b misc/xdeath1c misc/xdeath1d misc/xdeath1e misc/xdeath1f misc/xdeath2a misc/xdeath2b misc/xdeath2c misc/xdeath2d misc/xdeath2e misc/xdeath2f misc/xdeath3a misc/xdeath3b misc/xdeath3c misc/xdeath4a misc/xdeath4b misc/xdeath4c }
+misc/xdeath1a			dsxdth1a
+misc/xdeath1b			dsxdth1b
+misc/xdeath1c			dsxdth1c
+misc/xdeath1d			dsxdth1d
+misc/xdeath1e			dsxdth1e
+misc/xdeath1f			dsxdth1f
+$random misc/xdeath1		{ misc/xdeath1a misc/xdeath1b misc/xdeath1c misc/xdeath1d misc/xdeath1e misc/xdeath1f }
+misc/xdeath2a			dsxdth2a
+misc/xdeath2b			dsxdth2b
+misc/xdeath2c			dsxdth2c
+misc/xdeath2d			dsxdth2d
+misc/xdeath2e			dsxdth2e
+misc/xdeath2f			dsxdth2f
+$random misc/xdeath2		{ misc/xdeath2a misc/xdeath2b misc/xdeath2c misc/xdeath2d misc/xdeath2e misc/xdeath2f }
+misc/xdeath3a			dsxdth3a
+misc/xdeath3b			dsxdth3b
+misc/xdeath3c			dsxdth3c
+$random misc/xdeath3		{ misc/xdeath3a misc/xdeath3b misc/xdeath3c }
+misc/xdeath4a			dsxdth4a
+misc/xdeath4b			dsxdth4b
+misc/xdeath4c			dsxdth4c
+$random misc/xdeath4		{ misc/xdeath4a misc/xdeath4b misc/xdeath4c }
+
+$random misc/xdeath5		{ misc/xdeath4a misc/xdeath4b misc/xdeath2a misc/xdeath2b misc/xdeath2e}
+$limit misc/xdeath5 2
+
+$volume misc/xdeath 0.7
+$volume misc/xdeath1 0.7
+$volume misc/xdeath2 0.7
+$volume misc/xdeath3 0.7
+$volume misc/xdeath4 0.7
+
+BONECR1 BONECR1
+BONECR2 BONECR2
+
+
+LQDRIP1 LQDRIP1
+LQDRIP2 LQDRIP2
+LQDRIP3 LQDRIP3
+LQDRIP4 LQDRIP4
+LQDRIP5 LQDRIP5
+LQDRIP6 LQDRIP6
+LQDRIP7 LQDRIP7
+LQDRIP8 LQDRIP8
+LQDRIP9 LQDRIP9
+LQDRIP10 LQDRIP10
+LQDRIP11 LQDRIP11
+LQDRIP12 LQDRIP12
+LQDRIP13 LQDRIP13
+LQDRIP14 LQDRIP14
+
+$random blooddrop  { LQDRIP1 LQDRIP2 LQDRIP3 } 
+$rolloff blooddrop 200 1000
+$random blooddrop2  { LQDRIP4 LQDRIP5 LQDRIP6 LQDRIP7 }
+$rolloff blooddrop2 200 1000
+$random blooddrop3  { LQDRIP8 LQDRIP9 LQDRIP10 LQDRIP11 LQDRIP12 LQDRIP13 LQDRIP14 LQDRIP14 } 
+$rolloff blooddrop3 200 1000
+
+hbeat HBEAT
+
+
+step/default1 "Sounds/footsteps/default1.wav"
+step/default2 "Sounds/footsteps/default2.wav"
+step/default3 "Sounds/footsteps/default3.wav"
+step/default4 "Sounds/footsteps/default4.wav"
+$random step/default
+{
+	step/default1
+	step/default2
+	step/default3
+	step/default4
+}
+
+step/dirt1 "Sounds/footsteps/dirt/dirt1.wav"
+step/dirt2 "Sounds/footsteps/dirt/dirt2.wav"
+step/dirt3 "Sounds/footsteps/dirt/dirt3.wav"
+step/dirt4 "Sounds/footsteps/dirt/dirt4.wav"
+$random step/dirt
+{
+	step/dirt1
+	step/dirt2
+	step/dirt3
+	step/dirt4
+}
+
+step/grass1 "Sounds/footsteps/grass/grass1.ogg"
+step/grass2 "Sounds/footsteps/grass/grass2.ogg"
+step/grass3 "Sounds/footsteps/grass/grass3.ogg"
+step/grass4 "Sounds/footsteps/grass/grass4.ogg"
+$random step/grass
+{
+	step/grass1
+	step/grass2
+	step/grass3
+	step/grass4
+}
+
+step/sand1 "Sounds/footsteps/sand/sand1.wav"
+step/sand2 "Sounds/footsteps/sand/sand2.wav"
+step/sand3 "Sounds/footsteps/sand/sand3.wav"
+step/sand4 "Sounds/footsteps/sand/sand4.wav"
+$random step/sand
+{
+	step/sand1
+	step/sand2
+	step/sand3
+	step/sand4
+}
+
+step/slosh1 "Sounds/footsteps/slosh/slosh1.wav"
+step/slosh2 "Sounds/footsteps/slosh/slosh2.wav"
+step/slosh3 "Sounds/footsteps/slosh/slosh3.wav"
+step/slosh4 "Sounds/footsteps/slosh/slosh4.wav"
+$random step/slosh
+{
+	step/slosh1
+	step/slosh2
+	step/slosh3
+	step/slosh4
+}
+
+step/slime1 "Sounds/footsteps/mud/mud1.wav"
+step/slime2 "Sounds/footsteps/mud/mud2.wav"
+step/slime3 "Sounds/footsteps/mud/mud3.wav"
+step/slime4 "Sounds/footsteps/mud/mud4.wav"
+$random step/slime
+{
+	step/slime1
+	step/slime2
+	step/slime3
+	step/slime4
+}
+
+step/gravel1 "Sounds/footsteps/gravel/gravel1.wav"
+step/gravel2 "Sounds/footsteps/gravel/gravel2.wav"
+step/gravel3 "Sounds/footsteps/gravel/gravel3.wav"
+step/gravel4 "Sounds/footsteps/gravel/gravel4.wav"
+$random step/gravel
+{
+	step/gravel1
+	step/gravel2
+	step/gravel3
+	step/gravel4
+}
+
+step/carpet1 "Sounds/footsteps/carpet/carpet1.ogg"
+step/carpet2 "Sounds/footsteps/carpet/carpet2.ogg"
+step/carpet3 "Sounds/footsteps/carpet/carpet3.ogg"
+step/carpet4 "Sounds/footsteps/carpet/carpet4.ogg"
+$random step/carpet
+{
+	step/carpet1
+	step/carpet2
+	step/carpet3
+	step/carpet4
+}
+
+step/plank1 "Sounds/footsteps/plank/plank1.wav"
+step/plank2 "Sounds/footsteps/plank/plank2.wav"
+step/plank3 "Sounds/footsteps/plank/plank3.wav"
+step/plank4 "Sounds/footsteps/plank/plank4.wav"
+$random step/plank
+{
+	step/plank1
+	step/plank2
+	step/plank3
+	step/plank4
+}
+
+step/wood1 "Sounds/footsteps/wood/wood1.ogg"
+step/wood2 "Sounds/footsteps/wood/wood2.ogg"
+step/wood3 "Sounds/footsteps/wood/wood3.ogg"
+step/wood4 "Sounds/footsteps/wood/wood4.ogg"
+$random step/wood
+{
+	step/wood1
+	step/wood2
+	step/wood3
+	step/wood4
+}
+
+step/concrete1 "Sounds/footsteps/concrete/concrete1.wav"
+step/concrete2 "Sounds/footsteps/concrete/concrete2.wav"
+step/concrete3 "Sounds/footsteps/concrete/concrete3.wav"
+step/concrete4 "Sounds/footsteps/concrete/concrete4.wav"
+$random step/concrete
+{
+	step/concrete1
+	step/concrete2
+	step/concrete3
+	step/concrete4
+}
+
+step/panel1 "Sounds/footsteps/tile/tile1.wav"
+step/panel2 "Sounds/footsteps/tile/tile2.wav"
+step/panel3 "Sounds/footsteps/tile/tile3.wav"
+step/panel4 "Sounds/footsteps/tile/tile4.wav"
+$random step/panel
+{
+	step/panel1
+	step/panel2
+	step/panel3
+	step/panel4
+}
+
+step/tile1 "Sounds/footsteps/tile/tile1.wav"
+step/tile2 "Sounds/footsteps/tile/tile2.wav"
+step/tile3 "Sounds/footsteps/tile/tile3.wav"
+step/tile4 "Sounds/footsteps/tile/tile4.wav"
+$random step/tile
+{
+	step/tile1
+	step/tile2
+	step/tile3
+	step/tile4
+}
+
+step/tin1 "Sounds/footsteps/metal/metal1.wav"
+step/tin2 "Sounds/footsteps/metal/metal2.wav"
+step/tin3 "Sounds/footsteps/metal/metal3.wav"
+step/tin4 "Sounds/footsteps/metal/metal4.wav"
+$random step/tin
+{
+	step/tin1
+	step/tin2
+	step/tin3
+	step/tin4
+}
+
+$alias step/nuke step/slosh
+$alias step/sludge step/slosh
+
+step/hot "Sounds/footsteps/hot1.ogg"
+$alias step/lava step/hot
+
+//===========================================================================
+// Controller haptics (GZDoom / BiasedDoom 4.15+ / UZDoom)
+// Silences "Unknown rumble mapping '...'" for STALKER logical sounds.
+// Uses engine $rumbledef presets: NONE SUBTLE LIGHT MEDIUM HEAVY INTENSE QUAKE SECRET
+//===========================================================================
+
+// --- Equip raise / lower ---
+$rumble Fort12/Up SUBTLE
+$rumble Fort12/Down SUBTLE
+$rumble TT33/Up SUBTLE
+$rumble TT33/Down SUBTLE
+$rumble NR40/Up SUBTLE
+$rumble NR40/Down SUBTLE
+$rumble Vepr12/Up SUBTLE
+$rumble Vepr12/Down SUBTLE
+$rumble TOZ34/Up SUBTLE
+$rumble TOZ34/Down SUBTLE
+$rumble KS23/Up SUBTLE
+$rumble KS23/Down SUBTLE
+$rumble PP19/Up SUBTLE
+$rumble PP19/Down SUBTLE
+$rumble PPSh/Up SUBTLE
+$rumble PPSh/Down SUBTLE
+$rumble ASVAL/Up SUBTLE
+$rumble ASVAL/Down SUBTLE
+$rumble SKS/Up SUBTLE
+$rumble SKS/Down SUBTLE
+$rumble MosinNagant/Up SUBTLE
+$rumble MosinNagant/Down SUBTLE
+$rumble SVD/Up SUBTLE
+$rumble SVD/Down SUBTLE
+$rumble AK47/Up SUBTLE
+$rumble AK47/Down SUBTLE
+$rumble OTS14/Up SUBTLE
+$rumble OTS14/Down SUBTLE
+$rumble RP46/Up SUBTLE
+$rumble RP46/Down SUBTLE
+$rumble GM94/Up SUBTLE
+$rumble GM94/Down SUBTLE
+$rumble RPG7D/Up SUBTLE
+$rumble RPG7D/Down SUBTLE
+$rumble weapon/up SUBTLE
+$rumble weapon/down SUBTLE
+
+// --- Fire / dry ---
+$rumble Fort12/Fire MEDIUM
+$rumble Fort12/DryFire SUBTLE
+$rumble TT33/Fire MEDIUM
+$rumble TT33/DryFire SUBTLE
+$rumble PP19/Fire MEDIUM
+$rumble PP19/Dryfire SUBTLE
+$rumble PPSh/Fire MEDIUM
+$rumble PPSh/Dryfire SUBTLE
+$rumble SKS/Fire MEDIUM
+$rumble SKS/DryFire SUBTLE
+$rumble AK47/Fire MEDIUM
+$rumble AK47/Dryfire SUBTLE
+$rumble MosinNagant/Fire HEAVY
+$rumble MosinNagant/Dryfire SUBTLE
+$rumble SVD/Fire HEAVY
+$rumble SVD/Dryfire SUBTLE
+$rumble RP46/Fire HEAVY
+$rumble RP46/Dryfire SUBTLE
+$rumble TOZ34/Fire HEAVY
+$rumble TOZ34/Dryfire SUBTLE
+$rumble Vepr12/Fire HEAVY
+$rumble Vepr12/Dryfire SUBTLE
+$rumble KS23/Fire HEAVY
+$rumble KS23/Dryfire SUBTLE
+$rumble ASVAL/Fire LIGHT
+$rumble ASVAL/Dryfire SUBTLE
+$rumble OTS14/Fire MEDIUM
+$rumble OTS14/DryFire SUBTLE
+$rumble GM94/Fire HEAVY
+$rumble GM94/Dryfire SUBTLE
+$rumble RPG7D/Fire INTENSE
+$rumble RPG7D/Dryfire SUBTLE
+
+// --- Mag / bolt / pump ---
+$rumble Fort12/Out LIGHT
+$rumble Fort12/In LIGHT
+$rumble TT33/Out LIGHT
+$rumble TT33/In LIGHT
+$rumble PP19/Out LIGHT
+$rumble PP19/In LIGHT
+$rumble PPSh/Out LIGHT
+$rumble PPSh/In LIGHT
+$rumble SKS/Out LIGHT
+$rumble SKS/In LIGHT
+$rumble SKS/In2 LIGHT
+$rumble AK47/Out LIGHT
+$rumble AK47/In LIGHT
+$rumble SVD/Out LIGHT
+$rumble SVD/In LIGHT
+$rumble RP46/Out LIGHT
+$rumble RP46/In LIGHT
+$rumble Vepr12/Out LIGHT
+$rumble Vepr12/In LIGHT
+$rumble ASVAL/Out LIGHT
+$rumble ASVAL/In LIGHT
+$rumble OTS14/Out LIGHT
+$rumble OTS14/In LIGHT
+$rumble OTS14/Grenade MEDIUM
+$rumble MosinNagant/Open LIGHT
+$rumble MosinNagant/Close LIGHT
+$rumble MosinNagant/Load LIGHT
+$rumble TOZ34/Open LIGHT
+$rumble TOZ34/Load LIGHT
+$rumble TOZ34/Close LIGHT
+$rumble KS23/Reload LIGHT
+$rumble KS23/Pump LIGHT
+$rumble GM94/Reload LIGHT
+$rumble GM94/Pump LIGHT
+$rumble RPG7D/Reload LIGHT
+
+// --- Melee / shield ---
+$rumble NR40/Swing LIGHT
+$rumble NR40/Hit MEDIUM
+$rumble NR40/Wall SUBTLE
+$rumble BASH1 MEDIUM
+$rumble Shield/Hit LIGHT
+$rumble barrel/pain LIGHT
+$rumble Item/Swing LIGHT
+
+// --- Projectiles / impacts ---
+$rumble Bullet/Whip NONE
+$rumble Bullet/HitFlesh LIGHT
+$rumble Bullet/Ricochet SUBTLE
+$rumble RPG7D/Explosion INTENSE
+$rumble RPG7D/Fly NONE
+$rumble Explosion/Near HEAVY
+$rumble Explosion/Far MEDIUM
+
+// --- Mag drops / casings ---
+$rumble weapons/smallmagdrop SUBTLE
+$rumble weapons/largemagdrop SUBTLE
+$rumble Weapons/Casing SUBTLE
+$rumble Weapons/Shell SUBTLE
+$rumble Weapons/PistolClip SUBTLE
+$rumble Weapons/RifleClip SUBTLE
+$rumble Weapons/50CalCasing SUBTLE
+
+// --- Items / stim ---
+$rumble Items/StimInjector LIGHT
+$rumble Items/UseStimInjector MEDIUM
+$rumble Grenade/Pickup LIGHT
+$rumble Molotov/Pickup LIGHT
+$rumble Tokarev/Clip LIGHT
+$rumble Tokarev/Box LIGHT
+$rumble 12Gauge/Clip LIGHT
+$rumble 12Gauge/Box LIGHT
+$rumble AK/Clip LIGHT
+$rumble AK/Box LIGHT
+$rumble 762R/Clip LIGHT
+$rumble 762R/Box LIGHT
+$rumble RPG/Clip LIGHT
+$rumble Explosive/Box LIGHT
+
