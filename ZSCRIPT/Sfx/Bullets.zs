@@ -164,6 +164,90 @@ class CS_WeaponBase : DoomWeapon
         if (victim)
             CS_CombatDamageHandler.Schedule(victim, mo, mo, damage, 'Melee');
     }
+
+    // Kick-style camera / FOV / recoil for quick knife (User1) and NR-40 Fire.
+    action void A_CS_KnifeFeelWind()
+    {
+        A_SetAngle(angle - 0.5, SPF_INTERPOLATE);
+        A_SetPitch(pitch + 0.5, SPF_INTERPOLATE);
+        A_SetRoll(roll - 2);
+        if (player)
+            player.fov = player.desiredfov * 0.98;
+        A_WeaponOffset(-10, 6, WOF_ADD | WOF_INTERPOLATE);
+    }
+
+    action void A_CS_KnifeFeelStep(double fovMul)
+    {
+        A_SetAngle(angle - 0.5, SPF_INTERPOLATE);
+        A_SetPitch(pitch + 0.5, SPF_INTERPOLATE);
+        A_SetRoll(roll - 2);
+        if (player)
+            player.fov = player.desiredfov * fovMul;
+    }
+
+    action void A_CS_KnifeFeelCommit()
+    {
+        A_SetPitch(pitch + 1.25, SPF_INTERPOLATE);
+        if (player)
+            player.fov = player.desiredfov * 0.95;
+        A_Recoil(-1);
+        A_WeaponOffset(-6, 4, WOF_ADD | WOF_INTERPOLATE);
+    }
+
+    action void A_CS_KnifeFeelReturn(double fovMul)
+    {
+        A_SetAngle(angle + 0.75, SPF_INTERPOLATE);
+        A_SetPitch(pitch - 0.5, SPF_INTERPOLATE);
+        A_SetRoll(roll + 2);
+        if (player)
+            player.fov = player.desiredfov * fovMul;
+        A_WeaponOffset(6, -3, WOF_ADD | WOF_INTERPOLATE);
+    }
+
+    action void A_CS_KnifeFeelEnd()
+    {
+        A_SetAngle(angle + 0.5, SPF_INTERPOLATE);
+        A_SetPitch(pitch - 1.25, SPF_INTERPOLATE);
+        A_SetRoll(roll + 2);
+        if (player)
+            player.fov = player.desiredfov;
+        // Absolute reset — WOF_ADD shove must not leave the gun parked off-screen.
+        A_WeaponOffset(0, 32, WOF_INTERPOLATE);
+    }
+
+    action void A_KnifeLunge()
+    {
+        let ply = player;
+        if (!ply) return;
+
+        double range = 200;
+        double aimZ = ply.viewheight;
+        FLineTraceData lt;
+        LineTrace(angle, range, pitch, 0, aimZ, data:lt);
+        Actor victim = lt.hitActor;
+        for (int i = -6; i <= 6 && !victim; i++)
+        {
+            LineTrace(angle + (i * 8), range, pitch, 0, aimZ, data:lt);
+            victim = lt.hitActor;
+        }
+        if (victim && victim.bSHOOTABLE)
+        {
+            A_Face(victim);
+            if (victim.bSOLID)
+            {
+                double cosp = cos(pitch);
+                vel = (0,0,0);
+                vel += (cos(angle) * cosp, sin(angle) * cosp, -sin(pitch)) * 12;
+            }
+            Radius_Quake(2, 4, 0, 12, 0);
+        }
+        else
+        {
+            Radius_Quake(1, 3, 0, 8, 0);
+        }
+        A_CS_KnifeMelee(25, 78);
+        A_PlaySound("NR40/Swing", CHAN_WEAPON);
+    }
 }
 
 class PingTracer : FastProjectile
@@ -274,7 +358,7 @@ class Fort12Tracer : PingTracer
     Default
     {
         +NOEXTREMEDEATH;
-        Damage 10;
+        Damage 20;
         Speed 90;
         Scale 0.2;
     }
@@ -285,7 +369,7 @@ class PP19Tracer : PingTracer
     Default
     {
         +NOEXTREMEDEATH;
-        Damage 12;
+        Damage 22;
         Speed 100;
         Scale 0.2;
     }
@@ -296,7 +380,7 @@ class TT33Tracer : PingTracer
     Default
     {
         +NOEXTREMEDEATH;
-        Damage 13;
+        Damage 23;
         Speed 105;
         Scale 0.2;
     }
@@ -307,7 +391,7 @@ class PPSh41Tracer : PingTracer
     Default
     {
         +NOEXTREMEDEATH;
-        Damage 15;
+        Damage 25;
         Speed 105;
         Scale 0.2;
     }
@@ -318,7 +402,7 @@ class AK47Tracer : PingTracer
     Default
     {
         +NOEXTREMEDEATH;
-        Damage 22;
+        Damage 32;
         Speed 115;
         Scale 0.4;
     }
@@ -329,7 +413,7 @@ class SKSTracer : PingTracer
     Default
     {
         +NOEXTREMEDEATH;
-        Damage 25;
+        Damage 37;
         Speed 115;
         Scale 0.4;
     }
@@ -340,7 +424,7 @@ class ShotgunTracer : PingTracer
     Default
     {
         +NOEXTREMEDEATH;
-        Damage 14;
+        Damage 24;
         Speed 120;
         Scale 0.4;
     }
@@ -351,7 +435,7 @@ class KS23Tracer : PingTracer
     Default
     {
         +NOEXTREMEDEATH;
-        Damage 21;
+        Damage 31;
         Speed 115;
         Scale 0.4;
     }
@@ -362,7 +446,7 @@ class ASVALTracer : PingTracer
     Default
     {
         +NOEXTREMEDEATH;
-        Damage 21;
+        Damage 31;
         Speed 225;
         Scale 0.4;
     }
@@ -373,7 +457,7 @@ class GrozaTracer : PingTracer
     Default
     {
         +NOEXTREMEDEATH;
-        Damage 24;
+        Damage 34;
         Speed 225;
         Scale 0.4;
     }
@@ -383,7 +467,7 @@ class MosinNagantTracer : PingTracer
 {
     Default
     {
-        Damage 53;
+        Damage 68;
         Speed 200;
         Scale 0.6;
     }
@@ -393,7 +477,7 @@ class SVDTracer : PingTracer
 {
     Default
     {
-        Damage 42;
+        Damage 52;
         Speed 200;
         Scale 0.6;
     }
@@ -403,7 +487,7 @@ class RP46Tracer : PingTracer
 {
     Default
     {
-        Damage 50;
+        Damage 60;
         Speed 200;
         Scale 0.6;
     }
@@ -416,7 +500,7 @@ class DutyPPSh41Tracer : PingTracer
     {
         +NOEXTREMEDEATH;
         DamageType "Duty";
-        Damage 13;
+        Damage 23;
         Speed 100;
         Scale 0.3;
     }
@@ -428,7 +512,7 @@ class DutyPP19Tracer : PingTracer
     {
         +NOEXTREMEDEATH;
         DamageType "Duty";
-        Damage 10;
+        Damage 20;
         Speed 95;
         Scale 0.2;
     }
@@ -440,7 +524,7 @@ class DutyAK47Tracer : PingTracer
     {
         +NOEXTREMEDEATH;
         DamageType "Duty";
-        Damage 18;
+        Damage 28;
         Speed 110;
         Scale 0.4;
     }
@@ -452,7 +536,7 @@ class DutyASVALTracer : PingTracer
     {
         +NOEXTREMEDEATH;
         DamageType "Duty";
-        Damage 17;
+        Damage 27;
         Speed 225;
         Scale 0.4;
     }
@@ -464,7 +548,7 @@ class DutyGrozaTracer : PingTracer
     {
         +NOEXTREMEDEATH;
         DamageType "Duty";
-        Damage 21;
+        Damage 31;
         Speed 225;
         Scale 0.4;
     }

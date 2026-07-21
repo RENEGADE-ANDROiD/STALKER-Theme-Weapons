@@ -57,37 +57,9 @@ class ClearSkyWeapon : CS_WeaponBase
     }
 
     // ------------------------------------------------------------------------
-    // Quick melee (NR-40 knife)
+    // Instant mag fill / equipment helpers continue below.
+    // (Knife feel + A_KnifeLunge live on CS_WeaponBase so NR-40 inherits too.)
     // ------------------------------------------------------------------------
-    action void A_KnifeLunge()
-    {
-        let ply = player;
-        if (!ply) return;
-
-        double range = 200;
-        double aimZ = ply.viewheight;
-        FLineTraceData lt;
-        LineTrace(angle, range, pitch, 0, aimZ, data:lt);
-        Actor victim = lt.hitActor;
-        for (int i = -6; i <= 6 && !victim; i++)
-        {
-            LineTrace(angle + (i * 8), range, pitch, 0, aimZ, data:lt);
-            victim = lt.hitActor;
-        }
-        if (victim && victim.bSHOOTABLE)
-        {
-            A_Face(victim);
-            if (victim.bSOLID)
-            {
-                double cosp = cos(pitch);
-                vel = (0,0,0);
-                vel += (cos(angle) * cosp, sin(angle) * cosp, -sin(pitch)) * 12;
-            }
-        }
-        A_CS_KnifeMelee(25, 78);
-        A_PlaySound("NR40/Swing", CHAN_WEAPON);
-    }
-
     action void A_ReadyWithMelee()
     {
         A_WeaponReady(WRF_ALLOWUSER1);
@@ -116,6 +88,20 @@ class ClearSkyWeapon : CS_WeaponBase
 
         TakeInventory(reserveType, take, TIF_NOTAKEINFINITE);
         GiveInventory(magType, take);
+    }
+
+    // Goto on ClearSkyWeapon is STATIC — it always lands on this class's TNT1
+    // RealReady/Ready, ignoring child firearm labels. ResolveState is dynamic.
+    action state A_CS_GotoRealReady()
+    {
+        State st = ResolveState("RealReady");
+        if (st) return st;
+        return ResolveState("Ready");
+    }
+
+    action state A_CS_GotoAfterUse()
+    {
+        return ResolveState("AfterUse");
     }
 
     // Remember ReadyWeapon before stim so AfterUse can re-select / re-raise it.
@@ -172,30 +158,31 @@ class ClearSkyWeapon : CS_WeaponBase
     CS_CheckMolUse:
         TNT1 A 0 A_JumpIfInventory("MolotovItem", 1, "UseMolotovState");
         TNT1 A 0 A_TakeInventory("UseMolotov", 1);
-        Goto RealReady;
+        TNT1 A 0 A_CS_GotoRealReady();
 
     CS_CheckF1Use:
         TNT1 A 0 A_JumpIfInventory("F1GrenadeItem", 1, "UseF1GrenadeState");
         TNT1 A 0 A_TakeInventory("UseF1Grenade", 1);
-        Goto RealReady;
+        TNT1 A 0 A_CS_GotoRealReady();
 
     CS_CheckStimUse:
         TNT1 A 0 A_JumpIfInventory("StimInjectorItem", 1, "CS_CheckStimHealth");
         TNT1 A 0 A_TakeInventory("UseStimInjector", 1);
-        Goto RealReady;
+        TNT1 A 0 A_CS_GotoRealReady();
 
     CS_CheckStimHealth:
-        TNT1 A 0 A_JumpIf(health >= 100, "CS_StimFull");
+        TNT1 A 0 A_JumpIf(health >= GetMaxHealth(), "CS_StimFull");
         TNT1 A 0 A_CS_SaveReadyWeapon();
         Goto UseInjectorState;
 
     CS_StimFull:
+        TNT1 A 0 A_Print("Your health is full", 1);
         TNT1 A 0 A_TakeInventory("UseStimInjector", 1);
-        Goto RealReady;
+        TNT1 A 0 A_CS_GotoRealReady();
 
     CS_StimDone:
         TNT1 A 0 A_CS_RestoreReadyWeapon();
-        Goto AfterUse;
+        TNT1 A 0 A_CS_GotoAfterUse();
 
     Select:
         TNT1 A 0 A_Raise();
@@ -207,26 +194,27 @@ class ClearSkyWeapon : CS_WeaponBase
 
     Fire:
         TNT1 A 1;
-        Goto Ready;
+        TNT1 A 0 A_CS_GotoRealReady();
 
     User1:
         TNT1 A 0 A_PlaySound("NR40/Swing", CHAN_WEAPON);
-        NR40 A 1;
-        NR40 H 1;
-        NR40 B 1;
-        NR40 C 1;
-        NR40 D 1;
+        NR40 A 1 A_CS_KnifeFeelWind();
+        NR40 H 1 A_CS_KnifeFeelStep(0.970);
+        NR40 B 1 A_CS_KnifeFeelStep(0.965);
+        NR40 C 1 A_CS_KnifeFeelStep(0.955);
+        NR40 D 1 A_CS_KnifeFeelCommit();
         NR40 E 1 A_KnifeLunge();
-        NR40 F 1;
-        NR40 G 1;
-        NR40 H 1;
-        Goto Ready;
+        NR40 F 1 A_CS_KnifeFeelReturn(0.975);
+        NR40 G 1 A_CS_KnifeFeelReturn(0.990);
+        NR40 H 1 A_CS_KnifeFeelEnd();
+        // Dynamic jump — static Goto RealReady stays on ClearSkyWeapon's blank TNT1.
+        TNT1 A 0 A_CS_GotoRealReady();
 
     // F-1 Grenade
     UseF1GrenadeState:
         TNT1 A 0 A_JumpIfInventory("F1GrenadeItem", 1, "UseF1GrenadeState.Go");
         TNT1 A 0 A_TakeInventory("UseF1Grenade", 1);
-        Goto RealReady;
+        TNT1 A 0 A_CS_GotoRealReady();
 
     UseF1GrenadeState.Go:
         TNT1 A 0 A_PlaySound("weapon/down", 8);
@@ -240,13 +228,13 @@ class ClearSkyWeapon : CS_WeaponBase
         HNGR C 1 A_FireCustomMissile("F1Grenade", random(-2,2), 0, 0, 0, 0, 0);
         HNGR DF 1;
         TNT1 A 4;
-        Goto AfterUse;
+        TNT1 A 0 A_CS_GotoAfterUse();
 
     // Molotov Cocktail
     UseMolotovState:
         TNT1 A 0 A_JumpIfInventory("MolotovItem", 1, "UseMolotovState.Go");
         TNT1 A 0 A_TakeInventory("UseMolotov", 1);
-        Goto RealReady;
+        TNT1 A 0 A_CS_GotoRealReady();
 
     UseMolotovState.Go:
         TNT1 A 0 A_PlaySound("weapon/down", 8);
@@ -260,7 +248,7 @@ class ClearSkyWeapon : CS_WeaponBase
         HNGR C 1 A_FireCustomMissile("MolotovCocktail", random(-2,2), 0, 0, 0, 0, 0);
         HNGR DF 1;
         TNT1 A 4;
-        Goto AfterUse;
+        TNT1 A 0 A_CS_GotoAfterUse();
 
     // Stim Injector
     UseInjectorState:
@@ -273,10 +261,13 @@ class ClearSkyWeapon : CS_WeaponBase
         HLN1 I 9;
         HLN1 JKL 1;
         TNT1 A 0 A_TakeInventory("UseStimInjector", 1);
+        TNT1 A 0 A_TakeInventory("StimInjectorItem", 1);
         TNT1 A 0 A_PlaySound("Items/UseStimInjector", 5);
         TNT1 A 0 A_PlaySound("*pain100", 6);
         TNT1 A 0 A_SetBlend("White", 0.5, 35);
-        TNT1 A 0 A_GiveInventory("StimInjectorHealthGiver", 1);
+        // Direct heal — PowerRegeneration giver was unreliable / easy to miss.
+        TNT1 A 0 { GiveBody(40); }
+        TNT1 A 0 A_SpawnItemEx("StimInjectorBurst", 0, 0, 32, 0, 0, 0, 0, SXF_NOCHECKPOSITION | SXF_CLIENTSIDE);
         HLN1 MNMNOPOP 1;
         HLN1 P 14;
         HLN1 QRSTUVW 1;
@@ -284,6 +275,6 @@ class ClearSkyWeapon : CS_WeaponBase
 
     AfterUse:
         TNT1 A 0 A_PlaySound("weapon/up", 9);
-        Goto Ready;
+        TNT1 A 0 A_CS_GotoRealReady();
     }
 }

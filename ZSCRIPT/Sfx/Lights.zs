@@ -38,7 +38,7 @@ class YellowLampLensFlare : FlareBase
     States
     {
     Spawn:
-        LEYS A 5 Bright;
+        CLYS A 5 Bright;
         Stop;
     }
 }
@@ -75,10 +75,10 @@ class YellowBarrelLensFlare : FlareBase
     Spawn:
         TNT1 A 0;
         TNT1 A 0 A_Jump(128, 2);
-        LENY A 2 Bright;
+        CLNY A 2 Bright;
         Stop;
         TNT1 A 0;
-        LENY B 2 Bright;
+        CLNY B 2 Bright;
         Stop;
     }
 }
@@ -110,10 +110,10 @@ class WeaponRedFlare : FlareBase
     Spawn:
         TNT1 A 0;
         TNT1 A 0 A_Jump(128, 2);
-        LENR A 2 Bright;
+        CLNR A 2 Bright;
         Stop;
         TNT1 A 0;
-        LENR B 2 Bright;
+        CLNR B 2 Bright;
         Stop;
     }
 }
@@ -169,10 +169,45 @@ class ASVALRedFlare : FlareBase
     Spawn:
         TNT1 A 0;
         TNT1 A 0 A_Jump(128, 2);
-        LENR A 2 Bright;
+        LENB A 2 Bright;
         Stop;
         TNT1 A 0;
-        LENR B 2 Bright;
+        LENB B 2 Bright;
+        Stop;
+    }
+}
+
+class WeaponBlueFlareSpawn : Actor
+{
+    Default
+    {
+        Speed 20;
+        Projectile;
+        +NOCLIP;
+    }
+    States
+    {
+    Spawn:
+        TNT1 AA 1 A_CustomMissile("WeaponBlueFlare", -5, 0, -85, 0, random(-10, 10));
+        Stop;
+    }
+}
+
+class WeaponBlueFlare : FlareBase
+{
+    Default
+    {
+        Scale 0.10;
+    }
+    States
+    {
+    Spawn:
+        TNT1 A 0;
+        TNT1 A 0 A_Jump(128, 2);
+        LENB A 2 Bright;
+        Stop;
+        TNT1 A 0;
+        LENB B 2 Bright;
         Stop;
     }
 }

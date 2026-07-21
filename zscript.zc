@@ -12,7 +12,6 @@ version "4.13.0"
 
 //Decorations
 #include "ZSCRIPT/Decorations/Ambience.zs"
-#include "ZSCRIPT/Decorations/Barrels.zs"
 #include "ZSCRIPT/Decorations/Lamps.zs"
 
 ////Items
@@ -49,6 +48,14 @@ version "4.13.0"
 
 // Infection growths (after SEM FX / poison giver for spore burst)
 #include "ZSCRIPT/Decorations/Infection.zs"
+#include "ZSCRIPT/Decorations/Anomalies.zs"
+
+// Universal Kick (Mickromash) — kick / crouch-slide / ledge / legs / taunt
+#include "ZSCRIPT/MR_UKick/Handler.zs"
+#include "ZSCRIPT/MR_UKick/KickBase.zsc"
+#include "ZSCRIPT/MR_UKick/Legs.zsc"
+#include "ZSCRIPT/MR_UKick/LedgeBase.zsc"
+#include "ZSCRIPT/MR_UKick/Fuk.zsc"
 
 class StepEventHandler : EventHandler
 {

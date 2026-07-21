@@ -69,11 +69,12 @@ class SEM_ChemicalPoisonBase : Powerup
 	override void DoEffect()
 	{
 		Super.DoEffect();
-		if (!Owner || level.time % 35 != 0)
+		Actor own = Owner;
+		if (!own || own.health <= 0 || level.time % 35 != 0)
 			return;
-		if (SEM_Static.OwnerResistsChemical(Owner))
+		if (SEM_Static.OwnerResistsChemical(own))
 			return;
-		Owner.A_DamageSelf(2, "sem_Chemical", flags: 0);
+		own.A_DamageSelf(2, "sem_Chemical", flags: 0);
 	}
 }
 
@@ -100,11 +101,15 @@ class SEM_PsiShockBase : Powerup
 	override void DoEffect()
 	{
 		Super.DoEffect();
-		if (!Owner || level.time % 8 != 0)
+		// Local copy + shake before damage: A_DamageSelf can kill the pawn and
+		// clear Owner mid-DoEffect (null deref on Angle/Pitch under BiasedDoom).
+		Actor own = Owner;
+		if (!own || own.health <= 0 || level.time % 8 != 0)
 			return;
-		Owner.A_DamageSelf(1, "sem_Psi", flags: 0);
-		Owner.Angle += frandom(-1.5, 1.5);
-		Owner.Pitch = clamp(Owner.Pitch + frandom(-0.8, 0.8), -60, 60);
+		own.Angle += frandom(-1.5, 1.5);
+		own.Pitch = clamp(own.Pitch + frandom(-0.8, 0.8), -60, 60);
+		if (own.health > 0)
+			own.A_DamageSelf(1, "sem_Psi", flags: 0);
 	}
 }
 

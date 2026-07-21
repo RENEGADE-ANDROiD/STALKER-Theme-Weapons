@@ -1,4 +1,4 @@
-// Zone infection growths — sprout on map corpses; shootable; pop into spore / acid pool.
+// Zone infection growths — floor pods on corpses; ceiling hangers for CEGG / FPOD B / VEIN B–C.
 
 class CS_InfectionGrowth : Actor abstract
 {
@@ -7,14 +7,17 @@ class CS_InfectionGrowth : Actor abstract
         +SHOOTABLE;
         +NOBLOOD;
         +DONTTHRUST;
-        +FORCEYBILLBOARD;
+        // Floor art sits on the corpse plane.
+        +FLATSPRITE;
+        -FORCEYBILLBOARD;
+        -FORCEXYBILLBOARD;
         +MOVEWITHSECTOR;
         +FLOORCLIP;
         -SOLID;
         -COUNTKILL;
         -ISMONSTER;
         Radius 12;
-        Height 16;
+        Height 8;
         Mass 500;
         Health 12;
         Scale 0.55;
@@ -22,7 +25,7 @@ class CS_InfectionGrowth : Actor abstract
         Obituary "%o was choked by anomalous spores.";
     }
 
-    // Chance-spawn a random growth offset on a corpse (map DeadMarine bodies / DeadZombieman, etc.).
+    // Floor-only kinds — never CEGG / FPOD B / VEIN B–C (those hang from ceilings).
     static void TryAttachToCorpse(Actor corpse)
     {
         if (!corpse) return;
@@ -34,7 +37,6 @@ class CS_InfectionGrowth : Actor abstract
         if (frandom[cs_inf](0.0, 1.0) >= chance) return;
 
         static const class<Actor> kinds[] = {
-            "CS_InfectionEgg",
             "CS_InfectionFleshEgg",
             "CS_InfectionFloorPod",
             "CS_InfectionVein"
@@ -43,15 +45,18 @@ class CS_InfectionGrowth : Actor abstract
         class<Actor> cls = kinds[random[cs_inf](0, kinds.Size() - 1)];
         double dist = frandom[cs_inf](6.0, 22.0);
         double ang = frandom[cs_inf](0.0, 360.0);
+        double zOff = max(0.0, corpse.Height * 0.15);
         Vector3 pos = corpse.Vec3Offset(
             cos(ang) * dist,
             sin(ang) * dist,
-            frandom[cs_inf](0.0, 10.0));
+            zOff);
 
         Actor growth = Spawn(cls, pos, ALLOW_REPLACE);
         if (growth)
         {
             growth.Angle = frandom[cs_inf](0.0, 360.0);
+            growth.Pitch = 0;
+            growth.Roll = 0;
             growth.Scale.X *= frandom[cs_inf](0.85, 1.15);
             growth.Scale.Y = growth.Scale.X;
         }
@@ -75,33 +80,58 @@ class CS_InfectionGrowth : Actor abstract
     }
 }
 
-class CS_InfectionEgg : CS_InfectionGrowth
+// Ceiling hangers — CEGG / FPOD B / VEIN B–C. Never used by corpse floor attach.
+class CS_InfectionCeilingGrowth : Actor abstract
 {
     Default
     {
-        Radius 14;
-        Height 20;
-        Health 14;
+        +SHOOTABLE;
+        +NOBLOOD;
+        +DONTTHRUST;
+        +SPAWNCEILING;
+        +NOGRAVITY;
+        +MOVEWITHSECTOR;
+        +FORCEYBILLBOARD;
+        -FLATSPRITE;
+        -FLOORCLIP;
+        -SOLID;
+        -COUNTKILL;
+        -ISMONSTER;
+        Radius 12;
+        Height 24;
+        Mass 500;
+        Health 12;
         Scale 0.6;
+        DeathSound "Roach/Squish";
+        Obituary "%o was choked by anomalous spores.";
     }
-    States
+
+    void A_CS_InfectionBurst()
     {
-    Spawn:
-        CEGG ABCD 4;
-        Loop;
-    Death:
-        CEGG A 0 A_CS_InfectionBurst();
-        TNT1 A 1;
-        Stop;
+        A_NoBlocking();
+        A_Scream();
+        A_SpawnItemEx("CS_InfectionSporeCloud", 0, 0, -8, 0, 0, 0, 0, SXF_NOCHECKPOSITION);
+        A_SpawnItemEx("CS_InfectionAcidPuddle", 0, 0, 0, 0, 0, 0, 0, SXF_NOCHECKPOSITION);
+        A_SpawnItemEx("CS_GrowingAcidPool", 0, 0, 0, 0, 0, 0, 0, SXF_NOCHECKPOSITION);
+        A_SpawnItemEx("MeatBloodSpotGreen", 0, 0, 0, 0, 0, 0, 0, SXF_NOCHECKPOSITION);
+
+        for (int i = 0; i < 4; i++)
+            A_CustomMissile("GreenSmoke", -8, 0, random(0, 360), 2, random(-120, -40));
+        for (int i = 0; i < 6; i++)
+            A_CustomMissile("GreenBlood", -10, 0, random(0, 360), 2, random(-70, -10));
+        for (int i = 0; i < 3; i++)
+            A_CustomMissile("XDeath2Green", -12, 0, random(0, 360), 2, random(-80, -20));
     }
 }
+
+// ---- Floor (corpse decorate) ----
 
 class CS_InfectionFleshEgg : CS_InfectionGrowth
 {
     Default
     {
         Radius 14;
-        Height 20;
+        Height 8;
         Health 14;
         Scale 0.6;
     }
@@ -122,14 +152,15 @@ class CS_InfectionFloorPod : CS_InfectionGrowth
     Default
     {
         Radius 10;
-        Height 12;
+        Height 6;
         Health 10;
         Scale 0.5;
     }
     States
     {
     Spawn:
-        FPOD AB 5;
+        // FPOD B is the ceiling hanger frame — floor uses A only.
+        FPOD A 5;
         Loop;
     Death:
         FPOD A 0 A_CS_InfectionBurst();
@@ -143,14 +174,15 @@ class CS_InfectionVein : CS_InfectionGrowth
     Default
     {
         Radius 10;
-        Height 18;
+        Height 6;
         Health 8;
         Scale 0.7;
     }
     States
     {
     Spawn:
-        VEIN ABC 5;
+        // VEIN B/C are ceiling hangers — floor uses A only.
+        VEIN A 5;
         Loop;
     Death:
         VEIN A 0 A_CS_InfectionBurst();
@@ -159,15 +191,95 @@ class CS_InfectionVein : CS_InfectionGrowth
     }
 }
 
-// Manual / editor placement (also used if you summon a random growth).
+// ---- Ceiling decorate (CEGG / FPOD B / VEIN B–C) ----
+
+class CS_InfectionCeilingEgg : CS_InfectionCeilingGrowth
+{
+    Default
+    {
+        Radius 14;
+        Height 28;
+        Health 14;
+        Scale 0.65;
+    }
+    States
+    {
+    Spawn:
+        CEGG ABCD 4;
+        Loop;
+    Death:
+        CEGG A 0 A_CS_InfectionBurst();
+        TNT1 A 1;
+        Stop;
+    }
+}
+
+// Alias so old summons / editors still resolve (ceiling only — not in corpse pool).
+class CS_InfectionEgg : CS_InfectionCeilingEgg {}
+
+class CS_InfectionCeilingPod : CS_InfectionCeilingGrowth
+{
+    Default
+    {
+        Radius 10;
+        Height 22;
+        Health 10;
+        Scale 0.55;
+    }
+    States
+    {
+    Spawn:
+        FPOD B 5;
+        Loop;
+    Death:
+        FPOD B 0 A_CS_InfectionBurst();
+        TNT1 A 1;
+        Stop;
+    }
+}
+
+class CS_InfectionCeilingVein : CS_InfectionCeilingGrowth
+{
+    Default
+    {
+        Radius 10;
+        Height 26;
+        Health 8;
+        Scale 0.75;
+    }
+    States
+    {
+    Spawn:
+        VEIN BC 5;
+        Loop;
+    Death:
+        VEIN B 0 A_CS_InfectionBurst();
+        TNT1 A 1;
+        Stop;
+    }
+}
+
+// Manual / editor placement — floor kinds only.
 class CS_InfectionRandom : RandomSpawner
 {
     Default
     {
-        DropItem "CS_InfectionEgg", 255, 3;
-        DropItem "CS_InfectionFleshEgg", 255, 3;
+        DropItem "CS_InfectionFleshEgg", 255, 4;
         DropItem "CS_InfectionFloorPod", 255, 4;
         DropItem "CS_InfectionVein", 255, 3;
+    }
+}
+
+// Manual / editor placement — ceiling hangers (SPAWNCEILING via DropItem actors).
+class CS_InfectionCeilingRandom : RandomSpawner
+{
+    Default
+    {
+        +SPAWNCEILING;
+        +NOGRAVITY;
+        DropItem "CS_InfectionCeilingEgg", 255, 3;
+        DropItem "CS_InfectionCeilingPod", 255, 3;
+        DropItem "CS_InfectionCeilingVein", 255, 3;
     }
 }
 
@@ -243,7 +355,7 @@ class CS_GrowingAcidPool : GrowingBloodPool
     }
 }
 
-// Sprout infection pods on map corpses without replacing the body.
+// Sprout floor infection pods on map corpses without replacing the body.
 class CS_InfectionCorpseHandler : EventHandler
 {
     override void WorldThingSpawned(WorldEvent e)

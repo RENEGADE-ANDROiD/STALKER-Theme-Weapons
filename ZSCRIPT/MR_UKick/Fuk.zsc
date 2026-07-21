@@ -1,0 +1,40 @@
+// STALKER fold of UniversalKick taunt gesture — FUCK* sprites only, no taunt SFX.
+Class MR_FukToken : CustomInventory
+{
+	Bool Wait;
+	Default
+	{
+		Inventory.MaxAmount 1;
+		+INVENTORY.UNDROPPABLE
+		+INVENTORY.UNTOSSABLE
+	}
+	States
+	{
+	Use:
+		TNT1 A 0
+		{
+			if (!invoker.Wait)
+			{
+				A_OverLay(1093, "MR_Taunt");
+				A_OverlayOffset(1093, 5, 62);
+				invoker.Wait = True;
+			}
+		}
+		Fail;
+	Pickup:
+		TNT1 A 0 { return true; }
+		Stop;
+	MR_Taunt:
+		FUCK A 0;
+		#### A 0 A_AlertMonsters(1200);
+		#### BBBB 1 A_OverlayOffset(1093, 4, -6, WOF_INTERPOLATE|WOF_ADD);
+		#### CDDD 3 { A_AlertMonsters(1200); A_OverlayOffset(1093, 15, 32); }
+		#### DDEEE 1 A_OverlayOffset(1093, 1, 2, WOF_INTERPOLATE|WOF_ADD);
+		#### FF 1 A_OverlayOffset(1093, 2, 4, WOF_INTERPOLATE|WOF_ADD);
+		#### FGGGGGGG 1 A_OverlayOffset(1093, 3, 5, WOF_INTERPOLATE|WOF_ADD);
+		#### GGGG 1 A_OverlayOffset(1093, 2, 4, WOF_INTERPOLATE|WOF_ADD);
+		TNT1 A 2;
+		#### # 0 { invoker.Wait = False; }
+		Stop;
+	}
+}

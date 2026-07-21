@@ -5,7 +5,6 @@ class ShotgunParticles : Actor
         Speed 15;
         Radius 8;
         Height 1;
-        Gravity 0.6;
         RenderStyle "Add";
         Alpha 0.9;
         Scale 0.01;
@@ -16,17 +15,24 @@ class ShotgunParticles : Actor
         +CLIENTSIDEONLY;
         +THRUACTORS;
         +GHOST;
-        -NOGRAVITY;
+        +NOGRAVITY;
         +THRUGHOST;
         +NOTELEPORT;
     }
     States
     {
     Spawn:
-        SPKO A 2;
-        SPKO AAAA 1 Bright A_FadeOut(0.02);
-        SPKO A 0 A_ChangeFlag("NOGRAVITY", false);
-        SPKO AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA 1 Bright A_FadeOut(0.04);
+        TNT1 A 0 NoDelay A_Jump(64, "Blue", "Green");
+        CSKO A 2 Bright;
+        CSKO AAAA 1 Bright A_FadeOut(0.15);
+        Stop;
+    Blue:
+        CSKB A 2 Bright;
+        CSKB AAAA 1 Bright A_FadeOut(0.15);
+        Stop;
+    Green:
+        SPKG A 2 Bright;
+        SPKG AAAA 1 Bright A_FadeOut(0.15);
         Stop;
     Death:
         TNT1 A 0;
@@ -39,7 +45,6 @@ class ShotgunParticles2 : ShotgunParticles
     Default
     {
         Speed 10;
-        Gravity 0.5;
         Alpha 0.9;
         Scale 0.01;
     }
@@ -52,29 +57,25 @@ class ExplosionParticleHeavy : Actor
         Speed 11;
         Radius 8;
         Height 1;
-        Gravity 0.42;
         RenderStyle "Add";
         Alpha 0.88;
         Scale 0.07;
         +MISSILE;
         +NOTELEPORT;
         +NOBLOCKMAP;
-        +RIPPER;
         +BLOODLESSIMPACT;
         +FORCEXYBILLBOARD;
         +CLIENTSIDEONLY;
-        BounceType "Doom";
-        +BOUNCEONWALLS;
-        +BOUNCEONCEILINGS;
         +DONTSPLASH;
         +THRUACTORS;
         +GHOST;
-        BounceFactor 0.01;
+        +NOGRAVITY;
+        +NOINTERACTION;
     }
     States
     {
     Spawn:
-        SPKO AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA 1 Bright A_FadeOut(0.02);
+        CSKO AAAAAAAA 1 Bright A_FadeOut(0.1);
         Stop;
     Death:
         Stop;
@@ -86,17 +87,12 @@ class ExplosionParticleVeryFast : ExplosionParticleHeavy
     Default
     {
         Speed 22;
-        Gravity 0.8;
         Scale 0.09;
     }
 }
 
 class ExplosionParticleWithSmoke : ExplosionParticleHeavy
 {
-    Default
-    {
-        BounceFactor 0.4;
-    }
     States
     {
     Spawn:
@@ -104,20 +100,15 @@ class ExplosionParticleWithSmoke : ExplosionParticleHeavy
         Goto Fly;
     Fly:
         TNT1 A 0 A_SpawnItemEx("ShotSmoke", flags:SXF_CLIENTSIDE);
-        SPKO A 1 Bright;
-        Loop;
+        CSKO AAAA 1 Bright A_FadeOut(0.2);
+        Stop;
     Death:
-        SPKO AAAAAAAAAAAAA 1 A_SpawnItemEx("ShotSmoke", flags:SXF_CLIENTSIDE);
         Stop;
     }
 }
 
 class ExplosionParticleWithFire : ExplosionParticleHeavy
 {
-    Default
-    {
-        BounceFactor 0.4;
-    }
     States
     {
     Spawn:
@@ -125,10 +116,9 @@ class ExplosionParticleWithFire : ExplosionParticleHeavy
         Goto Fly;
     Fly:
         TNT1 A 0 A_SpawnItemEx("SmallFlameTrails", flags:SXF_CLIENTSIDE);
-        SPKO A 1 Bright;
-        Loop;
+        CSKO AAAA 1 Bright A_FadeOut(0.2);
+        Stop;
     Death:
-        SPKO AAAAAAAAAAAAA 1 A_SpawnItemEx("SmallFlameTrails", flags:SXF_CLIENTSIDE);
         Stop;
     }
 }
@@ -138,24 +128,28 @@ class PixelDebris : Actor
     Default
     {
         +MISSILE;
-        +FLOORCLIP;
+        +NOGRAVITY;
+        +NOINTERACTION;
         +DONTSPLASH;
         +NOTELEPORT;
-        +BOUNCELIKEHERETIC;
+        +FORCEXYBILLBOARD;
+        +CLIENTSIDEONLY;
         Health 4;
         Radius 2;
         Height 3;
         Speed 5;
         Scale 0.1;
         Mass 1;
+        RenderStyle "Add";
     }
     States
     {
     Spawn:
-        WPPX A 1;
-        Loop;
+        WPPX AA 1 Bright;
+        WPPX AA 1 Bright A_FadeOut(0.3);
+        Stop;
     Death:
-        WPPX A 175 A_FadeOut(0.005);
+        TNT1 A 0;
         Stop;
     }
 }
@@ -173,19 +167,30 @@ class PingPuff : Actor
         Scale 0.01;
         Mass 0;
         +MISSILE;
-        BounceType "Doom";
-        +FLOORCLIP;
+        +NOGRAVITY;
+        +NOINTERACTION;
         +DONTSPLASH;
         +NOTELEPORT;
+        +FORCEXYBILLBOARD;
+        +CLIENTSIDEONLY;
     }
     States
     {
     Spawn:
-        SPKO A 1;
-        SPKO AAAAA 1 Bright A_SetTranslucent(0.8);
-        SPKO AAAAAA 1 Bright A_SetTranslucent(0.6);
-        SPKO AAAAAAAA 1 Bright A_SetTranslucent(0.4);
-        SPKO AAAAAAAAAA 1 Bright A_SetTranslucent(0.2);
+        TNT1 A 0 NoDelay A_Jump(48, "Blue", "Green");
+        CSKO A 1 Bright;
+        CSKO AA 1 Bright A_SetTranslucent(0.7);
+        CSKO AA 1 Bright A_SetTranslucent(0.35);
+        Stop;
+    Blue:
+        CSKB A 1 Bright;
+        CSKB AA 1 Bright A_SetTranslucent(0.7);
+        CSKB AA 1 Bright A_SetTranslucent(0.35);
+        Stop;
+    Green:
+        SPKG A 1 Bright;
+        SPKG AA 1 Bright A_SetTranslucent(0.7);
+        SPKG AA 1 Bright A_SetTranslucent(0.35);
         Stop;
     }
 }
@@ -219,7 +224,7 @@ class ExplosionShrapnel : Actor
         TNT1 A 0 A_SetScale(-0.8, 0.8);
         Goto Live;
     Live:
-        SPKS ABCDEFGHI 1 Bright;
+        CSKS ABCDEFGHI 1 Bright;
         Stop;
     }
 }
@@ -246,9 +251,9 @@ class ExplosionShrapnel2 : ExplosionShrapnel
         TNT1 A 0 A_SetScale(-0.8, 0.8);
         Goto Live;
     Live:
-        SPKS JKLMN 1 Bright;
-        SPKS O 35 Bright;
-        SPKS OOOOOOOOOO 1 Bright A_FadeOut(0.1);
+        CSKS JKLMN 1 Bright;
+        CSKS O 35 Bright;
+        CSKS OOOOOOOOOO 1 Bright A_FadeOut(0.1);
         Stop;
     }
 }
@@ -316,10 +321,6 @@ class MetalShard3 : MetalShard1
 
 class NapalmParticle : ExplosionParticleHeavy
 {
-    Default
-    {
-        BounceFactor 0.4;
-    }
     States
     {
     Spawn:
@@ -327,10 +328,9 @@ class NapalmParticle : ExplosionParticleHeavy
         Goto Fly;
     Fly:
         TNT1 A 0 A_SpawnItemEx("SmallBurnParticles", flags:SXF_CLIENTSIDE);
-        TNT1 A 1 Bright;
-        Loop;
+        TNT1 AAAA 1 Bright A_FadeOut(0.2);
+        Stop;
     Death:
-        TNT1 AAAAAAAAAAAAA 1 A_SpawnItemEx("SmallBurnParticles", flags:SXF_CLIENTSIDE);
         Stop;
     }
 }

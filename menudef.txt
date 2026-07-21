@@ -10,7 +10,8 @@ AddOptionMenu "OptionsMenu"
 OptionMenu "CS_STALKEROptions"
 {
 	Title "$CS_STALKER_OPTIONS"
-	StaticText "$CS_STALKER_OPTIONS_HINT", "Teal"
+	StaticText "$CS_STALKER_OPTIONS_HINT1", "Teal"
+	StaticText "$CS_STALKER_OPTIONS_HINT2", "Teal"
 	StaticText " "
 
 	StaticText "$CS_SEC_DISPLAY", "Gold"
@@ -39,7 +40,8 @@ OptionMenu "CS_GasMaskMenu"
 {
 	Title "$CS_GASMASK_MENU"
 	Option "$CS_GASMASK_OPT", "cs_gasmask", "OnOff"
-	StaticText "$CS_GASMASK_HINT", "Teal"
+	StaticText "$CS_GASMASK_HINT1", "Teal"
+	StaticText "$CS_GASMASK_HINT2", "Teal"
 	StaticText " "
 	Slider "$CS_GASMASK_ALPHA_OPT", "cs_gasmask_alpha", 0.25, 1.0, 0.05, 2
 	StaticText "$CS_GASMASK_ALPHA_HINT", "Teal"
@@ -48,7 +50,8 @@ OptionMenu "CS_GasMaskMenu"
 OptionMenu "SWAYMenu"
 {
 	Title "$HUD_SWAYING_OPTIONS"
-	StaticText "$HUD_SWAYING_HINT", "Teal"
+	StaticText "$HUD_SWAYING_HINT1", "Teal"
+	StaticText "$HUD_SWAYING_HINT2", "Teal"
 	StaticText " "
 	Slider "$HUD_SWAY_Y", "sv_sway_Yspeed", 0, 0.005, 0.0001, 4
 	Slider "$HUD_SWAY_X", "sv_sway_Xspeed", 0, 0.005, 0.0001, 4
@@ -62,14 +65,15 @@ OptionMenu "SWAYMenu"
 OptionMenu "TiltPlusPlusMenu"
 {
 	Title "$TILTPLUSPLUSMNU_TITLE"
-	StaticText "$TILTPLUSPLUSMNU_HINT", "Teal"
+	StaticText "$TILTPLUSPLUSMNU_HINT1", "Teal"
+	StaticText "$TILTPLUSPLUSMNU_HINT2", "Teal"
 	StaticText " "
 
 	StaticText "$TILTPLUSPLUSMNU_STRAFETILT_TITLE", "Gold"
 	Option "$TILTPLUSPLUSMNU_ENABLED", "sv_strafetilt", "YesNo"
 	Option "$TILTPLUSPLUSMNU_INVERT", "sv_strafetiltinvert", "YesNo"
 	Slider "$TILTPLUSPLUSMNU_SPEED", "sv_strafetiltspeed", 0.1, 2.0, 0.01, 2
-	Slider "$TILTPLUSPLUSMNU_ANGLE", "sv_strafetiltangle", 0.1, 1.0, 0.01, 2
+	Slider "$TILTPLUSPLUSMNU_ANGLE", "sv_strafetiltangle", 0.1, 1.5, 0.01, 2
 	StaticText " "
 
 	StaticText "$TILTPLUSPLUSMNU_MOVETILT_TITLE", "Gold"
@@ -99,10 +103,11 @@ OptionMenu "TiltPlusPlusMenu"
 OptionMenu "CS_WeaponSwayMenu"
 {
 	Title "$CS_WEAPON_SWAY_MENU"
-	StaticText "$CS_WEAPON_SWAY_HINT", "Teal"
+	StaticText "$CS_WEAPON_SWAY_HINT1", "Teal"
+	StaticText "$CS_WEAPON_SWAY_HINT2", "Teal"
 	StaticText " "
 	Option "$CS_WEAPON_SWAY_ENABLE", "zm_yawsway", "OnOff"
-	Slider "$CS_WEAPON_SWAY_SPEED", "zm_yawswayspeed", 0, 4, 0.5, 1
+	Slider "$CS_WEAPON_SWAY_SPEED", "zm_yawswayspeed", 0, 5, 0.25, 2
 	Slider "$CS_WEAPON_SWAY_RANGE", "zm_yawswayrange", 0, 8, 0.1, 1
 	Slider "$CS_WEAPON_SWAY_FRICTION", "zm_yawswayfriction", 5, 14, 0.5, 1
 	Option "$CS_WEAPON_SWAY_DIR", "zm_yawswaydirection", "CS_SwayDirection"
@@ -117,30 +122,32 @@ OptionValue "CS_SwayDirection"
 OptionMenu "WeaponTiltOptions"
 {
 	Title "$PSWT_TITL"
-	StaticText "$PSWT_HINT", "Teal"
+	StaticText "$PSWT_HINT1", "Teal"
+	StaticText "$PSWT_HINT2", "Teal"
 	StaticText " "
 
 	Option "$PSWT_ENABLE", "wt_enable", "OnOff"
 	StaticText " "
 
-	Slider "$PSWT_VELOCITY", "wt_rollvelocity", 0.50, 2.0, 0.01, 2
-	Slider "$PSWT_RESISTANCE", "wt_rollresistance", 0.08, 0.62, 0.01, 2
-	Slider "$PSWT_TILT_SMOOTH", "wt_tilt_smoothing", 0.50, 0.95, 0.01, 2
+	Slider "$PSWT_VELOCITY", "wt_rollvelocity", 0.50, 8.0, 0.1, 2
+	Slider "$PSWT_RESISTANCE", "wt_rollresistance", 0.08, 0.70, 0.01, 2
+	Slider "$PSWT_TILT_SMOOTH", "wt_tilt_smoothing", 0.20, 0.95, 0.01, 2
 	StaticText " "
 
-	Slider "$PSWT_LOWERING_INTENSITY", "wt_lowering_intensity", 0.0, 2.0, 0.05, 2
+	Slider "$PSWT_LOWERING_INTENSITY", "wt_lowering_intensity", 0.0, 2.5, 0.05, 2
 	Option "$PSWT_LOWERING", "wt_lowering", "OnOff"
 	StaticText " "
 
 	Option "$PSWT_CAP", "wt_cap", "OnOff"
-	Slider "$PSWT_CAPAMOUNT", "wt_rollcap", 1, 5, 0.5, 2
+	Slider "$PSWT_CAPAMOUNT", "wt_rollcap", 1, 16, 0.5, 2
 	StaticText " "
 
 	StaticText "$PSWT_STABILITY", "Gold"
 	Option "$PSWT_MOVING_ONLY", "wt_tilt_moving", "OnOff"
 	Slider "$PSWT_MOVING_MIN", "wt_tilt_moving_min", 0.0, 8.0, 0.1, 1
 	Option "$PSWT_READY_ONLY", "wt_tilt_ready", "OnOff"
-	StaticText "$PSWT_READY_HINT", "Teal"
+	StaticText "$PSWT_READY_HINT1", "Teal"
+	StaticText "$PSWT_READY_HINT2", "Teal"
 }
 
 // ---------------------------------------------------------------------------
@@ -149,13 +156,21 @@ OptionMenu "CS_ItemSpawnMenu"
 {
 	Title "$CS_ITEM_SPAWN_MENU"
 	Slider "$CS_ITEM_SPAWN_OPT", "cs_item_spawn_chance", 0.0, 2.0, 0.05, 2
-	StaticText "$CS_ITEM_SPAWN_HINT", "Teal"
+	StaticText "$CS_ITEM_SPAWN_HINT1", "Teal"
+	StaticText "$CS_ITEM_SPAWN_HINT2", "Teal"
 	StaticText " "
 	StaticText "$CS_ITEM_SPAWN_RELOAD", "Gold"
 	StaticText " "
 	Slider "$CS_INFECTION_SPAWN_OPT", "cs_infection_spawn_chance", 0.0, 1.0, 0.05, 2
-	StaticText "$CS_INFECTION_SPAWN_HINT", "Teal"
+	StaticText "$CS_INFECTION_SPAWN_HINT1", "Teal"
+	StaticText "$CS_INFECTION_SPAWN_HINT2", "Teal"
 	StaticText "$CS_INFECTION_SPAWN_RELOAD", "Gold"
+	StaticText " "
+	Slider "$CS_ANOMALY_SPAWN_OPT", "cs_anomaly_spawn_chance", 0.0, 1.0, 0.05, 2
+	StaticText "$CS_ANOMALY_SPAWN_HINT1", "Teal"
+	StaticText "$CS_ANOMALY_SPAWN_HINT2", "Teal"
+	StaticText "$CS_ANOMALY_SPAWN_HINT3", "Teal"
+	StaticText "$CS_ANOMALY_SPAWN_RELOAD", "Gold"
 }
 
 // ---------------------------------------------------------------------------
@@ -163,7 +178,8 @@ OptionMenu "CS_ItemSpawnMenu"
 OptionMenu "CS_AtmosphereMenu"
 {
 	Title "$CS_ATMOSPHERE_MENU"
-	StaticText "$CS_ATMOSPHERE_HINT", "Teal"
+	StaticText "$CS_ATMOSPHERE_HINT1", "Teal"
+	StaticText "$CS_ATMOSPHERE_HINT2", "Teal"
 	StaticText " "
 
 	Option "$CS_FADE_OPT", "fd_enable", "OnOff"
@@ -195,7 +211,8 @@ OptionMenu "SEM_MainMenu"
 {
 	Title "$SEM_MENU"
 	StaticText "$SEM_HINT_RELOAD", "Gold"
-	StaticText "$SEM_MENU_HINT", "Teal"
+	StaticText "$SEM_MENU_HINT1", "Teal"
+	StaticText "$SEM_MENU_HINT2", "Teal"
 	StaticText " "
 
 	Submenu "$SEM_PRESETS", "SEM_PresetMenu"
@@ -230,7 +247,8 @@ OptionMenu "SEM_PresetMenu"
 OptionMenu "SEM_CapMenu"
 {
 	Title "$SEM_CAPS"
-	StaticText "$SEM_CAPS_HINT", "Teal"
+	StaticText "$SEM_CAPS_HINT1", "Teal"
+	StaticText "$SEM_CAPS_HINT2", "Teal"
 	StaticText " "
 	Option "$SEM_CAP_ENABLE", "sem_cap_enabled", "OnOff"
 	ScaleSlider "$SEM_CAP_SMALL", "sem_cap_small", 0, 128, 1, "Off"

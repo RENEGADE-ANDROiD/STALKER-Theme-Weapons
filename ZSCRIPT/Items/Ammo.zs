@@ -290,3 +290,67 @@ class RPGAmmo : Ammo
         Stop;
     }
 }
+
+// RPGAB0 crate — random ammo + always F-1 / molotov / stim.
+class CS_AmmoSupplyCrate : CustomInventory
+{
+    Default
+    {
+        +COUNTITEM;
+        +INVENTORY.ALWAYSPICKUP;
+        +INVENTORY.AUTOACTIVATE;
+        Inventory.MaxAmount 0;
+        Inventory.PickupMessage "Found a Zone supply drop";
+        Inventory.PickupSound "Explosive/Box";
+        Scale 0.55;
+        Tag "Supply Drop";
+    }
+
+    static void GiveAmmoPickup(Actor who, class<Ammo> type)
+    {
+        if (!who || !type)
+            return;
+        let defs = GetDefaultByType(type);
+        if (!defs)
+            return;
+        int amt = Ammo(defs).Amount;
+        if (amt < 1)
+            amt = 1;
+        who.GiveInventory(type, amt);
+    }
+
+    override bool TryPickup(in out Actor toucher)
+    {
+        if (!toucher)
+            return false;
+
+        static const class<Ammo> pool[] = {
+            "MakarovClip", "MakarovBox",
+            "TokarevClip", "TokarevBox",
+            "KalashnikovClip", "KalashnikovBox",
+            "_12GaugeShell", "_12GaugeBox",
+            "_23RAmmo",
+            "_762RAmmo", "_762RAmmoBox",
+            "SP6Clip", "SP6Box",
+            "VGM93Ammo", "RPGAmmo"
+        };
+
+        int rolls = random[cs_supply](2, 4);
+        for (int i = 0; i < rolls; i++)
+            GiveAmmoPickup(toucher, pool[random[cs_supply](0, pool.Size() - 1)]);
+
+        toucher.A_GiveInventory("F1GrenadeItem", 1);
+        toucher.A_GiveInventory("MolotovItem", 1);
+        toucher.A_GiveInventory("StimInjectorItem", 1);
+
+        GoAwayAndDie();
+        return true;
+    }
+
+    States
+    {
+    Spawn:
+        RPGA B -1;
+        Stop;
+    }
+}

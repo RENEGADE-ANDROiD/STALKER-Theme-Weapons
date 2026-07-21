@@ -16,9 +16,9 @@ class ExplosionFlames : Actor
     States
     {
     Spawn:
-        X003 AA 0 A_CustomMissile("ExplosionSmoke", 0, 0, random(0, 360), 2, random(0, 360));
-        X003 A 0 A_CustomMissile("BigNeoSmoke", 0, 0, random(0, 360), 2, random(0, 360));
-        X003 ABCDEFGHIJKLMNOPQRSTUVWXYZ 1 Bright A_FadeOut(0.03);
+        CX03 AA 0 A_CustomMissile("ExplosionSmoke", 0, 0, random(0, 360), 2, random(0, 360));
+        CX03 A 0 A_CustomMissile("BigNeoSmoke", 0, 0, random(0, 360), 2, random(0, 360));
+        CX03 ABCDEFGHIJKLMNOPQRSTUVWXYZ 1 Bright A_FadeOut(0.03);
         Stop;
     }
 }
@@ -33,9 +33,15 @@ class NapalmExplosionFlames : ExplosionFlames
     States
     {
     Spawn:
-        FIR3 AA 0 A_CustomMissile("ExplosionSmoke", 0, 0, random(0, 360), 2, random(0, 360));
-        FIR3 A 0 A_CustomMissile("BurnedSmoke", 0, 0, random(0, 360), 2, random(70, 120));
-        FIR3 ABCDEFGHIJKLMNOP 2 Bright A_FadeOut(0.03);
+        TNT1 A 0 NoDelay A_Jump(96, "Alt");
+        CFR3 AA 0 A_CustomMissile("ExplosionSmoke", 0, 0, random(0, 360), 2, random(0, 360));
+        CFR3 A 0 A_CustomMissile("BurnedSmoke", 0, 0, random(0, 360), 2, random(70, 120));
+        CFR3 ABCDEFGHIJKLMNOP 2 Bright A_FadeOut(0.03);
+        Stop;
+    Alt:
+        FIR5 AA 0 A_CustomMissile("ExplosionSmoke", 0, 0, random(0, 360), 2, random(0, 360));
+        FIR5 A 0 A_CustomMissile("BurnedSmoke", 0, 0, random(0, 360), 2, random(70, 120));
+        FIR5 ABCDEFGHIJKLMNOP 2 Bright A_FadeOut(0.03);
         Stop;
     }
 }
@@ -146,7 +152,7 @@ class FlameTrails : Actor
     {
     Spawn:
         TNT1 A 2;
-        FRPR ABCDEFGH 3 Bright A_FadeOut(0.005);
+        CFRP ABCDEFGH 3 Bright A_FadeOut(0.005);
         Stop;
     }
 }
@@ -191,35 +197,35 @@ class MolotovFire : Actor
         TNT1 A 0 NoDelay A_PlaySound("Barrel/Burn", CHAN_5, 0.5, true);
         NULL A 0 A_SetTranslucent(0.75);
         NULL A 0 A_SetScale(0.45);
-        F1RE A 2 Bright A_Explode(5, 5);
+        C1RE A 2 Bright A_Explode(5, 5);
         NULL A 0 A_SetScale(0.5);
-        F1RE B 2 Bright A_Explode(8, 12);
+        C1RE B 2 Bright A_Explode(8, 12);
         NULL A 0 A_SetScale(0.65);
-        F1RE C 2 Bright A_Explode(12, 16);
+        C1RE C 2 Bright A_Explode(12, 16);
         NULL A 0 A_SetScale(0.7);
-        F1RE D 2 Bright A_Explode(16, 24);
+        C1RE D 2 Bright A_Explode(16, 24);
         NULL A 0 A_SetScale(0.85);
-        F1RE E 2 Bright A_Explode(18, 32);
+        C1RE E 2 Bright A_Explode(18, 32);
         NULL A 0 A_SetScale(0.9);
     FlameOn:
         NULL A 0;
         NULL A 0 A_SetTranslucent(0.75);
         NULL A 0 A_SetScale(1.05);
         NULL A 0 Bright;
-        F1RE A 2 Bright A_Explode(22, 35);
-        F1RE B 2 Bright A_CountDown();
+        C1RE A 2 Bright A_Explode(22, 35);
+        C1RE B 2 Bright A_CountDown();
         NULL A 0 Bright;
-        F1RE C 2 Bright A_Explode(22, 35);
-        F1RE D 2 Bright A_CountDown();
+        C1RE C 2 Bright A_Explode(22, 35);
+        C1RE D 2 Bright A_CountDown();
         NULL A 0 Bright;
-        F1RE E 2 Bright A_Explode(22, 35);
-        F1RE F 2 Bright A_CountDown();
+        C1RE E 2 Bright A_Explode(22, 35);
+        C1RE F 2 Bright A_CountDown();
         NULL A 0 Bright;
-        F1RE G 2 Bright A_Explode(22, 35);
-        F1RE H 2 Bright A_CountDown();
+        C1RE G 2 Bright A_Explode(22, 35);
+        C1RE H 2 Bright A_CountDown();
         Goto FlameOn+5;
     Death:
-        F1RE ABCDEFG 2 Bright A_FadeOut();
+        C1RE ABCDEFG 2 Bright A_FadeOut();
         TNT1 A 0 A_StopSound(CHAN_5);
         Stop;
     }
@@ -233,35 +239,35 @@ class MolotovFire2 : MolotovFire
         TNT1 A 0 NoDelay A_PlaySound("Barrel/Burn", CHAN_5, 0.5, true);
         NULL A 0 A_SetTranslucent(0.75);
         NULL A 0 A_SetScale(0.45);
-        F2RE A 2 Bright A_Explode(5, 5);
+        C2RE A 2 Bright A_Explode(5, 5);
         NULL A 0 A_SetScale(0.5);
-        F2RE B 2 Bright A_Explode(8, 12);
+        C2RE B 2 Bright A_Explode(8, 12);
         NULL A 0 A_SetScale(0.65);
-        F2RE C 2 Bright A_Explode(12, 16);
+        C2RE C 2 Bright A_Explode(12, 16);
         NULL A 0 A_SetScale(0.7);
-        F2RE D 2 Bright A_Explode(16, 24);
+        C2RE D 2 Bright A_Explode(16, 24);
         NULL A 0 A_SetScale(0.85);
-        F2RE E 2 Bright A_Explode(18, 32);
+        C2RE E 2 Bright A_Explode(18, 32);
         NULL A 0 A_SetScale(0.9);
     FlameOn:
         NULL A 0;
         NULL A 0 A_SetTranslucent(0.75);
         NULL A 0 A_SetScale(1.05);
         NULL A 0 Bright;
-        F2RE A 2 Bright A_Explode(22, 35);
-        F2RE B 2 Bright A_CountDown();
+        C2RE A 2 Bright A_Explode(22, 35);
+        C2RE B 2 Bright A_CountDown();
         NULL A 0 Bright;
-        F2RE C 2 Bright A_Explode(22, 35);
-        F2RE D 2 Bright A_CountDown();
+        C2RE C 2 Bright A_Explode(22, 35);
+        C2RE D 2 Bright A_CountDown();
         NULL A 0 Bright;
-        F2RE E 2 Bright A_Explode(22, 35);
-        F2RE F 2 Bright A_CountDown();
+        C2RE E 2 Bright A_Explode(22, 35);
+        C2RE F 2 Bright A_CountDown();
         NULL A 0 Bright;
-        F2RE G 2 Bright A_Explode(22, 35);
-        F2RE H 2 Bright A_CountDown();
+        C2RE G 2 Bright A_Explode(22, 35);
+        C2RE H 2 Bright A_CountDown();
         Goto FlameOn+5;
     Death:
-        F2RE ABCDEFG 2 Bright A_FadeOut();
+        C2RE ABCDEFG 2 Bright A_FadeOut();
         TNT1 A 0 A_StopSound(CHAN_5);
         Stop;
     }

@@ -26,6 +26,7 @@ class STALKERPlayer : DoomPlayer
         Player.StartItem "Fort12Loaded", 12;
         Player.StartItem "MakarovClip", 100;
         Player.StartItem "StimInjectorItem", 1;
+        Player.StartItem "F1GrenadeItem", 1;
 		Player.StartItem "DutyPDA", 1;
         Player.WeaponSlot 1, "NR40", "RiotShield";
         Player.WeaponSlot 2, "Fort12", "TT33";
@@ -65,7 +66,14 @@ class STALKERPlayer : DoomPlayer
 			let cSpd = CVar.GetCVar("zm_yawswayspeed", player);
 			if (cSpd) speed = cSpd.GetFloat();
 
-			XBobOffset += dir * ViewAngleDelta * speed / 50.0;
+			// Strafe weapon rot-tilt owns horizontal motion; yaw X-bob fights it.
+			// Fade look-sway drive (and bleed residual) while sidestepping.
+			double side = abs(GetPlayerInput(MODINPUT_SIDEMOVE));
+			double strafeMul = 1.0;
+			if (side > 2048.0)
+				strafeMul = clamp(1.0 - (side - 2048.0) / 8192.0, 0.12, 1.0);
+
+			XBobOffset += dir * ViewAngleDelta * speed / 35.0 * strafeMul;
 
 			double friction = 1.0;
 			let cFric = CVar.GetCVar("zm_yawswayfriction", player);
@@ -75,6 +83,9 @@ class STALKERPlayer : DoomPlayer
 				XBobOffset -= XBobOffset / ((1.5 - friction) * 100.0);
 			else if (ViewAngleDelta == 0)
 				XBobOffset = 0;
+
+			if (strafeMul < 0.999)
+				XBobOffset *= (0.80 + 0.20 * strafeMul);
 		}
 		else
 		{

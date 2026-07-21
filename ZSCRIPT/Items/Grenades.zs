@@ -4,7 +4,7 @@ class F1GrenadeAmmo : Ammo
     Default
     {
         Inventory.Amount 0;
-        Inventory.MaxAmount 8;
+        Inventory.MaxAmount 4;
         +INVENTORY.IGNORESKILL;
         +INVENTORY.UNDROPPABLE;
         +INVENTORY.UNTOSSABLE;
@@ -32,7 +32,7 @@ class F1GrenadeItem : CustomInventory
         -INVENTORY.KEEPDEPLETED;
         Inventory.Icon "HUDF1";
         Inventory.Amount 1;
-        Inventory.MaxAmount 8;
+        Inventory.MaxAmount 4;
         Inventory.PickupSound "Grenade/Pickup";
         Inventory.PickupMessage "Picked up a F-1 Hand Grenade";
         Tag "F-1 Hand Grenade";

@@ -1,0 +1,38 @@
+// Ledge grab disabled — BiasedDoom null-derefs through LineTrace / inventory Use on E1M1.
+// Kick / slide / legs / taunt remain in KickBase / Legs / Fuk. Re-enable later with a clean rewrite.
+
+Const MRKikConst_RLay = 836;
+Const MRKick_Debug = 0;
+
+Class Mr_uLedgeToken : CustomInventory
+{
+	Default
+	{
+		Inventory.MaxAmount 1;
+		+INVENTORY.UNDROPPABLE
+		+INVENTORY.UNTOSSABLE
+	}
+
+	Override Void Tick()
+	{
+		Super.Tick();
+	}
+
+	States
+	{
+	Use:
+		TNT1 A 0;
+		Fail;
+	Pickup:
+		TNT1 A 0 { return true; }
+		Stop;
+	}
+}
+
+Class MR_Grabbing_A_Ledge : Inventory
+{
+	Default
+	{
+		Inventory.MaxAmount 1;
+	}
+}

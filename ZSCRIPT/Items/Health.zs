@@ -53,18 +53,125 @@ class StimInjectorItem : CustomInventory
         Super.DetachFromOwner();
     }
 
+    // Match grenade/molotov: CustomInventory `use` runs the Use: state chain.
+    // Do not read Owner/Health here (ambiguous self in Use states; inventory Health
+    // looks "full"). Weapon CS_CheckStimHealth gates full HP after the token is armed.
     States
     {
     Spawn:
         WSTM A -1;
         Stop;
     Use:
-        NULL A 0 A_JumpIf(Health >= 100, "NoPickup");
         NULL A 0 A_GiveInventory("UseStimInjector", 1);
-        Stop;
-    NoPickup:
-        NULL A 0 A_Print("Your health is full", 1);
+        // Fail = keep item until HealInjector consumes it after inject.
         Fail;
+    }
+}
+
+// --- World health pickups (FOD1 / FOD2 / PILS / STIM / WBND) ---
+
+class CS_FoodRation : Health
+{
+    Default
+    {
+        +COUNTITEM;
+        Inventory.Amount 10;
+        Inventory.PickupMessage "Picked up a food ration";
+        Inventory.PickupSound "Items/StimInjector";
+        Scale 0.85;
+        Tag "Food Ration";
+    }
+    States
+    {
+    Spawn:
+        FOD1 A -1;
+        Stop;
+    }
+}
+
+class CS_CannedFood : Health
+{
+    Default
+    {
+        +COUNTITEM;
+        Inventory.Amount 15;
+        Inventory.PickupMessage "Picked up a can of food";
+        Inventory.PickupSound "Items/StimInjector";
+        Scale 0.85;
+        Tag "Canned Food";
+    }
+    States
+    {
+    Spawn:
+        FOD2 A -1;
+        Stop;
+    }
+}
+
+class CS_Bandage : Health
+{
+    Default
+    {
+        +COUNTITEM;
+        Inventory.Amount 15;
+        Inventory.PickupMessage "Picked up a bandage";
+        Inventory.PickupSound "Items/StimInjector";
+        Scale 0.9;
+        Tag "Bandage";
+    }
+    States
+    {
+    Spawn:
+        WBND A -1;
+        Stop;
+    }
+}
+
+// Painkillers: mid heal + clears SEM chemical poison DoT if present.
+class CS_PainPills : Health
+{
+    Default
+    {
+        +COUNTITEM;
+        Inventory.Amount 20;
+        Inventory.PickupMessage "Picked up some painkillers";
+        Inventory.PickupSound "Items/StimInjector";
+        Scale 0.8;
+        Tag "Painkillers";
+    }
+
+    override bool TryPickup(in out Actor toucher)
+    {
+        if (toucher)
+            toucher.TakeInventory("SEM_ChemicalPoisonBase", 1);
+        return Super.TryPickup(toucher);
+    }
+
+    States
+    {
+    Spawn:
+        PILS A -1;
+        Stop;
+    }
+}
+
+// Field medkit (STIM art) — Medikit replacement; injector stays on Stimpack → WSTM.
+class CS_FieldMedkit : Health
+{
+    Default
+    {
+        +COUNTITEM;
+        Inventory.Amount 40;
+        Inventory.PickupMessage "Picked up a field medkit";
+        Inventory.PickupSound "Items/StimInjector";
+        Scale 0.9;
+        Tag "Field Medkit";
+    }
+    States
+    {
+    Spawn:
+        STIM A -1;
+        Stop;
     }
 }
 

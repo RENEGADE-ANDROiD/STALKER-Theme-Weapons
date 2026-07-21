@@ -33,11 +33,14 @@ user float cs_item_spawn_chance = 1.0;
 // Zone infection growths on map corpses (0 = never, 1 = always try to sprout one)
 user float cs_infection_spawn_chance = 0.4;
 
+// Zone map anomalies on host props (0 = never, 1 = always; default mild ~1/8)
+user float cs_anomaly_spawn_chance = 0.22;
+
 // ---- Tilt++ (Nash Muhandes camera roll; from Project Survival) ----
 server bool sv_strafetilt = true;
 server bool sv_strafetiltinvert = false;
-server float sv_strafetiltspeed = 1.0;
-server float sv_strafetiltangle = 0.5;
+server float sv_strafetiltspeed = 1.2;
+server float sv_strafetiltangle = 0.78;
 
 server bool sv_movetilt = false;
 server float sv_movetiltspeed = 15.000;
@@ -45,7 +48,7 @@ server float sv_movetiltangle = 0.015;
 server float sv_movetiltscalar = 0.2;
 
 server bool sv_turntilt = true;
-server float sv_turntiltscalar = 1.5;
+server float sv_turntiltscalar = 2.2;
 server bool sv_turntiltinvert = false;
 
 server bool sv_underwatertilt = true;
@@ -57,19 +60,19 @@ server bool sv_deathtilt = true;
 
 // ---- Yaw weapon sway (ZMove / Project Survival) ----
 user bool zm_yawsway = true;
-user float zm_yawswayspeed = 2;
-user float zm_yawswayrange = 2;
-user float zm_yawswayfriction = 10;
+user float zm_yawswayspeed = 3.25;
+user float zm_yawswayrange = 3.5;
+user float zm_yawswayfriction = 12;
 user bool zm_yawswaydirection = false;
 
 // ---- Weapon rotational tilt (Project Survival PS_WeaponTilter) ----
 user bool wt_enable = true;
-user float wt_rollresistance = 0.35;
-user float wt_rollvelocity = 2.4;
-user float wt_rollcap = 5.0;
+user float wt_rollresistance = 0.6;
+user float wt_rollvelocity = 4.0;
+user float wt_rollcap = 12.0;
 user bool wt_lowering = true;
-user float wt_lowering_intensity = 1.0;
-user float wt_tilt_smoothing = 0.65;
+user float wt_lowering_intensity = 0.5;
+user float wt_tilt_smoothing = 0.38;
 user bool wt_cap = true;
 user bool wt_tilt_moving = false;
 user float wt_tilt_moving_min = 1.0;

@@ -163,9 +163,9 @@ class Z_TiltMe : Inventory
 		// Stabilize + apply
 		//===========================================================================
 		if (abs(lastRoll) > 0.000001)
-			lastRoll *= 0.75;
+			lastRoll *= 0.65;
 
-		Owner.A_SetRoll((Owner.Roll + lastRoll) * 0.5, SPF_INTERPOLATE);
+		Owner.A_SetRoll(Owner.Roll * 0.32 + lastRoll * 0.68, SPF_INTERPOLATE);
 	}
 
 	override void Tick()

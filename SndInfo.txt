@@ -285,7 +285,7 @@ FLORGLS2       FLORGLS2
 Lamps/Hum      LMPHUM
 $limit Lamps/Hum 0
 
-//Barrels
+// Burn / torch loop (Burner anomaly + flame particles; custom barrel actors removed)
 Barrel/Burn             DSTORCH
 $limit Barrel/Burn 1
 
@@ -345,6 +345,52 @@ Roach/Active DSROACH2
 
 $Volume Roach/Squish 0.25
 $Volume Roach/Active 0.25
+
+// ---- Zone anomalies (PB BlackHole / Freezer ice / UKS Frost+Electric aura) ----
+BHole/Suck                        Sounds/Anomalies/Gravity/DMC_VOID.ogg
+BHole/Explosion                   Sounds/Anomalies/Gravity/DMC_XPLD.ogg
+Anomaly/PortalAppear              Sounds/Anomalies/Gravity/bh_app.ogg
+Anomaly/PortalLoop                Sounds/Anomalies/Gravity/bh_loop.ogg
+Anomaly/PortalFade                Sounds/Anomalies/Gravity/bh_fade.ogg
+Anomaly/GravitySuck               Sounds/Anomalies/Gravity/bh_sucksound.ogg
+Anomaly/GravityBlast              Sounds/Anomalies/Gravity/bh_blast.ogg
+
+$limit BHole/Suck 1
+$volume BHole/Suck 0.55
+$volume BHole/Explosion 0.85
+
+$random IceBreakSmall             { IceBreakSmall1 IceBreakSmall2 }
+IceBreakSmall1                    Sounds/Anomalies/Frost/ICBRKS1.ogg
+IceBreakSmall2                    Sounds/Anomalies/Frost/ICBRKS2.ogg
+$random IceBreakMedium            { IceBreakMedium1 IceBreakMedium2 }
+IceBreakMedium1                   Sounds/Anomalies/Frost/ICBRKM1.ogg
+IceBreakMedium2                   Sounds/Anomalies/Frost/ICBRKM2.ogg
+$random IceBreakLarge             { IceBreakLarge1 IceBreakLarge2 }
+IceBreakLarge1                    Sounds/Anomalies/Frost/ICBRKL1.ogg
+IceBreakLarge2                    Sounds/Anomalies/Frost/ICBRKL2.ogg
+$random IceMelt                   { IceMelt1 IceMelt2 IceMelt3 }
+IceMelt1                          Sounds/Anomalies/Frost/ICEMLT1.ogg
+IceMelt2                          Sounds/Anomalies/Frost/ICEMLT2.ogg
+IceMelt3                          Sounds/Anomalies/Frost/ICEMLT3.ogg
+$random IceShardBounce            { IceShardBounce1 IceShardBounce2 IceShardBounce3 }
+IceShardBounce1                   Sounds/Anomalies/Frost/SHDBNC1.ogg
+IceShardBounce2                   Sounds/Anomalies/Frost/SHDBNC2.ogg
+IceShardBounce3                   Sounds/Anomalies/Frost/SHDBNC3.ogg
+FrostAura/aura                    Sounds/Anomalies/Frost/VFRSTAUR.ogg
+
+$limit FrostAura/aura 1
+$volume FrostAura/aura 0.4
+$volume IceBreakSmall 0.7
+$volume IceBreakMedium 0.8
+$volume IceBreakLarge 0.9
+
+ElectricAura/aura                 Sounds/Anomalies/Electro/VELECAUR.ogg
+$random ElectricAura/electric     { ElectricAura/electric1 ElectricAura/electric2 }
+ElectricAura/electric1            Sounds/Anomalies/Electro/VELECTR1.ogg
+ElectricAura/electric2            Sounds/Anomalies/Electro/VELECTR2.ogg
+$limit ElectricAura/aura 1
+$volume ElectricAura/aura 0.35
+$volume ElectricAura/electric 0.55
 
 //Foot Steps
 $random Humanish/Step		{ Humanish/Step1 Humanish/Step2 Humanish/Step3 Humanish/Step4 }
@@ -815,3 +861,32 @@ $rumble 762R/Box LIGHT
 $rumble RPG/Clip LIGHT
 $rumble Explosive/Box LIGHT
 
+
+//// Universal Kick (Mickromash) -- no taunt voices
+// Brutal Doom 22 kick swing / flesh / wall; slide start/loop/end stay UK/PB.
+MrKickSwing "Sounds/MR_UKick/KICK.ogg"
+
+MrKickHitWall1 "Sounds/MR_UKick/KICKWAL1.ogg"
+MrKickHitWall2 "Sounds/MR_UKick/KICKWAL2.ogg"
+MrKickHitWall3 "Sounds/MR_UKick/KICKWAL3.ogg"
+$Random MrKickHitWall { MrKickHitWall1 MrKickHitWall2 MrKickHitWall3 }
+$Volume MrKickHitWall .5
+
+MrSlideKick1 "Sounds/MR_UKick/SLIDSTR1.ogg"
+MrSlideKick2 "Sounds/MR_UKick/SLIDSTR2.ogg"
+MrSlideKick3 "Sounds/MR_UKick/SLIDSTR3.ogg"
+$Random MrSlideKick { MrSlideKick1 MrSlideKick2 MrSlideKick3 }
+
+MrSlideLoop1 "Sounds/MR_UKick/SLIDLOP1.ogg"
+MrSlideLoop3 "Sounds/MR_UKick/SLIDLOP3.ogg"
+MrSlideLoop4 "Sounds/MR_UKick/SLIDLOP4.ogg"
+$Random MrSlideLoop { MrSlideLoop1 MrSlideLoop3 MrSlideLoop4 }
+
+MrSlideEnd "Sounds/MR_UKick/SLIDEND1.ogg"
+
+MrKickPunch1 "Sounds/MR_UKick/KICKHIT1.ogg"
+MrKickPunch2 "Sounds/MR_UKick/KICKHIT2.ogg"
+MrKickPunch3 "Sounds/MR_UKick/KICKHIT3.ogg"
+$Random MrKickPunch { MrKickPunch1 MrKickPunch2 MrKickPunch3 }
+
+ledgeclimb "Sounds/MR_UKick/CLIMB_1.ogg"

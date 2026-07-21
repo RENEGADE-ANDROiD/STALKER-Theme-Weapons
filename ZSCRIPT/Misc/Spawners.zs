@@ -1,10 +1,11 @@
-// Actor that spawns nothing
-class NothingItem : HealthBonus replaces HealthBonus
+// Actor that spawns nothing (scarcity filler — does not replace map HealthBonus).
+class NothingItem : Actor
 {
     Default
     {
-        -COUNTITEM;
         +NOINTERACTION;
+        +NOBLOCKMAP;
+        +NOSECTOR;
     }
     States
     {
@@ -72,7 +73,37 @@ class StimpackSpawner : RandomSpawner replaces Stimpack
 {
     Default
     {
-        DropItem "StimInjectorItem", 255, 1;  
+        DropItem "StimInjectorItem", 255, 1;
+    }
+}
+
+// HealthBonus → food / bandage / pills (scarcity via NothingItem + cs_item_spawn_chance)
+class HealthBonusSpawner : CS_ItemScarcitySpawner replaces HealthBonus
+{
+    Default
+    {
+        DropItem "NothingItem", 255, 5;
+        DropItem "CS_FoodRation", 255, 4;
+        DropItem "CS_CannedFood", 255, 3;
+        DropItem "CS_Bandage", 255, 3;
+        DropItem "CS_PainPills", 255, 2;
+    }
+}
+
+class MedikitSpawner : RandomSpawner replaces Medikit
+{
+    Default
+    {
+        DropItem "CS_FieldMedkit", 255, 1;
+    }
+}
+
+// Backpack → Zone supply drop (RPGAB0): random ammo + grenade / molotov / stim
+class BackpackSpawner : RandomSpawner replaces Backpack
+{
+    Default
+    {
+        DropItem "CS_AmmoSupplyCrate", 255, 1;
     }
 }
 
@@ -113,25 +144,7 @@ class ClearSkySoundRandom : RandomSpawner
     }
 }
 
-// Lamps
-class Lamp1Spawner : RandomSpawner replaces TechLamp
-{
-    Default
-    {
-        DropItem "ClearSkyTechLamp", 255, 4;
-        DropItem "BrokenTechLamp", 255, 8;
-    }
-}
-
-class Lamp2Spawner : RandomSpawner replaces TechLamp2
-{
-    Default
-    {
-        DropItem "ClearSkyTechLamp2", 255, 4;
-        DropItem "BrokenTechLamp2", 255, 8;
-    }
-}
-
+// Lamps / columns
 class ColumnSpawner : RandomSpawner replaces Column
 {
     Default
@@ -171,7 +184,7 @@ class GibbedMarineSpawner : RandomSpawner replaces GibbedMarine
     }
 }
 
-// Ammo spawners 
+// Ammo spawners — F-1 / molotov at weight 1 (uncommon; ~5–7% each at default tables).
 class ClipSpawner : CS_ItemScarcitySpawner replaces Clip
 {
     Default
@@ -179,6 +192,8 @@ class ClipSpawner : CS_ItemScarcitySpawner replaces Clip
         DropItem "NothingItem", 255, 9;
         DropItem "MakarovClip", 255, 4;
         DropItem "TokarevClip", 255, 3;
+        DropItem "F1GrenadeItem", 255, 1;
+        DropItem "MolotovItem", 255, 1;
     }
 }
 
@@ -189,6 +204,8 @@ class ClipBoxSpawner : CS_ItemScarcitySpawner replaces ClipBox
         DropItem "NothingItem", 255, 9;
         DropItem "MakarovBox", 255, 4;
         DropItem "TokarevBox", 255, 3;
+        DropItem "F1GrenadeItem", 255, 1;
+        DropItem "MolotovItem", 255, 1;
     }
 }
 
@@ -198,6 +215,8 @@ class ShellSpawner : CS_ItemScarcitySpawner replaces Shell
     {
         DropItem "NothingItem", 255, 9;
         DropItem "_12GaugeShell", 255, 4;
+        DropItem "F1GrenadeItem", 255, 1;
+        DropItem "MolotovItem", 255, 1;
     }
 }
 
@@ -207,6 +226,8 @@ class ShellBoxSpawner : CS_ItemScarcitySpawner replaces ShellBox
     {
         DropItem "NothingItem", 255, 9;
         DropItem "_12GaugeBox", 255, 4;
+        DropItem "F1GrenadeItem", 255, 1;
+        DropItem "MolotovItem", 255, 1;
     }
 }
 
@@ -217,6 +238,8 @@ class RocketAmmoSpawner : CS_ItemScarcitySpawner replaces RocketAmmo
         DropItem "NothingItem", 255, 9;
         DropItem "KalashnikovClip", 255, 3;
         DropItem "SP6Clip", 255, 1;
+        DropItem "F1GrenadeItem", 255, 1;
+        DropItem "MolotovItem", 255, 1;
     }
 }
 
@@ -227,6 +250,8 @@ class RocketBoxSpawner : CS_ItemScarcitySpawner replaces RocketBox
         DropItem "NothingItem", 255, 9;
         DropItem "KalashnikovBox", 255, 3;
         DropItem "SP6Box", 255, 1;
+        DropItem "F1GrenadeItem", 255, 1;
+        DropItem "MolotovItem", 255, 1;
     }
 }
 
@@ -236,6 +261,8 @@ class CellSpawner : CS_ItemScarcitySpawner replaces Cell
     {
         DropItem "NothingItem", 255, 9;
         DropItem "_762RAmmo", 255, 3;
+        DropItem "F1GrenadeItem", 255, 1;
+        DropItem "MolotovItem", 255, 1;
     }
 }
 
@@ -243,8 +270,11 @@ class CellPackSpawner : CS_ItemScarcitySpawner replaces CellPack
 {
     Default
     {
-        DropItem "NothingItem", 255, 9;
+        DropItem "NothingItem", 255, 8;
         DropItem "_762RAmmoBox", 255, 3;
+        DropItem "CS_AmmoSupplyCrate", 255, 1;
+        DropItem "F1GrenadeItem", 255, 1;
+        DropItem "MolotovItem", 255, 1;
     }
 }
 

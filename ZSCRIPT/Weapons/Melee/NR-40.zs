@@ -1,5 +1,5 @@
 // NR-40 Combat Knife - ZScript version with forward lunge + damage
-class NR40 : CS_WeaponBase
+class NR40 : ClearSkyWeapon
 {
     static vector3 VecFromAngles(double angle, double pitch, double mag = 1.0)
     {
@@ -114,19 +114,24 @@ class NR40 : CS_WeaponBase
 
         Fire:
             TNT1 A 0 A_MeleeLungeStart(200);
-            NR40 A 1;
-            NR40 H 1;
-            NR40 B 1;
-            NR40 C 1;
-            NR40 D 1 A_PlaySound("NR40/Swing", 6);
+            NR40 A 1 A_CS_KnifeFeelWind();
+            NR40 H 1 A_CS_KnifeFeelStep(0.970);
+            NR40 B 1 A_CS_KnifeFeelStep(0.965);
+            NR40 C 1 A_CS_KnifeFeelStep(0.955);
+            NR40 D 1
+            {
+                A_PlaySound("NR40/Swing", 6);
+                A_CS_KnifeFeelCommit();
+            }
             NR40 E 1
             {
                 A_MeleeLungeAttack(200, "None", -7, true);
                 A_CS_KnifeMelee(25, 78);
+                Radius_Quake(2, 4, 0, 12, 0);
             }
-            NR40 F 1;
-            NR40 G 1;
-            NR40 H 1;
+            NR40 F 1 A_CS_KnifeFeelReturn(0.975);
+            NR40 G 1 A_CS_KnifeFeelReturn(0.990);
+            NR40 H 1 A_CS_KnifeFeelEnd();
             Goto RealReady;
 
         // Equipment use states (unchanged from your DECORATE)
@@ -182,11 +187,13 @@ class NR40 : CS_WeaponBase
             HLN1 ABCDEFH 1;
             HLN1 I 9;
             HLN1 JKL 1;
-            TNT1 A 0 A_TakeInventory("UseStimInjector", 1);
-            TNT1 A 0 A_PlaySound("Items/UseStimInjector", 5);
-            TNT1 A 0 A_PlaySound("*pain100", 6);
-            TNT1 A 0 A_SetBlend("White", 0.5, 35);
-            TNT1 A 0 A_GiveInventory("StimInjectorHealthGiver", 1);
+                    TNT1 A 0 A_TakeInventory("UseStimInjector", 1);
+        TNT1 A 0 A_TakeInventory("StimInjectorItem", 1);
+        TNT1 A 0 A_PlaySound("Items/UseStimInjector", 5);
+        TNT1 A 0 A_PlaySound("*pain100", 6);
+        TNT1 A 0 A_SetBlend("White", 0.5, 35);
+        TNT1 A 0 { GiveBody(40); }
+        TNT1 A 0 A_SpawnItemEx("StimInjectorBurst", 0, 0, 32, 0, 0, 0, 0, SXF_NOCHECKPOSITION | SXF_CLIENTSIDE);
             HLN1 MNMNOPOP 1;
             HLN1 P 14;
             HLN1 QRSTUVW 1;

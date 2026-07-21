@@ -309,11 +309,13 @@ class RPG7D : ClearSkyWeapon
         HLN1 ABCDEFH 1;
         HLN1 I 9;
         HLN1 JKL 1;
-        TNT1 A 0 A_TakeInventory("UseStimInjector", 1);
+                TNT1 A 0 A_TakeInventory("UseStimInjector", 1);
+        TNT1 A 0 A_TakeInventory("StimInjectorItem", 1);
         TNT1 A 0 A_PlaySound("Items/UseStimInjector", 5);
         TNT1 A 0 A_PlaySound("*pain100", 6);
         TNT1 A 0 A_SetBlend("White", 0.5, 35);
-        TNT1 A 0 A_GiveInventory("StimInjectorHealthGiver", 1);
+        TNT1 A 0 { GiveBody(40); }
+        TNT1 A 0 A_SpawnItemEx("StimInjectorBurst", 0, 0, 32, 0, 0, 0, 0, SXF_NOCHECKPOSITION | SXF_CLIENTSIDE);
         HLN1 MNMNOPOP 1;
         HLN1 P 14;
         HLN1 QRSTUVW 1;

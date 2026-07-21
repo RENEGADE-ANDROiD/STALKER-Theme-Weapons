@@ -166,7 +166,9 @@
 // ---------------------------------------------------------------------------
 // STALKER Options (Options â†’ STALKER Options)
 CS_STALKER_OPTIONS = "STALKER Options";
-CS_STALKER_OPTIONS_HINT = "All Clear Sky / STALKER Theme Weapons settings in one place.";
+CS_STALKER_OPTIONS_HINT1 = "All Clear Sky / STALKER Theme Weapons";
+CS_STALKER_OPTIONS_HINT2 = "settings in one place.";
+
 CS_SEC_DISPLAY = "Display";
 CS_SEC_GAMEPLAY = "Gameplay";
 CS_SEC_ATMOSPHERE = "Atmosphere";
@@ -175,13 +177,17 @@ CS_SEC_ZONE = "The Zone";
 // Gas mask overlay
 CS_GASMASK_MENU = "Gas mask overlay";
 CS_GASMASK_OPT = "Dynamic gas mask overlay";
-CS_GASMASK_HINT = "Fullscreen mask with inertial sway when you look around.";
+CS_GASMASK_HINT1 = "Fullscreen mask with inertial sway";
+CS_GASMASK_HINT2 = "when you look around.";
+
 CS_GASMASK_ALPHA_OPT = "Gas mask opacity";
 CS_GASMASK_ALPHA_HINT = "How strong the mask draws over the view.";
 
 // HUD swaying
 HUD_SWAYING_OPTIONS = "HUD swaying";
-HUD_SWAYING_HINT = "How much the status / AIM1 reticle reacts to look and move.";
+HUD_SWAYING_HINT1 = "How much the status / AIM1 reticle";
+HUD_SWAYING_HINT2 = "reacts to look and move.";
+
 HUD_SWAY_Y = "Vertical sway speed";
 HUD_SWAY_X = "Horizontal sway speed";
 HUD_SNAPBACK = "Snap-back speed";
@@ -190,7 +196,9 @@ HUD_ANGLE_X = "Mouse yaw influence";
 
 // Tilt++ (camera roll)
 TILTPLUSPLUSMNU_TITLE = "Tilt++ (camera roll)";
-TILTPLUSPLUSMNU_HINT = "Nash Muhandes screen tilt — strafe, turn, swim, and death.";
+TILTPLUSPLUSMNU_HINT1 = "Nash Muhandes screen tilt —";
+TILTPLUSPLUSMNU_HINT2 = "strafe, turn, swim, and death.";
+
 TILTPLUSPLUSMNU_STRAFETILT_TITLE = "Strafe tilting";
 TILTPLUSPLUSMNU_MOVETILT_TITLE = "Movement tilting";
 TILTPLUSPLUSMNU_TURNTILT_TITLE = "Turn tilting";
@@ -204,7 +212,9 @@ TILTPLUSPLUSMNU_INVERT = "Invert";
 
 // Yaw weapon sway
 CS_WEAPON_SWAY_MENU = "Weapon sway";
-CS_WEAPON_SWAY_HINT = "Look-yaw offset on first-person weapon sprites (ZMove / Project Survival).";
+CS_WEAPON_SWAY_HINT1 = "Look-yaw offset on first-person weapon sprites";
+CS_WEAPON_SWAY_HINT2 = "(ZMove / Project Survival).";
+
 CS_WEAPON_SWAY_ENABLE = "Yaw weapon sway";
 CS_WEAPON_SWAY_SPEED = "Yaw sway speed";
 CS_WEAPON_SWAY_RANGE = "Yaw sway range";
@@ -213,7 +223,9 @@ CS_WEAPON_SWAY_DIR = "Yaw sway direction";
 
 // Weapon rotational tilt
 PSWT_TITL = "Weapon rotational tilt";
-PSWT_HINT = "Strafe-driven weapon roll and pendulum lowering. Profiled per gun.";
+PSWT_HINT1 = "Strafe-driven weapon roll and pendulum lowering.";
+PSWT_HINT2 = "Profiled per gun.";
+
 PSWT_ENABLE = "Enable weapon rotational tilt";
 PSWT_VELOCITY = "Roll velocity";
 PSWT_RESISTANCE = "Roll resistance";
@@ -226,20 +238,34 @@ PSWT_STABILITY = "Stability controls";
 PSWT_MOVING_ONLY = "Only tilt while moving";
 PSWT_MOVING_MIN = "Minimum movement speed";
 PSWT_READY_ONLY = "Only tilt in ready states";
-PSWT_READY_HINT = "Reduces tilt during fire, reload, and equip transitions.";
+PSWT_READY_HINT1 = "Reduces tilt during fire, reload,";
+PSWT_READY_HINT2 = "and equip transitions.";
+
 
 // Item spawn scarcity
 CS_ITEM_SPAWN_MENU = "Item spawn rate";
 CS_ITEM_SPAWN_OPT = "Pickup spawn rate";
-CS_ITEM_SPAWN_HINT = "1.00 = default scarcity. Below 1 = emptier maps. Above 1 (up to 2) fills empty ammo/weapon spots more often.";
+CS_ITEM_SPAWN_HINT1 = "1.00 = default scarcity. Below 1 = emptier maps.";
+CS_ITEM_SPAWN_HINT2 = "Above 1 (up to 2) fills empty ammo/weapon spots more often.";
+
 CS_ITEM_SPAWN_RELOAD = "Applies when a map starts (reload map to refresh pickups).";
 CS_INFECTION_SPAWN_OPT = "Infection growth on corpses";
-CS_INFECTION_SPAWN_HINT = "Chance that eggs/pods/veins sprout on DeadMarine bodies and DeadZombieman. Shoot them — they burst into acid spores.";
+CS_INFECTION_SPAWN_HINT1 = "Chance that eggs/pods/veins sprout on DeadMarine bodies";
+CS_INFECTION_SPAWN_HINT2 = "and DeadZombieman. Shoot them — they burst into acid spores.";
+
 CS_INFECTION_SPAWN_RELOAD = "Applies when a map starts (reload map to refresh corpse growths).";
+CS_ANOMALY_SPAWN_OPT = "Zone anomalies on map props";
+CS_ANOMALY_SPAWN_HINT1 = "Mild chance: Gravity (columns), Frost (blue/green torches),";
+CS_ANOMALY_SPAWN_HINT2 = "Electro (tech lamps), Burner (explosive / burning barrels).";
+CS_ANOMALY_SPAWN_HINT3 = "Look for glowing cores + floor rings — shoot the core to clear them.";
+
+CS_ANOMALY_SPAWN_RELOAD = "Applies when a map starts (reload map to refresh anomalies).";
 
 // Atmosphere (blood / heartbeat)
 CS_ATMOSPHERE_MENU = "Blood & heartbeat";
-CS_ATMOSPHERE_HINT = "Screen blood, death splats, low-health heartbeat, and fade effects.";
+CS_ATMOSPHERE_HINT1 = "Screen blood, death splats,";
+CS_ATMOSPHERE_HINT2 = "low-health heartbeat, and fade effects.";
+
 CS_FADE_OPT = "Screen fade effects";
 CS_BLOOD_OPT = "Blood splat overlays";
 CS_DEATH_SPLAT_OPT = "Death blood splats";
@@ -254,13 +280,17 @@ CS_BLOOD_ALPHA = "Blood splat opacity";
 
 // STALKER Enemy Mutations
 SEM_MENU = "Enemy Mutations";
-SEM_MENU_HINT = "Zone afflictions on monsters (Chemical, Psi, Bloodsucker, â€¦).";
+SEM_MENU_HINT1 = "Zone afflictions on monsters";
+SEM_MENU_HINT2 = "(Chemical, Psi, Bloodsucker, …).";
+
 SEM_HINT_RELOAD = "Reload the map after changing mutation settings.";
 SEM_PRESETS = "Quick Presets";
 SEM_AFFLICTIONS = "Affliction weights";
 SEM_SEVERITY = "Severity weights";
 SEM_CAPS = "Map mutation caps";
-SEM_CAPS_HINT = "Limits how many Zone-mutated enemies appear by map size.";
+SEM_CAPS_HINT1 = "Limits how many Zone-mutated enemies";
+SEM_CAPS_HINT2 = "appear by map size.";
+
 SEM_SEC_CHANCE = "Spawn chances";
 SEM_SEC_FX = "Mutation FX";
 SEM_SPAWN_CHANCE = "Affliction spawn chance";
@@ -303,3 +333,4 @@ SEM_DESC_PSEUDOGIANT = "Pseudogiant â€” harder hits + bulk";
 SEM_DESC_GROWTH = "Anomaly Growth â€” larger / tougher";
 SEM_DESC_PHASE = "Phase Shift â€” translucent / spectral";
 SEM_DESC_RAGE = "Emission Rage â€” enrages below half health";
+

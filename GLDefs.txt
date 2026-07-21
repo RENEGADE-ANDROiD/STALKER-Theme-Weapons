@@ -140,38 +140,7 @@ Object DutyASVALTracer
  Frame PUF6E0 { light BulletPuffLight }
 }
 
-////Barrels
-Pulselight NEWBARRELLIGHT
-{
- Color 0.0 0.3 0.0
- Size 40
- SecondarySize 41
- Interval 0.5
- Offset 0 36 0
- Attenuate 1
-}
-
-Object ClearSkyExpBarrel
-{
-  Frame BAR1  { Light NEWBARRELLIGHT }
-}
-
-Pulselight NEWBURNBARRELLIGHT
-{
- Color 1.0 0.8 0.2
- Size 40
- SecondarySize 41
- Interval 0.5
- Offset 0 36 0
- Attenuate 1
-}
-
-Object ClearSkyBurningBarrel
-{
-  Frame BAR2 { Light NEWBURNBARRELLIGHT }
-}
-
-////Lamps
+//// Columns (tech lamps / custom barrels removed — vanilla map props)
 PointLight YELLOWLAMP
 {
  Color 1.0 1.0 0.0
@@ -182,22 +151,6 @@ PointLight YELLOWLAMP
 Object ClearSkyColumn
 {
     Frame COLUA { light YELLOWLAMP }
-}
-
-Object ClearSkyTechLamp2
-{
-    Frame TLP2A { light SMALLLAMP }
-    Frame TLP2B { light SMALLLAMP }
-    Frame TLP2C { light SMALLLAMP }
-    Frame TLP2D { light SMALLLAMP }
-}
-
-Object ClearSkyTechLamp
-{
-    Frame TLMPA { light BIGLAMP }
-    Frame TLMPB { light BIGLAMP }
-    Frame TLMPC { light BIGLAMP }
-    Frame TLMPD { light BIGLAMP }
 }
 
 //Fire
@@ -212,12 +165,12 @@ Pulselight MolotovLight
 
 Object MolotovFire
 {
-  Frame F1RE { Light MolotovLight }
+  Frame C1RE { Light MolotovLight }
 }
 
 Object MolotovFire2
 {
-  Frame F2RE { Light MolotovLight }
+  Frame C2RE { Light MolotovLight }
 }
 
 //// Hexen-style tele smoke (merged from HexenSmoke.wad)
@@ -233,6 +186,61 @@ Flickerlight2 TELESMOKE
 Object FX_TeleSmoke
 {
     frame TNT1A { light TELESMOKE }
+}
+
+//// Zone anomalies — extra sprite-tied glow (dynamic lights also attach in ZScript)
+PointLight CS_AnomGravityLight
+{
+    color 0.55 0.3 0.9
+    size 96
+    offset 0 24 0
+    attenuate 1
+}
+
+PointLight CS_AnomFrostLight
+{
+    color 0.45 0.75 1.0
+    size 110
+    offset 0 24 0
+    attenuate 1
+}
+
+PointLight CS_AnomElectroLight
+{
+    color 0.55 0.85 1.0
+    size 100
+    offset 0 24 0
+    attenuate 1
+}
+
+Flickerlight2 CS_AnomBurnerLight
+{
+    color 1.0 0.4 0.05
+    size 100
+    secondarySize 128
+    interval 0.08
+    offset 0 28 0
+    attenuate 1
+}
+
+Object CS_GravityWellAnomaly
+{
+    Frame ORBP { light CS_AnomGravityLight }
+}
+
+Object CS_FrostAnomaly
+{
+    Frame VFRA { light CS_AnomFrostLight }
+}
+
+Object CS_ElectroNestAnomaly
+{
+    Frame VELA { light CS_AnomElectroLight }
+}
+
+Object CS_BurnerPlumeAnomaly
+{
+    Frame CFR3 { light CS_AnomBurnerLight }
 }
 
 //// Textures

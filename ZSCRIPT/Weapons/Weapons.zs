@@ -147,34 +147,6 @@ class RiotShield : ClearSkyWeapon
         Scale 1.0;
     }
 
-    action void A_KnifeLunge()
-    {
-        let ply = player;
-        if (!ply) return;
-        double range = 200;
-        double aimZ = ply.viewheight;
-        FLineTraceData lt;
-        LineTrace(angle, range, pitch, 0, aimZ, data:lt);
-        Actor victim = lt.hitActor;
-        for (int i = -6; i <= 6 && !victim; i++)
-        {
-            LineTrace(angle + (i * 8), range, pitch, 0, aimZ, data:lt);
-            victim = lt.hitActor;
-        }
-        if (victim && victim.bSHOOTABLE)
-        {
-            A_Face(victim);
-            if (victim.bSOLID)
-            {
-                double cosp = cos(pitch);
-                vel = (0,0,0);
-                vel += (cos(angle) * cosp, sin(angle) * cosp, -sin(pitch)) * 12;
-            }
-        }
-        A_CS_KnifeMelee(25, 78);
-        A_PlaySound("NR40/Swing", CHAN_WEAPON);
-    }
-
     action void A_ShieldBashHit()
     {
         let ply = player;
@@ -213,19 +185,6 @@ class RiotShield : ClearSkyWeapon
     // ------------------------------------------------------------
     States
     {
-    User1:
-        TNT1 A 0 A_PlaySound("NR40/Swing", CHAN_WEAPON);
-        NR40 A 1;
-        NR40 G 1;
-        NR40 B 1;
-        NR40 C 1;
-        NR40 D 1;
-        NR40 E 1 A_KnifeLunge();
-        NR40 F 1;
-        NR40 G 1;
-        NR40 G 1;
-        Goto Ready;
-
     Select:
         TNT1 A 0 A_Raise();
         RSWR F 1 Offset(0, 102);
@@ -327,11 +286,13 @@ class RiotShield : ClearSkyWeapon
         HLN1 ABCDEFH 1;
         HLN1 I 9;
         HLN1 JKL 1;
-        TNT1 A 0 A_TakeInventory("UseStimInjector", 1);
+                TNT1 A 0 A_TakeInventory("UseStimInjector", 1);
+        TNT1 A 0 A_TakeInventory("StimInjectorItem", 1);
         TNT1 A 0 A_PlaySound("Items/UseStimInjector", 5);
         TNT1 A 0 A_PlaySound("*pain100", 6);
         TNT1 A 0 A_SetBlend("White", 0.5, 35);
-        TNT1 A 0 A_GiveInventory("StimInjectorHealthGiver", 1);
+        TNT1 A 0 { GiveBody(40); }
+        TNT1 A 0 A_SpawnItemEx("StimInjectorBurst", 0, 0, 32, 0, 0, 0, 0, SXF_NOCHECKPOSITION | SXF_CLIENTSIDE);
         HLN1 MNMNOPOP 1;
         HLN1 P 14;
         HLN1 QRSTUVW 1;
@@ -440,49 +401,8 @@ class Vepr12 : ClearSkyWeapon
         Scale 0.8;
     }
 
-    action void A_KnifeLunge()
-    {
-        let ply = player;
-        if (!ply) return;
-        double range = 200;
-        double aimZ = ply.viewheight;
-        FLineTraceData lt;
-        LineTrace(angle, range, pitch, 0, aimZ, data:lt);
-        Actor victim = lt.hitActor;
-        for (int i = -6; i <= 6 && !victim; i++)
-        {
-            LineTrace(angle + (i * 8), range, pitch, 0, aimZ, data:lt);
-            victim = lt.hitActor;
-        }
-        if (victim && victim.bSHOOTABLE)
-        {
-            A_Face(victim);
-            if (victim.bSOLID)
-            {
-                double cosp = cos(pitch);
-                vel = (0,0,0);
-                vel += (cos(angle) * cosp, sin(angle) * cosp, -sin(pitch)) * 12;
-            }
-        }
-        A_CS_KnifeMelee(25, 78);
-        A_PlaySound("NR40/Swing", CHAN_WEAPON);
-    }
-
     States
     {
-    User1:
-        TNT1 A 0 A_PlaySound("NR40/Swing", CHAN_WEAPON);
-        NR40 A 1;
-        NR40 G 1;
-        NR40 B 1;
-        NR40 C 1;
-        NR40 D 1;
-        NR40 E 1 A_KnifeLunge();
-        NR40 F 1;
-        NR40 G 1;
-        NR40 G 1;
-        Goto Ready;
-
     Ready:
         V12G A 0 A_PlaySound("Vepr12/Up",9);
         V12G A 1 A_WeaponOffset(12,100,WOF_INTERPOLATE);
@@ -658,11 +578,13 @@ class Vepr12 : ClearSkyWeapon
         HLN1 ABCDEFH 1;
         HLN1 I 9;
         HLN1 JKL 1;
-        TNT1 A 0 A_TakeInventory("UseStimInjector",1);
-        TNT1 A 0 A_PlaySound("Items/UseStimInjector",5);
-        TNT1 A 0 A_PlaySound("*pain100",6);
-        TNT1 A 0 A_SetBlend("White",0.5,35);
-        TNT1 A 0 A_GiveInventory("StimInjectorHealthGiver",1);
+                TNT1 A 0 A_TakeInventory("UseStimInjector", 1);
+        TNT1 A 0 A_TakeInventory("StimInjectorItem", 1);
+        TNT1 A 0 A_PlaySound("Items/UseStimInjector", 5);
+        TNT1 A 0 A_PlaySound("*pain100", 6);
+        TNT1 A 0 A_SetBlend("White", 0.5, 35);
+        TNT1 A 0 { GiveBody(40); }
+        TNT1 A 0 A_SpawnItemEx("StimInjectorBurst", 0, 0, 32, 0, 0, 0, 0, SXF_NOCHECKPOSITION | SXF_CLIENTSIDE);
         HLN1 MNMNOPOP 1;
         HLN1 P 14;
         HLN1 QRSTUVW 1;
@@ -732,7 +654,7 @@ class Vepr12FlameTrail : Actor
     States
     {
     Spawn:
-        FIR3 ABCDEFGHIJKLMNOP 1 Bright;
+        CFR3 ABCDEFGHIJKLMNOP 1 Bright;
         Stop;
     Death:
         TNT1 AAAAAAAAA 4 A_CustomMissile("BurnedSmoke", 1,0, random(0,360), 2, random(0,160));
@@ -763,49 +685,8 @@ class MosinNagant : ClearSkyWeapon
         +Weapon.NoAutoFire;
     }
 
-    action void A_KnifeLunge()
-    {
-        let ply = player;
-        if (!ply) return;
-        double range = 200;
-        double aimZ = ply.viewheight;
-        FLineTraceData lt;
-        LineTrace(angle, range, pitch, 0, aimZ, data:lt);
-        Actor victim = lt.hitActor;
-        for (int i = -6; i <= 6 && !victim; i++)
-        {
-            LineTrace(angle + (i * 8), range, pitch, 0, aimZ, data:lt);
-            victim = lt.hitActor;
-        }
-        if (victim && victim.bSHOOTABLE)
-        {
-            A_Face(victim);
-            if (victim.bSOLID)
-            {
-                double cosp = cos(pitch);
-                vel = (0,0,0);
-                vel += (cos(angle) * cosp, sin(angle) * cosp, -sin(pitch)) * 12;
-            }
-        }
-        A_CS_KnifeMelee(25, 78);
-        A_PlaySound("NR40/Swing", CHAN_WEAPON);
-    }
-
     States
     {
-    User1:
-        TNT1 A 0 A_PlaySound("NR40/Swing", CHAN_WEAPON);
-        NR40 A 1;
-        NR40 G 1;
-        NR40 B 1;
-        NR40 C 1;
-        NR40 D 1;
-        NR40 E 1 A_KnifeLunge();
-        NR40 F 1;
-        NR40 G 1;
-        NR40 G 1;
-        Goto Ready;
-
     Ready:
         MOSG A 0 A_PlaySound("MosinNagant/Up",9);
         MOSG A 1 A_WeaponOffset(12,100,WOF_INTERPOLATE);
@@ -1027,11 +908,13 @@ class MosinNagant : ClearSkyWeapon
         HLN1 ABCDEFH 1;
         HLN1 I 9;
         HLN1 JKL 1;
-        TNT1 A 0 A_TakeInventory("UseStimInjector",1);
-        TNT1 A 0 A_PlaySound("Items/UseStimInjector",5);
-        TNT1 A 0 A_PlaySound("*pain100",6);
-        TNT1 A 0 A_SetBlend("White",0.5,35);
-        TNT1 A 0 A_GiveInventory("StimInjectorHealthGiver",1);
+                TNT1 A 0 A_TakeInventory("UseStimInjector", 1);
+        TNT1 A 0 A_TakeInventory("StimInjectorItem", 1);
+        TNT1 A 0 A_PlaySound("Items/UseStimInjector", 5);
+        TNT1 A 0 A_PlaySound("*pain100", 6);
+        TNT1 A 0 A_SetBlend("White", 0.5, 35);
+        TNT1 A 0 { GiveBody(40); }
+        TNT1 A 0 A_SpawnItemEx("StimInjectorBurst", 0, 0, 32, 0, 0, 0, 0, SXF_NOCHECKPOSITION | SXF_CLIENTSIDE);
         HLN1 MNMNOPOP 1;
         HLN1 P 14;
         HLN1 QRSTUVW 1;
@@ -1082,49 +965,8 @@ class RP46 : ClearSkyWeapon
         +Weapon.NoAutoFire;
     }
 
-    action void A_KnifeLunge()
-    {
-        let ply = player;
-        if (!ply) return;
-        double range = 200;
-        double aimZ = ply.viewheight;
-        FLineTraceData lt;
-        LineTrace(angle, range, pitch, 0, aimZ, data:lt);
-        Actor victim = lt.hitActor;
-        for (int i = -6; i <= 6 && !victim; i++)
-        {
-            LineTrace(angle + (i * 8), range, pitch, 0, aimZ, data:lt);
-            victim = lt.hitActor;
-        }
-        if (victim && victim.bSHOOTABLE)
-        {
-            A_Face(victim);
-            if (victim.bSOLID)
-            {
-                double cosp = cos(pitch);
-                vel = (0,0,0);
-                vel += (cos(angle) * cosp, sin(angle) * cosp, -sin(pitch)) * 12;
-            }
-        }
-        A_CS_KnifeMelee(25, 78);
-        A_PlaySound("NR40/Swing", CHAN_WEAPON);
-    }
-
     States
     {
-    User1:
-        TNT1 A 0 A_PlaySound("NR40/Swing", CHAN_WEAPON);
-        NR40 A 1;
-        NR40 G 1;
-        NR40 B 1;
-        NR40 C 1;
-        NR40 D 1;
-        NR40 E 1 A_KnifeLunge();
-        NR40 F 1;
-        NR40 G 1;
-        NR40 G 1;
-        Goto Ready;
-
     Ready:
         RP4G A 0 A_PlaySound("RP46/Up",9);
         RP4G A 1 A_WeaponOffset(12,100,WOF_INTERPOLATE);
@@ -1296,11 +1138,13 @@ class RP46 : ClearSkyWeapon
         HLN1 ABCDEFH 1;
         HLN1 I 9;
         HLN1 JKL 1;
-        TNT1 A 0 A_TakeInventory("UseStimInjector",1);
-        TNT1 A 0 A_PlaySound("Items/UseStimInjector",5);
-        TNT1 A 0 A_PlaySound("*pain100",6);
-        TNT1 A 0 A_SetBlend("White",0.5,35);
-        TNT1 A 0 A_GiveInventory("StimInjectorHealthGiver",1);
+                TNT1 A 0 A_TakeInventory("UseStimInjector", 1);
+        TNT1 A 0 A_TakeInventory("StimInjectorItem", 1);
+        TNT1 A 0 A_PlaySound("Items/UseStimInjector", 5);
+        TNT1 A 0 A_PlaySound("*pain100", 6);
+        TNT1 A 0 A_SetBlend("White", 0.5, 35);
+        TNT1 A 0 { GiveBody(40); }
+        TNT1 A 0 A_SpawnItemEx("StimInjectorBurst", 0, 0, 32, 0, 0, 0, 0, SXF_NOCHECKPOSITION | SXF_CLIENTSIDE);
         HLN1 MNMNOPOP 1;
         HLN1 P 14;
         HLN1 QRSTUVW 1;
@@ -1348,49 +1192,8 @@ class SVD : ClearSkyWeapon
         +Weapon.NoAutoFire;
     }
 
-    action void A_KnifeLunge()
-    {
-        let ply = player;
-        if (!ply) return;
-        double range = 200;
-        double aimZ = ply.viewheight;
-        FLineTraceData lt;
-        LineTrace(angle, range, pitch, 0, aimZ, data:lt);
-        Actor victim = lt.hitActor;
-        for (int i = -6; i <= 6 && !victim; i++)
-        {
-            LineTrace(angle + (i * 8), range, pitch, 0, aimZ, data:lt);
-            victim = lt.hitActor;
-        }
-        if (victim && victim.bSHOOTABLE)
-        {
-            A_Face(victim);
-            if (victim.bSOLID)
-            {
-                double cosp = cos(pitch);
-                vel = (0,0,0);
-                vel += (cos(angle) * cosp, sin(angle) * cosp, -sin(pitch)) * 12;
-            }
-        }
-        A_CS_KnifeMelee(25, 78);
-        A_PlaySound("NR40/Swing", CHAN_WEAPON);
-    }
-
     States
     {
-    User1:
-        TNT1 A 0 A_PlaySound("NR40/Swing", CHAN_WEAPON);
-        NR40 A 1;
-        NR40 G 1;
-        NR40 B 1;
-        NR40 C 1;
-        NR40 D 1;
-        NR40 E 1 A_KnifeLunge();
-        NR40 F 1;
-        NR40 G 1;
-        NR40 G 1;
-        Goto Ready;
-
     Ready:
         SVDG A 0 A_PlaySound("SVD/Up",9);
         SVDG A 1 A_WeaponOffset(12,100,WOF_INTERPOLATE);
@@ -1598,7 +1401,7 @@ class SVD : ClearSkyWeapon
         SVDR C 1 Offset(2,46);
         SVDR D 1 Offset(4,52);
         SVDR E 1 Offset(7,56) A_PlaySound("SVD/Out",5);
-        SVDR E 1 Offset(10,57) A_FireCustomMissile("AKClipSpawn",25,0,8,-32);
+        SVDR E 1 Offset(10,57) A_FireCustomMissile("RifleClipSpawn",25,0,8,-32);
         SVDR E 16 Offset(11,58);
         Goto ReloadLoop;
 
@@ -1678,11 +1481,13 @@ class SVD : ClearSkyWeapon
         HLN1 ABCDEFH 1;
         HLN1 I 9;
         HLN1 JKL 1;
-        TNT1 A 0 A_TakeInventory("UseStimInjector",1);
-        TNT1 A 0 A_PlaySound("Items/UseStimInjector",5);
-        TNT1 A 0 A_PlaySound("*pain100",6);
-        TNT1 A 0 A_SetBlend("White",0.5,35);
-        TNT1 A 0 A_GiveInventory("StimInjectorHealthGiver",1);
+                TNT1 A 0 A_TakeInventory("UseStimInjector", 1);
+        TNT1 A 0 A_TakeInventory("StimInjectorItem", 1);
+        TNT1 A 0 A_PlaySound("Items/UseStimInjector", 5);
+        TNT1 A 0 A_PlaySound("*pain100", 6);
+        TNT1 A 0 A_SetBlend("White", 0.5, 35);
+        TNT1 A 0 { GiveBody(40); }
+        TNT1 A 0 A_SpawnItemEx("StimInjectorBurst", 0, 0, 32, 0, 0, 0, 0, SXF_NOCHECKPOSITION | SXF_CLIENTSIDE);
         HLN1 MNMNOPOP 1;
         HLN1 P 14;
         HLN1 QRSTUVW 1;
@@ -1729,49 +1534,8 @@ class TOZ34 : ClearSkyWeapon
         +Weapon.NoAutoFire;
     }
 
-    action void A_KnifeLunge()
-    {
-        let ply = player;
-        if (!ply) return;
-        double range = 200;
-        double aimZ = ply.viewheight;
-        FLineTraceData lt;
-        LineTrace(angle, range, pitch, 0, aimZ, data:lt);
-        Actor victim = lt.hitActor;
-        for (int i = -6; i <= 6 && !victim; i++)
-        {
-            LineTrace(angle + (i * 8), range, pitch, 0, aimZ, data:lt);
-            victim = lt.hitActor;
-        }
-        if (victim && victim.bSHOOTABLE)
-        {
-            A_Face(victim);
-            if (victim.bSOLID)
-            {
-                double cosp = cos(pitch);
-                vel = (0,0,0);
-                vel += (cos(angle) * cosp, sin(angle) * cosp, -sin(pitch)) * 12;
-            }
-        }
-        A_CS_KnifeMelee(25, 78);
-        A_PlaySound("NR40/Swing", CHAN_WEAPON);
-    }
-
     States
     {
-    User1:
-        TNT1 A 0 A_PlaySound("NR40/Swing", CHAN_WEAPON);
-        NR40 A 1;
-        NR40 G 1;
-        NR40 B 1;
-        NR40 C 1;
-        NR40 D 1;
-        NR40 E 1 A_KnifeLunge();
-        NR40 F 1;
-        NR40 G 1;
-        NR40 G 1;
-        Goto Ready;
-
     Ready:
         T34G A 0 A_PlaySound("TOZ34/Up",9);
         T34G A 1 A_WeaponOffset(12,100,WOF_INTERPOLATE);
@@ -1948,11 +1712,13 @@ class TOZ34 : ClearSkyWeapon
         HLN1 ABCDEFH 1;
         HLN1 I 9;
         HLN1 JKL 1;
-        TNT1 A 0 A_TakeInventory("UseStimInjector",1);
-        TNT1 A 0 A_PlaySound("Items/UseStimInjector",5);
-        TNT1 A 0 A_PlaySound("*pain100",6);
-        TNT1 A 0 A_SetBlend("White",0.5,35);
-        TNT1 A 0 A_GiveInventory("StimInjectorHealthGiver",1);
+                TNT1 A 0 A_TakeInventory("UseStimInjector", 1);
+        TNT1 A 0 A_TakeInventory("StimInjectorItem", 1);
+        TNT1 A 0 A_PlaySound("Items/UseStimInjector", 5);
+        TNT1 A 0 A_PlaySound("*pain100", 6);
+        TNT1 A 0 A_SetBlend("White", 0.5, 35);
+        TNT1 A 0 { GiveBody(40); }
+        TNT1 A 0 A_SpawnItemEx("StimInjectorBurst", 0, 0, 32, 0, 0, 0, 0, SXF_NOCHECKPOSITION | SXF_CLIENTSIDE);
         HLN1 MNMNOPOP 1;
         HLN1 P 14;
         HLN1 QRSTUVW 1;
@@ -1998,49 +1764,8 @@ class KS23 : ClearSkyWeapon
         +Weapon.NoAutoFire;
     }
 
-    action void A_KnifeLunge()
-    {
-        let ply = player;
-        if (!ply) return;
-        double range = 200;
-        double aimZ = ply.viewheight;
-        FLineTraceData lt;
-        LineTrace(angle, range, pitch, 0, aimZ, data:lt);
-        Actor victim = lt.hitActor;
-        for (int i = -6; i <= 6 && !victim; i++)
-        {
-            LineTrace(angle + (i * 8), range, pitch, 0, aimZ, data:lt);
-            victim = lt.hitActor;
-        }
-        if (victim && victim.bSHOOTABLE)
-        {
-            A_Face(victim);
-            if (victim.bSOLID)
-            {
-                double cosp = cos(pitch);
-                vel = (0,0,0);
-                vel += (cos(angle) * cosp, sin(angle) * cosp, -sin(pitch)) * 12;
-            }
-        }
-        A_CS_KnifeMelee(25, 78);
-        A_PlaySound("NR40/Swing", CHAN_WEAPON);
-    }
-
     States
     {
-    User1:
-        TNT1 A 0 A_PlaySound("NR40/Swing", CHAN_WEAPON);
-        NR40 A 1;
-        NR40 G 1;
-        NR40 B 1;
-        NR40 C 1;
-        NR40 D 1;
-        NR40 E 1 A_KnifeLunge();
-        NR40 F 1;
-        NR40 G 1;
-        NR40 G 1;
-        Goto Ready;
-
     Ready:
         K23G A 0 A_PlaySound("KS23/Up",9);
         K23G A 1 A_WeaponOffset(12,100,WOF_INTERPOLATE);
@@ -2218,11 +1943,13 @@ class KS23 : ClearSkyWeapon
         HLN1 ABCDEFH 1;
         HLN1 I 9;
         HLN1 JKL 1;
-        TNT1 A 0 A_TakeInventory("UseStimInjector",1);
-        TNT1 A 0 A_PlaySound("Items/UseStimInjector",5);
-        TNT1 A 0 A_PlaySound("*pain100",6);
-        TNT1 A 0 A_SetBlend("White",0.5,35);
-        TNT1 A 0 A_GiveInventory("StimInjectorHealthGiver",1);
+                TNT1 A 0 A_TakeInventory("UseStimInjector", 1);
+        TNT1 A 0 A_TakeInventory("StimInjectorItem", 1);
+        TNT1 A 0 A_PlaySound("Items/UseStimInjector", 5);
+        TNT1 A 0 A_PlaySound("*pain100", 6);
+        TNT1 A 0 A_SetBlend("White", 0.5, 35);
+        TNT1 A 0 { GiveBody(40); }
+        TNT1 A 0 A_SpawnItemEx("StimInjectorBurst", 0, 0, 32, 0, 0, 0, 0, SXF_NOCHECKPOSITION | SXF_CLIENTSIDE);
         HLN1 MNMNOPOP 1;
         HLN1 P 14;
         HLN1 QRSTUVW 1;
@@ -2273,49 +2000,8 @@ class AK47 : ClearSkyWeapon
         +Weapon.NoAutoFire;
     }
 
-    action void A_KnifeLunge()
-    {
-        let ply = player;
-        if (!ply) return;
-        double range = 200;
-        double aimZ = ply.viewheight;
-        FLineTraceData lt;
-        LineTrace(angle, range, pitch, 0, aimZ, data:lt);
-        Actor victim = lt.hitActor;
-        for (int i = -6; i <= 6 && !victim; i++)
-        {
-            LineTrace(angle + (i * 8), range, pitch, 0, aimZ, data:lt);
-            victim = lt.hitActor;
-        }
-        if (victim && victim.bSHOOTABLE)
-        {
-            A_Face(victim);
-            if (victim.bSOLID)
-            {
-                double cosp = cos(pitch);
-                vel = (0,0,0);
-                vel += (cos(angle) * cosp, sin(angle) * cosp, -sin(pitch)) * 12;
-            }
-        }
-        A_CS_KnifeMelee(25, 78);
-        A_PlaySound("NR40/Swing", CHAN_WEAPON);
-    }
-
     States
     {
-    User1:
-        TNT1 A 0 A_PlaySound("NR40/Swing", CHAN_WEAPON);
-        NR40 A 1;
-        NR40 G 1;
-        NR40 B 1;
-        NR40 C 1;
-        NR40 D 1;
-        NR40 E 1 A_KnifeLunge();
-        NR40 F 1;
-        NR40 G 1;
-        NR40 G 1;
-        Goto Ready;
-
     Ready:
         AK4G A 0 A_PlaySound("AK47/Up",9);
         AK4G A 1 A_WeaponOffset(12,100,WOF_INTERPOLATE);
@@ -2529,11 +2215,13 @@ class AK47 : ClearSkyWeapon
         HLN1 ABCDEFH 1;
         HLN1 I 9;
         HLN1 JKL 1;
-        TNT1 A 0 A_TakeInventory("UseStimInjector",1);
-        TNT1 A 0 A_PlaySound("Items/UseStimInjector",5);
-        TNT1 A 0 A_PlaySound("*pain100",6);
-        TNT1 A 0 A_SetBlend("White",0.5,35);
-        TNT1 A 0 A_GiveInventory("StimInjectorHealthGiver",1);
+                TNT1 A 0 A_TakeInventory("UseStimInjector", 1);
+        TNT1 A 0 A_TakeInventory("StimInjectorItem", 1);
+        TNT1 A 0 A_PlaySound("Items/UseStimInjector", 5);
+        TNT1 A 0 A_PlaySound("*pain100", 6);
+        TNT1 A 0 A_SetBlend("White", 0.5, 35);
+        TNT1 A 0 { GiveBody(40); }
+        TNT1 A 0 A_SpawnItemEx("StimInjectorBurst", 0, 0, 32, 0, 0, 0, 0, SXF_NOCHECKPOSITION | SXF_CLIENTSIDE);
         HLN1 MNMNOPOP 1;
         HLN1 P 14;
         HLN1 QRSTUVW 1;
@@ -2581,49 +2269,8 @@ class SKS : ClearSkyWeapon
         +Weapon.NoAutoFire;
     }
 
-    action void A_KnifeLunge()
-    {
-        let ply = player;
-        if (!ply) return;
-        double range = 200;
-        double aimZ = ply.viewheight;
-        FLineTraceData lt;
-        LineTrace(angle, range, pitch, 0, aimZ, data:lt);
-        Actor victim = lt.hitActor;
-        for (int i = -6; i <= 6 && !victim; i++)
-        {
-            LineTrace(angle + (i * 8), range, pitch, 0, aimZ, data:lt);
-            victim = lt.hitActor;
-        }
-        if (victim && victim.bSHOOTABLE)
-        {
-            A_Face(victim);
-            if (victim.bSOLID)
-            {
-                double cosp = cos(pitch);
-                vel = (0,0,0);
-                vel += (cos(angle) * cosp, sin(angle) * cosp, -sin(pitch)) * 12;
-            }
-        }
-        A_CS_KnifeMelee(25, 78);
-        A_PlaySound("NR40/Swing", CHAN_WEAPON);
-    }
-
     States
     {
-    User1:
-        TNT1 A 0 A_PlaySound("NR40/Swing", CHAN_WEAPON);
-        NR40 A 1;
-        NR40 G 1;
-        NR40 B 1;
-        NR40 C 1;
-        NR40 D 1;
-        NR40 E 1 A_KnifeLunge();
-        NR40 F 1;
-        NR40 G 1;
-        NR40 G 1;
-        Goto Ready;
-
     Ready:
         SKSG B 0 A_PlaySound("SKS/Up",9);
         SKSG A 1 A_WeaponOffset(12,100,WOF_INTERPOLATE);
@@ -2803,11 +2450,13 @@ class SKS : ClearSkyWeapon
         HLN1 ABCDEFH 1;
         HLN1 I 9;
         HLN1 JKL 1;
-        TNT1 A 0 A_TakeInventory("UseStimInjector",1);
-        TNT1 A 0 A_PlaySound("Items/UseStimInjector",5);
-        TNT1 A 0 A_PlaySound("*pain100",6);
-        TNT1 A 0 A_SetBlend("White",0.5,35);
-        TNT1 A 0 A_GiveInventory("StimInjectorHealthGiver",1);
+                TNT1 A 0 A_TakeInventory("UseStimInjector", 1);
+        TNT1 A 0 A_TakeInventory("StimInjectorItem", 1);
+        TNT1 A 0 A_PlaySound("Items/UseStimInjector", 5);
+        TNT1 A 0 A_PlaySound("*pain100", 6);
+        TNT1 A 0 A_SetBlend("White", 0.5, 35);
+        TNT1 A 0 { GiveBody(40); }
+        TNT1 A 0 A_SpawnItemEx("StimInjectorBurst", 0, 0, 32, 0, 0, 0, 0, SXF_NOCHECKPOSITION | SXF_CLIENTSIDE);
         HLN1 MNMNOPOP 1;
         HLN1 P 14;
         HLN1 QRSTUVW 1;
@@ -2854,49 +2503,8 @@ class Fort12 : ClearSkyWeapon
         +Weapon.NoAutoFire;
     }
 
-    action void A_KnifeLunge()
-    {
-        let ply = player;
-        if (!ply) return;
-        double range = 200;
-        double aimZ = ply.viewheight;
-        FLineTraceData lt;
-        LineTrace(angle, range, pitch, 0, aimZ, data:lt);
-        Actor victim = lt.hitActor;
-        for (int i = -6; i <= 6 && !victim; i++)
-        {
-            LineTrace(angle + (i * 8), range, pitch, 0, aimZ, data:lt);
-            victim = lt.hitActor;
-        }
-        if (victim && victim.bSHOOTABLE)
-        {
-            A_Face(victim);
-            if (victim.bSOLID)
-            {
-                double cosp = cos(pitch);
-                vel = (0,0,0);
-                vel += (cos(angle) * cosp, sin(angle) * cosp, -sin(pitch)) * 12;
-            }
-        }
-        A_CS_KnifeMelee(25, 78);
-        A_PlaySound("NR40/Swing", CHAN_WEAPON);
-    }
-
     States
     {
-    User1:
-        TNT1 A 0 A_PlaySound("NR40/Swing", CHAN_WEAPON);
-        NR40 A 1;
-        NR40 G 1;
-        NR40 B 1;
-        NR40 C 1;
-        NR40 D 1;
-        NR40 E 1 A_KnifeLunge();
-        NR40 F 1;
-        NR40 G 1;
-        NR40 G 1;
-        Goto Ready;
-
     Ready:
         F12G A 0 A_PlaySound("Fort12/Up",9);
         F12G A 1 A_WeaponOffset(12,100,WOF_INTERPOLATE);
@@ -3066,11 +2674,13 @@ class Fort12 : ClearSkyWeapon
         HLN1 ABCDEFH 1;
         HLN1 I 9;
         HLN1 JKL 1;
-        TNT1 A 0 A_TakeInventory("UseStimInjector",1);
-        TNT1 A 0 A_PlaySound("Items/UseStimInjector",5);
-        TNT1 A 0 A_PlaySound("*pain100",6);
-        TNT1 A 0 A_SetBlend("White",0.5,35);
-        TNT1 A 0 A_GiveInventory("StimInjectorHealthGiver",1);
+                TNT1 A 0 A_TakeInventory("UseStimInjector", 1);
+        TNT1 A 0 A_TakeInventory("StimInjectorItem", 1);
+        TNT1 A 0 A_PlaySound("Items/UseStimInjector", 5);
+        TNT1 A 0 A_PlaySound("*pain100", 6);
+        TNT1 A 0 A_SetBlend("White", 0.5, 35);
+        TNT1 A 0 { GiveBody(40); }
+        TNT1 A 0 A_SpawnItemEx("StimInjectorBurst", 0, 0, 32, 0, 0, 0, 0, SXF_NOCHECKPOSITION | SXF_CLIENTSIDE);
         HLN1 MNMNOPOP 1;
         HLN1 P 14;
         HLN1 QRSTUVW 1;
@@ -3117,49 +2727,8 @@ class PP19 : ClearSkyWeapon
         +Weapon.NoAutoFire;
     }
 
-    action void A_KnifeLunge()
-    {
-        let ply = player;
-        if (!ply) return;
-        double range = 200;
-        double aimZ = ply.viewheight;
-        FLineTraceData lt;
-        LineTrace(angle, range, pitch, 0, aimZ, data:lt);
-        Actor victim = lt.hitActor;
-        for (int i = -6; i <= 6 && !victim; i++)
-        {
-            LineTrace(angle + (i * 8), range, pitch, 0, aimZ, data:lt);
-            victim = lt.hitActor;
-        }
-        if (victim && victim.bSHOOTABLE)
-        {
-            A_Face(victim);
-            if (victim.bSOLID)
-            {
-                double cosp = cos(pitch);
-                vel = (0,0,0);
-                vel += (cos(angle) * cosp, sin(angle) * cosp, -sin(pitch)) * 12;
-            }
-        }
-        A_CS_KnifeMelee(25, 78);
-        A_PlaySound("NR40/Swing", CHAN_WEAPON);
-    }
-
     States
     {
-    User1:
-        TNT1 A 0 A_PlaySound("NR40/Swing", CHAN_WEAPON);
-        NR40 A 1;
-        NR40 G 1;
-        NR40 B 1;
-        NR40 C 1;
-        NR40 D 1;
-        NR40 E 1 A_KnifeLunge();
-        NR40 F 1;
-        NR40 G 1;
-        NR40 G 1;
-        Goto Ready;
-
     Ready:
         P19G A 0 A_PlaySound("PP19/Up",9);
         P19G A 1 A_WeaponOffset(12,100,WOF_INTERPOLATE);
@@ -3411,11 +2980,13 @@ class PP19 : ClearSkyWeapon
         HLN1 ABCDEFH 1;
         HLN1 I 9;
         HLN1 JKL 1;
-        TNT1 A 0 A_TakeInventory("UseStimInjector",1);
-        TNT1 A 0 A_PlaySound("Items/UseStimInjector",5);
-        TNT1 A 0 A_PlaySound("*pain100",6);
-        TNT1 A 0 A_SetBlend("White",0.5,35);
-        TNT1 A 0 A_GiveInventory("StimInjectorHealthGiver",1);
+                TNT1 A 0 A_TakeInventory("UseStimInjector", 1);
+        TNT1 A 0 A_TakeInventory("StimInjectorItem", 1);
+        TNT1 A 0 A_PlaySound("Items/UseStimInjector", 5);
+        TNT1 A 0 A_PlaySound("*pain100", 6);
+        TNT1 A 0 A_SetBlend("White", 0.5, 35);
+        TNT1 A 0 { GiveBody(40); }
+        TNT1 A 0 A_SpawnItemEx("StimInjectorBurst", 0, 0, 32, 0, 0, 0, 0, SXF_NOCHECKPOSITION | SXF_CLIENTSIDE);
         HLN1 MNMNOPOP 1;
         HLN1 P 14;
         HLN1 QRSTUVW 1;
@@ -3465,49 +3036,8 @@ class ASVAL : ClearSkyWeapon
         +Weapon.NoAutoFire;
     }
 
-    action void A_KnifeLunge()
-    {
-        let ply = player;
-        if (!ply) return;
-        double range = 200;
-        double aimZ = ply.viewheight;
-        FLineTraceData lt;
-        LineTrace(angle, range, pitch, 0, aimZ, data:lt);
-        Actor victim = lt.hitActor;
-        for (int i = -6; i <= 6 && !victim; i++)
-        {
-            LineTrace(angle + (i * 8), range, pitch, 0, aimZ, data:lt);
-            victim = lt.hitActor;
-        }
-        if (victim && victim.bSHOOTABLE)
-        {
-            A_Face(victim);
-            if (victim.bSOLID)
-            {
-                double cosp = cos(pitch);
-                vel = (0,0,0);
-                vel += (cos(angle) * cosp, sin(angle) * cosp, -sin(pitch)) * 12;
-            }
-        }
-        A_CS_KnifeMelee(25, 78);
-        A_PlaySound("NR40/Swing", CHAN_WEAPON);
-    }
-
     States
     {
-    User1:
-        TNT1 A 0 A_PlaySound("NR40/Swing", CHAN_WEAPON);
-        NR40 A 1;
-        NR40 G 1;
-        NR40 B 1;
-        NR40 C 1;
-        NR40 D 1;
-        NR40 E 1 A_KnifeLunge();
-        NR40 F 1;
-        NR40 G 1;
-        NR40 G 1;
-        Goto Ready;
-
     Ready:
         ASVG A 0 A_PlaySound("ASVAL/Up",9);
         ASVG A 1 A_WeaponOffset(12,100,WOF_INTERPOLATE);
@@ -3675,11 +3205,13 @@ class ASVAL : ClearSkyWeapon
         HLN1 ABCDEFH 1;
         HLN1 I 9;
         HLN1 JKL 1;
-        TNT1 A 0 A_TakeInventory("UseStimInjector",1);
-        TNT1 A 0 A_PlaySound("Items/UseStimInjector",5);
-        TNT1 A 0 A_PlaySound("*pain100",6);
-        TNT1 A 0 A_SetBlend("White",0.5,35);
-        TNT1 A 0 A_GiveInventory("StimInjectorHealthGiver",1);
+                TNT1 A 0 A_TakeInventory("UseStimInjector", 1);
+        TNT1 A 0 A_TakeInventory("StimInjectorItem", 1);
+        TNT1 A 0 A_PlaySound("Items/UseStimInjector", 5);
+        TNT1 A 0 A_PlaySound("*pain100", 6);
+        TNT1 A 0 A_SetBlend("White", 0.5, 35);
+        TNT1 A 0 { GiveBody(40); }
+        TNT1 A 0 A_SpawnItemEx("StimInjectorBurst", 0, 0, 32, 0, 0, 0, 0, SXF_NOCHECKPOSITION | SXF_CLIENTSIDE);
         HLN1 MNMNOPOP 1;
         HLN1 P 14;
         HLN1 QRSTUVW 1;
@@ -3726,49 +3258,8 @@ class OTS14 : ClearSkyWeapon
         +Weapon.NoAutoFire;
     }
 
-    action void A_KnifeLunge()
-    {
-        let ply = player;
-        if (!ply) return;
-        double range = 200;
-        double aimZ = ply.viewheight;
-        FLineTraceData lt;
-        LineTrace(angle, range, pitch, 0, aimZ, data:lt);
-        Actor victim = lt.hitActor;
-        for (int i = -6; i <= 6 && !victim; i++)
-        {
-            LineTrace(angle + (i * 8), range, pitch, 0, aimZ, data:lt);
-            victim = lt.hitActor;
-        }
-        if (victim && victim.bSHOOTABLE)
-        {
-            A_Face(victim);
-            if (victim.bSOLID)
-            {
-                double cosp = cos(pitch);
-                vel = (0,0,0);
-                vel += (cos(angle) * cosp, sin(angle) * cosp, -sin(pitch)) * 12;
-            }
-        }
-        A_CS_KnifeMelee(25, 78);
-        A_PlaySound("NR40/Swing", CHAN_WEAPON);
-    }
-
     States
     {
-    User1:
-        TNT1 A 0 A_PlaySound("NR40/Swing", CHAN_WEAPON);
-        NR40 A 1;
-        NR40 G 1;
-        NR40 B 1;
-        NR40 C 1;
-        NR40 D 1;
-        NR40 E 1 A_KnifeLunge();
-        NR40 F 1;
-        NR40 G 1;
-        NR40 G 1;
-        Goto Ready;
-
     Ready:
         OTSG A 0 A_PlaySound("OTS14/Up",9);
         OTSG A 1 A_WeaponOffset(12,100,WOF_INTERPOLATE);
@@ -3961,11 +3452,13 @@ class OTS14 : ClearSkyWeapon
         HLN1 ABCDEFH 1;
         HLN1 I 9;
         HLN1 JKL 1;
-        TNT1 A 0 A_TakeInventory("UseStimInjector",1);
-        TNT1 A 0 A_PlaySound("Items/UseStimInjector",5);
-        TNT1 A 0 A_PlaySound("*pain100",6);
-        TNT1 A 0 A_SetBlend("White",0.5,35);
-        TNT1 A 0 A_GiveInventory("StimInjectorHealthGiver",1);
+                TNT1 A 0 A_TakeInventory("UseStimInjector", 1);
+        TNT1 A 0 A_TakeInventory("StimInjectorItem", 1);
+        TNT1 A 0 A_PlaySound("Items/UseStimInjector", 5);
+        TNT1 A 0 A_PlaySound("*pain100", 6);
+        TNT1 A 0 A_SetBlend("White", 0.5, 35);
+        TNT1 A 0 { GiveBody(40); }
+        TNT1 A 0 A_SpawnItemEx("StimInjectorBurst", 0, 0, 32, 0, 0, 0, 0, SXF_NOCHECKPOSITION | SXF_CLIENTSIDE);
         HLN1 MNMNOPOP 1;
         HLN1 P 14;
         HLN1 QRSTUVW 1;
@@ -4101,49 +3594,8 @@ class PPSh41 : ClearSkyWeapon
         +Weapon.NoAutoFire;
     }
 
-    action void A_KnifeLunge()
-    {
-        let ply = player;
-        if (!ply) return;
-        double range = 200;
-        double aimZ = ply.viewheight;
-        FLineTraceData lt;
-        LineTrace(angle, range, pitch, 0, aimZ, data:lt);
-        Actor victim = lt.hitActor;
-        for (int i = -6; i <= 6 && !victim; i++)
-        {
-            LineTrace(angle + (i * 8), range, pitch, 0, aimZ, data:lt);
-            victim = lt.hitActor;
-        }
-        if (victim && victim.bSHOOTABLE)
-        {
-            A_Face(victim);
-            if (victim.bSOLID)
-            {
-                double cosp = cos(pitch);
-                vel = (0,0,0);
-                vel += (cos(angle) * cosp, sin(angle) * cosp, -sin(pitch)) * 12;
-            }
-        }
-        A_CS_KnifeMelee(25, 78);
-        A_PlaySound("NR40/Swing", CHAN_WEAPON);
-    }
-
     States
     {
-    User1:
-        TNT1 A 0 A_PlaySound("NR40/Swing", CHAN_WEAPON);
-        NR40 A 1;
-        NR40 G 1;
-        NR40 B 1;
-        NR40 C 1;
-        NR40 D 1;
-        NR40 E 1 A_KnifeLunge();
-        NR40 F 1;
-        NR40 G 1;
-        NR40 G 1;
-        Goto Ready;
-
     Ready:
         PPSG A 0 A_PlaySound("PPSh/Up",9);
         PPSG A 1 A_WeaponOffset(12,100,WOF_INTERPOLATE);
@@ -4309,11 +3761,13 @@ class PPSh41 : ClearSkyWeapon
         HLN1 ABCDEFH 1;
         HLN1 I 9;
         HLN1 JKL 1;
-        TNT1 A 0 A_TakeInventory("UseStimInjector",1);
-        TNT1 A 0 A_PlaySound("Items/UseStimInjector",5);
-        TNT1 A 0 A_PlaySound("*pain100",6);
-        TNT1 A 0 A_SetBlend("White",0.5,35);
-        TNT1 A 0 A_GiveInventory("StimInjectorHealthGiver",1);
+                TNT1 A 0 A_TakeInventory("UseStimInjector", 1);
+        TNT1 A 0 A_TakeInventory("StimInjectorItem", 1);
+        TNT1 A 0 A_PlaySound("Items/UseStimInjector", 5);
+        TNT1 A 0 A_PlaySound("*pain100", 6);
+        TNT1 A 0 A_SetBlend("White", 0.5, 35);
+        TNT1 A 0 { GiveBody(40); }
+        TNT1 A 0 A_SpawnItemEx("StimInjectorBurst", 0, 0, 32, 0, 0, 0, 0, SXF_NOCHECKPOSITION | SXF_CLIENTSIDE);
         HLN1 MNMNOPOP 1;
         HLN1 P 14;
         HLN1 QRSTUVW 1;
@@ -4360,49 +3814,8 @@ class TT33 : ClearSkyWeapon
         +Weapon.NoAutoFire;
     }
 
-    action void A_KnifeLunge()
-    {
-        let ply = player;
-        if (!ply) return;
-        double range = 200;
-        double aimZ = ply.viewheight;
-        FLineTraceData lt;
-        LineTrace(angle, range, pitch, 0, aimZ, data:lt);
-        Actor victim = lt.hitActor;
-        for (int i = -6; i <= 6 && !victim; i++)
-        {
-            LineTrace(angle + (i * 8), range, pitch, 0, aimZ, data:lt);
-            victim = lt.hitActor;
-        }
-        if (victim && victim.bSHOOTABLE)
-        {
-            A_Face(victim);
-            if (victim.bSOLID)
-            {
-                double cosp = cos(pitch);
-                vel = (0,0,0);
-                vel += (cos(angle) * cosp, sin(angle) * cosp, -sin(pitch)) * 12;
-            }
-        }
-        A_CS_KnifeMelee(25, 78);
-        A_PlaySound("NR40/Swing", CHAN_WEAPON);
-    }
-
     States
     {
-    User1:
-        TNT1 A 0 A_PlaySound("NR40/Swing", CHAN_WEAPON);
-        NR40 A 1;
-        NR40 G 1;
-        NR40 B 1;
-        NR40 C 1;
-        NR40 D 1;
-        NR40 E 1 A_KnifeLunge();
-        NR40 F 1;
-        NR40 G 1;
-        NR40 G 1;
-        Goto Ready;
-
     Ready:
         T33G B 0 A_PlaySound("TT33/Up",9);
         T33G A 1 A_WeaponOffset(12,100,WOF_INTERPOLATE);
@@ -4571,11 +3984,13 @@ class TT33 : ClearSkyWeapon
         HLN1 ABCDEFH 1;
         HLN1 I 9;
         HLN1 JKL 1;
-        TNT1 A 0 A_TakeInventory("UseStimInjector",1);
-        TNT1 A 0 A_PlaySound("Items/UseStimInjector",5);
-        TNT1 A 0 A_PlaySound("*pain100",6);
-        TNT1 A 0 A_SetBlend("White",0.5,35);
-        TNT1 A 0 A_GiveInventory("StimInjectorHealthGiver",1);
+                TNT1 A 0 A_TakeInventory("UseStimInjector", 1);
+        TNT1 A 0 A_TakeInventory("StimInjectorItem", 1);
+        TNT1 A 0 A_PlaySound("Items/UseStimInjector", 5);
+        TNT1 A 0 A_PlaySound("*pain100", 6);
+        TNT1 A 0 A_SetBlend("White", 0.5, 35);
+        TNT1 A 0 { GiveBody(40); }
+        TNT1 A 0 A_SpawnItemEx("StimInjectorBurst", 0, 0, 32, 0, 0, 0, 0, SXF_NOCHECKPOSITION | SXF_CLIENTSIDE);
         HLN1 MNMNOPOP 1;
         HLN1 P 14;
         HLN1 QRSTUVW 1;

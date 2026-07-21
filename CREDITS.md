@@ -19,6 +19,8 @@ Consolidated from the legacy `Readme.MD` and in-mod authorship notes. For mainta
 | **Tilt++** camera roll (`Z_TiltMe`) | Nash Muhandes — folded from Project Survival |
 | **Yaw weapon sway** (`zm_yawsway*`) | ZMove / Project Survival Separated Movement Modes math on `STALKERPlayer` |
 | **Weapon rotational tilt** (`CS_WeaponRotTilter*`, `wt_*`) | Project Survival `PS_WeaponTilter` — profiled for Clear Sky weapons |
+| **Zone map anomalies** (gravity / frost / electro / burner) | PB2022 BlackHole/VORTEX + ORBP/BHOL/BH05; PB ice crystals; UKS Frost/Electric aura (DeVloek); TC Flames for Burner |
+| **Universal Kick** (kick / slide / ledge / FP legs / taunt) | Mickromash UniversalKick logic — legs/ledge SFX Project Brutality; **FPS kick/slide/air sheets + red/blue/green boot smears** from Sergeant_Mark_IV Brutal Doom 22 (`KICK`/`SLID`/`1–3ICK`/`1–3LID`); taunt gloves Sergeant_Mark_IV; Clmb2/3 ledge; FUCK* gesture sprites (no taunt voices); assets under `Sprites/MR_UKick/`, `Patches/MR_UKick/`, `Sounds/MR_UKick/` |
 
 ## Sprites
 

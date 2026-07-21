@@ -1,4 +1,4 @@
-class BloodGrind : Blood
+class BloodGrind : Blood replaces Blood
 {
     Default
     {
@@ -15,7 +15,7 @@ class BloodGrind : Blood
     }
 }
 
-class BloodGrind2 : BloodGrind
+class BloodGrind2 : BloodGrind replaces BloodSplatter
 {
     Default
     {
@@ -23,6 +23,7 @@ class BloodGrind2 : BloodGrind
     }
 }
 
+// Hit sparks / droplets — air flash only (no floor litter when shot).
 class FlyingBloodParticle : Actor
 {
     Default
@@ -31,25 +32,25 @@ class FlyingBloodParticle : Actor
         +MISSILE;
         +THRUACTORS;
         +CLIENTSIDEONLY;
-        +BOUNCEONCEILINGS;
-        -NOGRAVITY;
+        +NOGRAVITY;
+        +NOINTERACTION;
+        +DONTSPLASH;
+        +FORCEXYBILLBOARD;
         Radius 2;
         Height 2;
-        Gravity 0.7;
         Speed 5;
         Decal "BrutalBloodSuper";
     }
     States
     {
     Spawn:
-        BSPR ABCDEFGHIJ 2;
-        BSPR J 100;
+        BSPR ABCDEFGH 2;
+        BSPR IJ 1 A_FadeOut(0.2);
         Stop;
     Death:
     XDeath:
     Crash:
-        TNT1 A 0 A_PlaySound("BloodDrop2");
-        XDT1 FGHIJJKL 2;
+        TNT1 A 0;
         Stop;
     NoSpawn:
     Splash:
@@ -63,8 +64,6 @@ class FlyingBloodParticleFast : FlyingBloodParticle
     Default
     {
         Speed 10;
-        -BOUNCEONWALLS;
-        Decal "BrutalBloodSuper";
     }
 }
 
@@ -74,7 +73,6 @@ class FlyingBloodParticleCrushed : FlyingBloodParticleFast
     {
         Speed 2;
         +NOCLIP;
-        +NOGRAVITY;
     }
     States
     {
@@ -89,19 +87,17 @@ class FlyingBloodParticleBig : FlyingBloodParticle
     Default
     {
         Speed 8;
-        Gravity 0.5;
     }
     States
     {
     Spawn:
-        BLHT ABCDEF 3;
-        BSPR F 100;
+        BLHT ABCDEF 2;
+        BLHT F 1 A_FadeOut(0.25);
         Stop;
     Death:
     XDeath:
     Crash:
-        TNT1 A 0 A_PlaySound("BloodDrop2");
-        XDT1 FGHIJJKL 2;
+        TNT1 A 0;
         Stop;
     }
 }
@@ -112,20 +108,23 @@ class FlyingBloodParticleHuge : FlyingBloodParticleBig
     {
         Speed 14;
         Scale 2.0;
-        Gravity 0.8;
     }
 }
 
-// Gibs
+// Gibs keep gravity / bounce (override air-only blood hit particles).
 class XGibBase : FlyingBloodParticle
 {
     Default
     {
+        -NOGRAVITY;
+        -NOINTERACTION;
         +BOUNCEONFLOORS;
+        +BOUNCEONCEILINGS;
         +MOVEWITHSECTOR;
         BounceCount 2;
         BounceSound "Misc/XDeath1";
         DeathSound "Misc/XDeath1";
+        Gravity 0.7;
     }
 }
 
@@ -1051,7 +1050,7 @@ class Guts : Actor
     States
     {
     Spawn:
-        GUTS A 1;
+        CGUT A 1;
         TNT1 A 0 A_Jump(255, "Spawn1", "Spawn2", "Spawn3", "Spawn4");
     Spawn1:
         TNT1 A 0 A_SetScale(0.9, 0.8);
@@ -1066,8 +1065,8 @@ class Guts : Actor
         TNT1 A 0 A_SetScale(-0.6, 1.0);
         Goto Live;
     Live:
-        GUTS ABCDEFGH 3 A_JumpIf(waterlevel > 1, "Water");
-        GUTS H -1;
+        CGUT ABCDEFGH 3 A_JumpIf(waterlevel > 1, "Water");
+        CGUT H -1;
         Loop;
     Death:
         TNT1 A 0 A_JumpIf(waterlevel > 1, "Water");
@@ -1078,18 +1077,18 @@ class Guts : Actor
         TNT1 A 0 A_QueueCorpse();
         TNT1 A 0 A_Jump(255, "Rest1", "Rest2");
     Rest1:
-        GUTS K 1;
-        GUTS K -1;
+        CGUT K 1;
+        CGUT K -1;
         Stop;
     Rest2:
-        GUTS L 1;
-        GUTS L -1;
+        CGUT L 1;
+        CGUT L -1;
         Stop;
     DoNothing:
         TNT1 A 0;
         Stop;
     Water:
-        GUTS GHIH 10;
+        CGUT GHIH 10;
         Loop;
     }
 }
@@ -1103,15 +1102,14 @@ class GoreMist : Actor
         +FORCEXYBILLBOARD;
         +GHOST;
         +NOBLOCKMAP;
-        Gravity 0.01;
         +DONTSPLASH;
         -EXPLODEONWATER;
         -ALLOWPARTICLES;
         +CLIENTSIDEONLY;
-        -NOGRAVITY;
+        +NOGRAVITY;
         +THRUACTORS;
         +NOCLIP;
-        Gravity 0.1;
+        +NOINTERACTION;
         Scale 0.4;
         Speed 3;
         Alpha 0.6;
@@ -1120,7 +1118,7 @@ class GoreMist : Actor
     {
     Spawn:
         TNT1 A 0;
-        BLOR EFGHIJK 4 A_FadeOut(0.005);
+        BLOR EFGHIJK 3 A_FadeOut(0.08);
         Stop;
     }
 }

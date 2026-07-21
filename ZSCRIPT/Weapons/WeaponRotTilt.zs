@@ -52,9 +52,9 @@ class CS_WeaponRotTilterInventory : Inventory
 		Name cls = weap.GetClassName();
 		if (cls == 'Fort12' || cls == 'TT33' || cls == 'NR40') return 1.35;
 		if (cls == 'RiotShield') return 0.85;
-		if (cls == 'SVD' || cls == 'MosinNagant' || cls == 'GM94' || cls == 'RPG7D') return 0.75;
+		if (cls == 'SVD' || cls == 'MosinNagant' || cls == 'GM94' || cls == 'RPG7D') return 0.90;
 		if (cls == 'PP19' || cls == 'PPSh41' || cls == 'ASVAL'
-			|| cls == 'AK47' || cls == 'OTS14' || cls == 'SKS' || cls == 'RP46') return 0.90;
+			|| cls == 'AK47' || cls == 'OTS14' || cls == 'SKS' || cls == 'RP46') return 1.0;
 		return 1.0;
 	}
 
@@ -217,27 +217,29 @@ class CS_WeaponRotTilterInventory : Inventory
 		if (!allowLowering || !cvLowering) return 0;
 
 		double absRoll = abs(displayRoll);
-		if (absRoll < 0.08) return 0;
+		// Wait until roll has committed so dip doesn't lead with a wrong-side slam.
+		if (absRoll < 0.55) return 0;
 		if (abs(strafeInput) < 0.05) return 0;
 
 		double scale = max(0.5, cvLoweringIntensity) * profileDipMul;
-		double dip = (4.0 + absRoll * 6.0) * scale;
+		double dip = (5.5 + absRoll * 7.5) * scale;
+		// Keep left/right dip closer — old left-heavy bias exaggerated the wrong-start look.
 		if (displayRoll < 0)
-			dip += absRoll * 6.0 * scale;
+			dip += absRoll * 3.2 * scale;
 		else
-			dip += absRoll * 1.2 * scale;
-		return min(dip, 18.0);
+			dip += absRoll * 2.4 * scale;
+		return min(dip, 26.0);
 	}
 
 	private void RefreshCvars(PlayerInfo pi)
 	{
 		// Default ON if CVAR lookup fails (addon load-order / missing CVARINFO).
 		cvEnabled = true;
-		cvRollResistance = 0.35;
-		cvRollVelocity = 2.4;
-		cvRollCap = 5.0;
-		cvLoweringIntensity = 1.0;
-		cvTiltSmoothing = 0.65;
+		cvRollResistance = 0.6;
+		cvRollVelocity = 4.0;
+		cvRollCap = 12.0;
+		cvLoweringIntensity = 0.5;
+		cvTiltSmoothing = 0.38;
 		cvCapRoll = true;
 		cvLowering = true;
 
@@ -261,9 +263,9 @@ class CS_WeaponRotTilterInventory : Inventory
 		if (cCap) cvCapRoll = cCap.GetBool();
 		if (cLow) cvLowering = cLow.GetBool();
 
-		cvRollResistance = clamp(cvRollResistance, 0.08, 0.62);
-		cvLoweringIntensity = clamp(cvLoweringIntensity, 0.0, 2.0);
-		cvTiltSmoothing = clamp(cvTiltSmoothing, 0.50, 0.95);
+		cvRollResistance = clamp(cvRollResistance, 0.08, 0.70);
+		cvLoweringIntensity = clamp(cvLoweringIntensity, 0.0, 2.5);
+		cvTiltSmoothing = clamp(cvTiltSmoothing, 0.20, 0.95);
 		if (cvRollCap < 3.0) cvRollCap = 3.0;
 	}
 
@@ -317,6 +319,11 @@ class CS_WeaponRotTilterInventory : Inventory
 
 		if (!owner || !pi) return;
 
+		// Yield while Universal Kick / ledge grab owns weapon pose.
+		let kickTok = MR_uKickToken(owner.FindInventory("MR_uKickToken"));
+		if (kickTok && kickTok.Kickin) return;
+		if (owner.CountInv("MR_Grabbing_A_Ledge") > 0) return;
+
 		let psp = pi.FindPSprite(PSP_WEAPON);
 		let wpn = pi.ReadyWeapon;
 		if (!psp || !wpn) return;
@@ -355,29 +362,35 @@ class CS_WeaponRotTilterInventory : Inventory
 
 		bool blocked = ShouldBlock(weap, psp);
 
-		// Input-driven strafe (works even with low Sidemove speed / standing shuffle).
+		// Positive cmd.sidemove = strafe right (Doom convention).
 		double strafeInput = pi.cmd.sidemove / 10240.0;
-		Vector2 strafeDir = (sin(-owner.angle), cos(-owner.angle));
-		double strafeDot = owner.Vel.X * strafeDir.X + owner.Vel.Y * strafeDir.Y;
+		// Right-lateral axis (matches sidemove sign). Old code used left-axis
+		// (-sin, cos), so velocity override fought input and rolled the wrong way
+		// for a few tics until input dominated again.
+		Vector2 rightDir = (sin(owner.angle), -cos(owner.angle));
+		double strafeDot = owner.Vel.X * rightDir.X + owner.Vel.Y * rightDir.Y;
+
+		// Input always wins while the stick/key is held. Velocity only fills in
+		// when there’s no sidemove (ice, knockback, conveyors).
 		double strafe = strafeInput;
-		if (abs(strafeDot) > abs(strafe) * 4.0)
-			strafe = strafeDot * 0.12;
+		if (abs(strafeInput) < 0.08 && abs(strafeDot) > 1.0)
+			strafe = clamp(strafeDot * 0.10, -1.5, 1.5);
 
 		if (blocked)
 		{
 			currentRoll *= 0.7;
 			smoothedWeaponRoll *= 0.7;
-			motionEnableBlend += (0.0 - motionEnableBlend) * 0.2;
+			motionEnableBlend += (0.0 - motionEnableBlend) * 0.45;
 			restoreDipThisTick = true;
 			smoothedPendulumDip *= 0.8;
 			if (smoothedPendulumDip < 0.05) smoothedPendulumDip = 0;
 			return;
 		}
 
-		motionEnableBlend += (1.0 - motionEnableBlend) * 0.2;
+		motionEnableBlend += (1.0 - motionEnableBlend) * 0.45;
 
 		if (prevStrafeInput * strafe < 0. && abs(strafe) > 0.02 && abs(prevStrafeInput) > 0.02)
-			currentRoll *= 0.55;
+			currentRoll *= 0.88;
 
 		double rollVel = cvRollVelocity * profileRollMul;
 		double rollCap = cvRollCap * profileRollMul;
@@ -393,8 +406,9 @@ class CS_WeaponRotTilterInventory : Inventory
 		smoothedWeaponRoll = smoothedWeaponRoll * tiltS + currentRoll * (1.0 - tiltS);
 		outputRoll = smoothedWeaponRoll;
 
+		// Dip only after roll has a clear direction — avoids the early “slam opposite” look.
 		double dipTarget = ComputePendulumDipTarget(outputRoll, strafe, true);
-		double dipRate = dipTarget > smoothedPendulumDip ? 0.22 : 0.16;
+		double dipRate = dipTarget > smoothedPendulumDip ? 0.36 : 0.30;
 		smoothedPendulumDip += (dipTarget - smoothedPendulumDip) * dipRate;
 		if (smoothedPendulumDip <= 0.05) smoothedPendulumDip = 0;
 

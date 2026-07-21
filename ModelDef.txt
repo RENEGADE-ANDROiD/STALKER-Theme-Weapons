@@ -58,7 +58,7 @@ Model Guts      // Name of actor in DECORATE
    Skin 0 "Guts1.png"     // Model index, texture (can be in any format supported by GZDoom)
    Scale 14.0 14.0 1.0            // Scale values
    ZOffset 1.6
-   FrameIndex GUTS K 0 0         // The sprite lump, sprite frame, model index, frame number
+   FrameIndex CGUT K 0 0         // The sprite lump, sprite frame, model index, frame number
 }
 
 Model Guts      // Name of actor in DECORATE
@@ -68,7 +68,7 @@ Model Guts      // Name of actor in DECORATE
    Skin 0 "Guts2.png"     // Model index, texture (can be in any format supported by GZDoom)
    Scale 14.0 14.0 1.0            // Scale values
    ZOffset 1.4
-   FrameIndex GUTS L 0 0         // The sprite lump, sprite frame, model index, frame number
+   FrameIndex CGUT L 0 0         // The sprite lump, sprite frame, model index, frame number
 }
 
 //Frame A

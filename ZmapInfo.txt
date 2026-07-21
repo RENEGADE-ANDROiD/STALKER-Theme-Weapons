@@ -1,7 +1,7 @@
 GameInfo
 {
 	PlayerClasses = "STALKERPlayer"
-	AddEventHandlers = "StepEventHandler", "CS_CombatDamageHandler", "CS_GasMaskOverlayHandler", "SEM_Handler", "TiltPlusPlusHandler", "CS_WeaponRotTilterHandler", "CS_InfectionCorpseHandler"
+	AddEventHandlers = "StepEventHandler", "CS_CombatDamageHandler", "CS_GasMaskOverlayHandler", "SEM_Handler", "TiltPlusPlusHandler", "CS_WeaponRotTilterHandler", "CS_InfectionCorpseHandler", "CS_AnomalyHostHandler", "MR_uKickHandler"
 }
 
 DamageType sem_Chemical
@@ -21,4 +21,9 @@ DoomEdNums
 	32010 = CasingSpawner
 	32011 = FX_TeleSmoke
 	32012 = CS_InfectionRandom
+	32013 = CS_GravityWellAnomaly
+	32014 = CS_FrostAnomaly
+	32015 = CS_ElectroNestAnomaly
+	32016 = CS_BurnerPlumeAnomaly
+	32017 = CS_InfectionCeilingRandom
 }

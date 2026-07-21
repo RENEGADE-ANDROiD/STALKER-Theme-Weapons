@@ -1,7 +1,7 @@
 // Dedicated thinker stat for spent brass / mags (PB STAT_PB_BULLETS pattern).
 const STAT_CS_EJECTA = Thinker.STAT_USER_MAX - 1;
 
-// Knife / walk push for floor ejecta (PB kick impulse, triggered by NR-40 / quick knife — no kick key).
+// Knife / kick / slide push for floor ejecta (PB kick impulse on brass + mags).
 class CS_EjectaPush play
 {
     clearscope static Vector3 ViewDir(double ang, double pch)
@@ -45,14 +45,14 @@ class CS_EjectaPush play
         return true;
     }
 
-    // Call from knife melee — cone impulse on nearby ejecta (PB A_PB_KickClientsideEjecta).
-    static void KnifePush(PlayerPawn pl, double radius = 88., double power = 7.)
+    // Cone impulse on nearby ejecta (PB A_PB_KickClientsideEjecta).
+    static void ImpulsePush(PlayerPawn pl, double ang, double pch, double radius = 88., double power = 7., bool playSound = true)
     {
         if (!pl || !pl.player)
             return;
 
-        Vector3 dir = ViewDir(pl.angle, pl.pitch);
-        Vector2 fwdHoriz = (cos(pl.angle), sin(pl.angle));
+        Vector3 dir = ViewDir(ang, pch);
+        Vector2 fwdHoriz = (cos(ang), sin(ang));
         int budget = 52;
         bool any = false;
 
@@ -70,8 +70,28 @@ class CS_EjectaPush play
             any = true;
         }
 
-        if (any)
+        if (any && playSound)
             pl.A_StartSound("Weapons/Casing", CHAN_AUTO, CHANF_DEFAULT, 0.48, ATTN_IDLE);
+    }
+
+    static void KnifePush(PlayerPawn pl, double radius = 88., double power = 7.)
+    {
+        if (!pl) return;
+        ImpulsePush(pl, pl.angle, pl.pitch, radius, power);
+    }
+
+    static void KickPush(PlayerPawn pl, double radius = 96., double power = 8.)
+    {
+        if (!pl) return;
+        ImpulsePush(pl, pl.angle, pl.pitch, radius, power);
+    }
+
+    static void SlidePush(PlayerPawn pl, double slideAng, double radius = 108., double power = 7.5)
+    {
+        if (!pl) return;
+        // Silence most tics — slide calls this every frame.
+        bool chirp = (level.time % 4) == 0;
+        ImpulsePush(pl, slideAng, 0., radius, power, chirp);
     }
 }
 
@@ -437,6 +457,55 @@ class AKClip : CasingBase
     Death:
         AKCL GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG 8;
         AKCL GGGGGG 1 A_FadeOut(0.1);
+        Stop;
+    }
+}
+
+// RCLP stripper / rifle clip (SVD eject uses this; AK keeps AKCL).
+class RifleClipSpawn : Actor
+{
+    Default
+    {
+        Speed 20;
+        Projectile;
+        +NOCLIP;
+        +CLIENTSIDEONLY;
+    }
+    States
+    {
+    Spawn:
+        TNT1 A 0;
+        TNT1 A 1 A_CustomMissile("RifleClip", 0, 0, random(80, 100), 2, random(40, 60));
+        Stop;
+    }
+}
+
+class RifleClip : CasingBase
+{
+    Default
+    {
+        Radius 3;
+        Height 3;
+        Speed 4;
+        Scale 0.55;
+        WallBounceSound "Weapons/RifleClip";
+        BounceSound "Weapons/RifleClip";
+    }
+    States
+    {
+    Spawn:
+        RCLP ABCDEFGH 1;
+        Loop;
+    Death:
+        TNT1 A 0;
+        TNT1 A 0 A_Jump(256, "Death1", "Death2");
+    Death1:
+        RCLP CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC 8;
+        RCLP CCCCCC 1 A_FadeOut(0.1);
+        Stop;
+    Death2:
+        RCLP GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG 8;
+        RCLP GGGGGG 1 A_FadeOut(0.1);
         Stop;
     }
 }
