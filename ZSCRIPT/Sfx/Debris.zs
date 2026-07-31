@@ -99,7 +99,7 @@ class ExplosionParticleWithSmoke : ExplosionParticleHeavy
         TNT1 A 0;
         Goto Fly;
     Fly:
-        TNT1 A 0 A_SpawnItemEx("ShotSmoke", flags:SXF_CLIENTSIDE);
+        TNT1 A 0 A_SpawnItemEx("CS_ShotSmoke", flags:SXF_CLIENTSIDE);
         CSKO AAAA 1 Bright A_FadeOut(0.2);
         Stop;
     Death:

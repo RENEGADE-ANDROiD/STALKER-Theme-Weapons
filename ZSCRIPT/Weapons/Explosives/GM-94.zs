@@ -272,8 +272,8 @@ class VGM93Projectile : Actor
     States
     {
     Spawn:
-        TNT1 A 0 NoDelay A_CustomMissile("ShotSmoke", 2, 0, random(70, 110), 2, random(0, 360));
-        TNT1 A 0 A_SpawnItem("ShotSmoke");
+        TNT1 A 0 NoDelay A_CustomMissile("CS_ShotSmoke", 2, 0, random(70, 110), 2, random(0, 360));
+        TNT1 A 0 A_SpawnItem("CS_ShotSmoke");
         VG93 A 1 Bright;
         Loop;
     Death:

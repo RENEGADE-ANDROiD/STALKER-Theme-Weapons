@@ -1204,7 +1204,7 @@ class XDeathBurnedMeat : Actor
         Speed 5;
         Mass 6;
         BounceFactor 0.5;
-        +DOOMBOUNCE;
+        BounceType "Doom";
         +NOBLOCKMAP;
         +MISSILE;
         +NOTELEPORT;

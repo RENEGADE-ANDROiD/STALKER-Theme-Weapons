@@ -371,14 +371,14 @@ class RPG7DMissile : Rocket replaces Rocket
         RP7R A 0 NoDelay Bright A_PlaySound("RPG7D/Fly", CHAN_VOICE, 0.5, true);
         // fall through
     Fly:
-        TNT1 A 0 A_CustomMissile("ShotSmoke", 2, 0, random(70, 110), 2, random(0, 360));
-        TNT1 A 0 A_SpawnItem("ShotSmoke");
+        TNT1 A 0 A_CustomMissile("CS_ShotSmoke", 2, 0, random(70, 110), 2, random(0, 360));
+        TNT1 A 0 A_SpawnItem("CS_ShotSmoke");
         RP7R A 1 Bright;
-        TNT1 A 0 A_CustomMissile("ShotSmoke", 2, 0, random(70, 110), 2, random(0, 360));
-        TNT1 A 0 A_SpawnItem("ShotSmoke");
+        TNT1 A 0 A_CustomMissile("CS_ShotSmoke", 2, 0, random(70, 110), 2, random(0, 360));
+        TNT1 A 0 A_SpawnItem("CS_ShotSmoke");
         RP7R A 1 Bright;
-        TNT1 A 0 A_CustomMissile("ShotSmoke", 2, 0, random(70, 110), 2, random(0, 360));
-        TNT1 A 0 A_SpawnItem("ShotSmoke");
+        TNT1 A 0 A_CustomMissile("CS_ShotSmoke", 2, 0, random(70, 110), 2, random(0, 360));
+        TNT1 A 0 A_SpawnItem("CS_ShotSmoke");
         Loop;
 
     Death:

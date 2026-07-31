@@ -35,7 +35,7 @@ class SmokeSpawner : CS_MuzzleSmokeSpawnerBase
     Spawn:
         TNT1 A 1;
         TNT1 A 0 Thing_ChangeTID(0, 390);
-        TNT1 A 0 A_CustomMissile("ShotSmoke", 0, 0, frandom(0, 360), 2, frandom(0, 180));
+        TNT1 A 0 A_CustomMissile("CS_ShotSmoke", 0, 0, frandom(0, 360), 2, frandom(0, 180));
         Stop;
     }
 }
@@ -131,7 +131,7 @@ class CS_GunBarrelSmoke : Actor
 }
 
 // Semi / slow fire — CSZ Smoke scale (~0.9), GSMK frames
-class ShotSmoke : Actor
+class CS_ShotSmoke : Actor
 {
     Default
     {
@@ -167,7 +167,7 @@ class ShotSmoke : Actor
     }
 }
 
-class ShotSmokeSmall : ShotSmoke
+class ShotSmokeSmall : CS_ShotSmoke
 {
     Default
     {
@@ -219,7 +219,7 @@ class AutomaticShotSmokeSmall : AutomaticShotSmoke
     }
 }
 
-class CasingSmokes : ShotSmoke
+class CasingSmokes : CS_ShotSmoke
 {
     Default
     {
@@ -426,7 +426,7 @@ class RocketExplosionBurst : ExplosionBurst
     }
 }
 
-class BurnedSmoke : ShotSmoke
+class BurnedSmoke : CS_ShotSmoke
 {
     Default
     {
